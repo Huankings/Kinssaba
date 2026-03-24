@@ -27,7 +27,7 @@ public abstract class DreamerHudMixin {
         if (MinecraftClient.getInstance().player == null) return;
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld());
         DreamerKillerComponent playerDreamer = DreamerKillerComponent.KEY.get(MinecraftClient.getInstance().player);
-        if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.DREAMER) && WatheClient.isPlayerAliveAndInSurvival()) {
+        if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.DREAMER) && WatheClient.isPlayerAliveAndInSurvival() && !playerDreamer.hasBecomeKiller) {
             int drawY = context.getScaledWindowHeight();
             Text line = Text.translatable("tip.kinswathe.dreamer.counts", playerDreamer.dreamerCounts, playerDreamer.dreamerRequired);
             drawY -= getTextRenderer().getWrappedLinesHeight(line, 999999);

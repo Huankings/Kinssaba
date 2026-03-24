@@ -141,6 +141,7 @@
   "death_reason.wathe.grenade": "an explosion!",
   "death_reason.wathe.poison": "poison!",
   "death_reason.wathe.fell_out_of_train": "being ran over.",
+  "death_reason.wathe.mental_breakdown": "breakdown",
 
 
   "guidebook.namespace.kinswathe": "Mod: Kin's Wathe",

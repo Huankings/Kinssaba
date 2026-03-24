@@ -40,7 +40,7 @@
   "tip.kinswathe.drugmaker.poisoned": "有人中毒了",
 
   "announcement.role.kinswathe.hacker": "黑客",
-  "announcement.goals.kinswathe.hacker": "试图黑入整个列车系统...",
+  "announcement.goals.kinswathe.hacker": "试图辅助杀手破解平民的身份...",
   "hud.kinswathe.hacker.target": "正在破解角色身份",
   "hud.kinswathe.hacker.target_hacked": "角色身份已被破解",
   "hud.kinswathe.hacker.target_safe": "安全时间内无法破解角色身份",
@@ -141,6 +141,7 @@
   "death_reason.wathe.grenade": "被手雷炸死",
   "death_reason.wathe.poison": "中毒而亡",
   "death_reason.wathe.fell_out_of_train": "被列车碾死",
+  "death_reason.wathe.mental_breakdown": "精神崩溃",
 
 
   "guidebook.namespace.kinswathe": "模组: Kin's Wathe",

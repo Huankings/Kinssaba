@@ -9,6 +9,8 @@ import dev.doctor4t.wathe.index.WatheItems;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LoreComponent;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
@@ -40,6 +42,7 @@ import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HackerComponent implements AutoSyncedComponent, ServerTickingComponent {
 
@@ -175,13 +178,16 @@ public class HackerComponent implements AutoSyncedComponent, ServerTickingCompon
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
         for (ServerPlayerEntity serverPlayer : player.getServer().getPlayerManager().getPlayerList()) {
             if (serverPlayer == null) continue;
+            if (!gameWorld.canUseKillerFeatures(serverPlayer)) continue;
             PlayerEffectComponent playerEffect = PlayerEffectComponent.KEY.get(serverPlayer);
-            if (gameWorld.canUseKillerFeatures(serverPlayer)) {
-                serverPlayer.sendMessage(Text.translatable("tip.kinswathe.hacker.potion_effect_refresh").withColor(Color.YELLOW.getRGB()), true);
-                serverPlayer.playSoundToPlayer(SoundEvents.ENTITY_ALLAY_ITEM_GIVEN, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                serverPlayer.clearStatusEffects();
-                playerEffect.reset();
+            serverPlayer.sendMessage(Text.translatable("tip.kinswathe.hacker.potion_effect_refresh").withColor(Color.YELLOW.getRGB()), true);
+            serverPlayer.playSoundToPlayer(SoundEvents.ENTITY_ALLAY_ITEM_GIVEN, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            for (StatusEffectInstance effect : serverPlayer.getStatusEffects()) {
+                if (!Objects.equals(StatusEffects.INVISIBILITY, effect.getEffectType())) {
+                    serverPlayer.removeStatusEffect(effect.getEffectType());
+                }
             }
+            playerEffect.reset();
         }
     }
 
