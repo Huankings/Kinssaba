@@ -27,10 +27,16 @@ public abstract class DreamerShopMixin {
         if (!FabricLoader.getInstance().isModLoaded("noellesroles")) return;
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(this.player.getWorld());
         if (gameWorld.isRole(this.player, KinsWatheRoles.DREAMER)) {
-            if (index < 0 || index >= KinsWatheShops.getKillerNeutralRolesShop().size()) return;
-            ShopEntry entries = KinsWatheShops.getKillerNeutralRolesShop().get(index);
-            if (KinsWatheShops.handlePurchase(this.player, this.balance, entries.stack().getItem(), entries.price())) {
-                this.balance -= entries.price();
+            // 梦者商店依赖 noellesroles 提供的 FRAMING_ROLES_SHOP。
+            // 这里先兜底判空/判空列表，避免未来对方重构后读取失败时直接崩。
+            java.util.List<ShopEntry> entries = KinsWatheShops.getKillerNeutralRolesShop();
+            if (entries.isEmpty()) {
+                return;
+            }
+            if (index < 0 || index >= entries.size()) return;
+            ShopEntry entry = entries.get(index);
+            if (KinsWatheShops.handlePurchase(this.player, this.balance, entry.stack().getItem(), entry.price())) {
+                this.balance -= entry.price();
                 this.sync();
             }
             ci.cancel();
