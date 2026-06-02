@@ -3,9 +3,11 @@ package org.BsXinQin.kinswathe.roles.kidnapper;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.game.GameFunctions;
+import dev.doctor4t.wathe.record.GameRecordManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -36,10 +38,21 @@ public class KidnapperComponent implements AutoSyncedComponent, ServerTickingCom
     public void serverTick() {
         if (this.controlTicks > 0) {
             this.notInGameReset();
-            this.connectWithController();
+            if (this.controlTicks <= 0) {
+                return;
+            }
+            // manualRelease = true 表示绑匪本人按潜行键主动放人；
+            // false 则是时间结束、距离过远、控制者消失等自然结束。
+            if (this.connectWithController()) {
+                return;
+            }
             this.teleportToController();
             this.notifyControllerRemainingTime();
             -- this.controlTicks;
+            if (this.controlTicks <= 0) {
+                this.endControl(false);
+                return;
+            }
             this.sync();
         }
     }
@@ -52,26 +65,33 @@ public class KidnapperComponent implements AutoSyncedComponent, ServerTickingCom
 
     public void startControl(@NotNull PlayerEntity controller) {
         this.controllerUUID = controller.getUuid();
-        this.controlTicks = GameConstants.getInTicks(0,20);
+        this.controlTicks = GameConstants.getInTicks(0,30);
         this.sync();
     }
 
-    public void connectWithController() {
-        if (this.controllerUUID == null) return;
+    public boolean connectWithController() {
+        if (this.controllerUUID == null) return false;
         PlayerEntity controller = this.player.getWorld().getPlayerByUuid(this.controllerUUID);
         if (controller == null) {
-            this.reset();
-            return;
+            this.endControl(false);
+            return true;
         }
         if (this.player.distanceTo(controller) > 5.0f) {
             this.releaseControlTip();
-            this.reset();
-            return;
+            this.endControl(false);
+            return true;
         }
-        if (GameFunctions.isPlayerSpectatingOrCreative(controller) || GameFunctions.isPlayerSpectatingOrCreative(this.player) || controller.isSneaking()) {
+        if (controller.isSneaking() && GameFunctions.isPlayerAliveAndSurvival(controller) && GameFunctions.isPlayerAliveAndSurvival(this.player)) {
             this.releaseControlTip();
-            this.reset();
+            this.endControl(true);
+            return true;
         }
+        if (GameFunctions.isPlayerSpectatingOrCreative(controller) || GameFunctions.isPlayerSpectatingOrCreative(this.player)) {
+            this.releaseControlTip();
+            this.endControl(false);
+            return true;
+        }
+        return false;
     }
 
     public void teleportToController() {
@@ -100,6 +120,20 @@ public class KidnapperComponent implements AutoSyncedComponent, ServerTickingCom
             controller.sendMessage(Text.translatable("tip.kinswathe.kidnapper.release").withColor(KinsWatheRoles.KIDNAPPER.color()), true);
             controller.playSoundToPlayer(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1.0f, 1.0f);
         }
+    }
+
+    private void endControl(boolean manualRelease) {
+        PlayerEntity controller = this.controllerUUID == null ? null : this.player.getWorld().getPlayerByUuid(this.controllerUUID);
+        if (manualRelease) {
+            // 绑匪自己结束劫持时，回放要记成“提前结束了对某人的劫持”。
+            if (controller instanceof ServerPlayerEntity serverController && this.player instanceof ServerPlayerEntity serverTarget) {
+                GameRecordManager.recordSkillUse(serverController, KinsWathe.id("kidnapper_release"), serverTarget, null);
+            }
+        } else if (this.player instanceof ServerPlayerEntity serverTarget) {
+            // 目标自然脱离 / 时间结束时，只保留“被劫持状态结束”。
+            GameRecordManager.recordSkillUse(serverTarget, KinsWathe.id("kidnapper_release"), null, null);
+        }
+        this.reset();
     }
 
     public void reset() {

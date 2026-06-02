@@ -8,7 +8,9 @@ import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerPoisonComponent;
 import dev.doctor4t.wathe.cca.PlayerPsychoComponent;
 import dev.doctor4t.wathe.game.GameConstants;
+import dev.doctor4t.wathe.game.GameFunctions;
 import dev.doctor4t.wathe.index.WatheItems;
+import dev.doctor4t.wathe.record.GameRecordManager;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -20,6 +22,8 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.UseAction;
+import net.minecraft.nbt.NbtCompound;
+import org.BsXinQin.kinswathe.KinsWathe;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.component.GameSafeComponent;
 import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
@@ -154,6 +158,8 @@ public class KinsWatheGameSettings {
             GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
             DreamerComponent playerDream = DreamerComponent.KEY.get(player);
             PhysicianComponent playerPhysician = PhysicianComponent.KEY.get(player);
+            ServerPlayerEntity victimPlayer = player instanceof ServerPlayerEntity serverPlayer ? serverPlayer : null;
+            ServerPlayerEntity attackerPlayer = killer instanceof ServerPlayerEntity serverAttacker ? serverAttacker : null;
             PlayerPoisonComponent.KEY.get(player).reset();
             //安全时间死亡事件
             if (GameSafeComponent.KEY.get(player.getWorld()).isSafe()) {
@@ -162,6 +168,16 @@ public class KinsWatheGameSettings {
             //厨师死亡事件
             if (player.getMainHandStack().isOf(KinsWatheItems.PAN) && player.isUsingItem() && player.getActiveItem().getItem().getUseAction(player.getActiveItem()) == UseAction.SPEAR) {
                 if (identifier == GameConstants.DeathReasons.GUN) {
+                    // 平底锅在挡子弹时先记“挡伤回放”，再消耗平底锅并取消死亡。
+                    NbtCompound extra = new NbtCompound();
+                    extra.putString("death_reason", identifier.toString());
+                    GameRecordManager.recordShieldBlocked(
+                            victimPlayer,
+                            attackerPlayer,
+                            KinsWathe.id("pan"),
+                            GameFunctions.resolveDamageItemForBlockedDeath(killer, identifier),
+                            extra
+                    );
                     KinsWatheItems.setItemAfterUsing(player, KinsWatheItems.PAN, Hand.MAIN_HAND);
                     player.playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
                     return false;
@@ -169,6 +185,16 @@ public class KinsWatheGameSettings {
             }
             //梦者死亡事件
             if (playerDream.dreamArmor > 0) {
+                // 梦之印记挡伤同理：先记回放，再进行瞬移和清空护盾。
+                NbtCompound extra = new NbtCompound();
+                extra.putString("death_reason", identifier.toString());
+                GameRecordManager.recordShieldBlocked(
+                        victimPlayer,
+                        attackerPlayer,
+                        KinsWathe.id("dream_imprint"),
+                        GameFunctions.resolveDamageItemForBlockedDeath(killer, identifier),
+                        extra
+                );
                 playerDream.teleportToDreamer();
                 playerDream.reset();
                 return false;
@@ -176,6 +202,16 @@ public class KinsWatheGameSettings {
             //医师死亡事件
             if (playerPhysician.physicianArmor > 0) {
                 if (identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN) return true;
+                // 药丸也是独立护盾，不再依赖外部模组酒保护盾，因此挡伤也在这里统一记录。
+                NbtCompound extra = new NbtCompound();
+                extra.putString("death_reason", identifier.toString());
+                GameRecordManager.recordShieldBlocked(
+                        victimPlayer,
+                        attackerPlayer,
+                        KinsWathe.id("pill"),
+                        GameFunctions.resolveDamageItemForBlockedDeath(killer, identifier),
+                        extra
+                );
                 playerPhysician.armorSound();
                 playerPhysician.reset();
                 return false;

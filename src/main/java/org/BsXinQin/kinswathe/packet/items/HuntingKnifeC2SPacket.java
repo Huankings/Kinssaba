@@ -3,6 +3,7 @@ package org.BsXinQin.kinswathe.packet.items;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.game.GameFunctions;
 import dev.doctor4t.wathe.index.WatheSounds;
+import dev.doctor4t.wathe.record.GameRecordManager;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
@@ -30,6 +31,19 @@ public record HuntingKnifeC2SPacket(int target) implements CustomPayload {
             ServerPlayerEntity player = context.player();
             if (!(player.getServerWorld().getEntityById(payload.target()) instanceof @NotNull PlayerEntity target)) return;
             if (target.distanceTo(player) > 3.0F) return;
+            if (target instanceof ServerPlayerEntity serverTarget) {
+                /*
+                 * 猎刀沿用了 Wathe 的 knife_stab 死因，但回放需要显示成“猎刀”而不是“匕首”，
+                 * 因此这里显式记录真实 ItemStack，并附上“刀类命中”的语义标签。
+                 */
+                GameRecordManager.recordItemHit(
+                        player,
+                        player.getMainHandStack(),
+                        GameConstants.DeathReasons.KNIFE,
+                        serverTarget,
+                        null
+                );
+            }
             HunterComponent playerHunter = HunterComponent.KEY.get(player);
             playerHunter.reset();
             KinsWatheItems.setItemAfterUsing(player, KinsWatheItems.HUNTING_KNIFE, null);

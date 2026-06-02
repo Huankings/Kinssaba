@@ -67,10 +67,13 @@ public class KinsWatheConfig {
 
     @SerialEntry(comment = "Cleaner: modify get coins when dissolve a body, price and cooldown of ability.")
     public int CleanerGetCoins = 50;
-
+    @SerialEntry
     public int CleanerAbilityPrice = 200;
     @SerialEntry
     public int CleanerAbilityCooldown = GameConstants.getInTicks(2,30) / 20;
+
+    @SerialEntry(comment = "Bellringer: modify reduce time of ability (seconds).")
+    public int BellringerReduceSeconds = 60;
 
     @SerialEntry(comment = "Cook: modify price of Pan.")
     public int CookPanPrice = 250;

@@ -4,6 +4,7 @@ import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.index.WatheItems;
 import dev.doctor4t.wathe.index.WatheSounds;
+import dev.doctor4t.wathe.record.ShopPurchaseTracker;
 import dev.doctor4t.wathe.util.ShopEntry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
@@ -163,6 +164,13 @@ public class KinsWatheShops {
             else if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) HackerComponent.refreshPotionEffect(player);
             else if (item == KinsWatheItems.ICON_POWER_RESTORATION) TechnicianComponent.stopBlackout(player);
             else player.giveItemStack(item.getDefaultStack());
+            /*
+             * KinsWathe 里很多职业都直接改写了 Wathe 的商店内容，
+             * 因此这里在购买成功时主动回填真实商品给 Wathe 回放系统，
+             * 防止回放仍按原版固定格子播报错误的商店物品。
+             */
+            ItemStack purchasedStack = item == WatheItems.NOTE ? new ItemStack(WatheItems.NOTE, 4) : item.getDefaultStack();
+            ShopPurchaseTracker.captureSuccessfulPurchase(player, purchasedStack, -1, price);
             if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
                 serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY, SoundCategory.PLAYERS,1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
             }
