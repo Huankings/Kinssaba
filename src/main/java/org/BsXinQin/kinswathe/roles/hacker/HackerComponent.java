@@ -6,6 +6,7 @@ import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.game.GameFunctions;
 import dev.doctor4t.wathe.index.WatheItems;
+import dev.doctor4t.wathe.record.GameRecordManager;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.LoreComponent;
@@ -126,6 +127,9 @@ public class HackerComponent implements AutoSyncedComponent, ServerTickingCompon
                         }
                     }
                 }
+            }
+            if (hacker instanceof ServerPlayerEntity hackerPlayer && this.player instanceof ServerPlayerEntity targetPlayer) {
+                GameRecordManager.recordSkillUse(hackerPlayer, KinsWathe.id("hacker_reveal"), targetPlayer, null);
             }
         }
     }

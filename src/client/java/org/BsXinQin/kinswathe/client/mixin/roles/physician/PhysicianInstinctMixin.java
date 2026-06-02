@@ -8,6 +8,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
+import org.agmas.noellesroles.framing.DelusionPlayerComponent;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,7 +27,10 @@ public abstract class PhysicianInstinctMixin {
         if (target instanceof @NotNull PlayerEntity targetPlayer) {
             if (GameFunctions.isPlayerAliveAndSurvival(targetPlayer)) {
                 PlayerPoisonComponent targetPoison = PlayerPoisonComponent.KEY.get(targetPlayer);
-                if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.PHYSICIAN) && WatheClient.isPlayerAliveAndInSurvival() && targetPoison.poisonTicks > 0) {
+                DelusionPlayerComponent targetDelusion = DelusionPlayerComponent.KEY.get(targetPlayer);
+                if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.PHYSICIAN)
+                        && WatheClient.isPlayerAliveAndInSurvival()
+                        && (targetPoison.poisonTicks > 0 || targetDelusion.isActive())) {
                     cir.setReturnValue(Color.RED.getRGB());
                 }
             }

@@ -3,6 +3,7 @@ package org.BsXinQin.kinswathe.roles.dreamer;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerPsychoComponent;
 import dev.doctor4t.wathe.game.GameFunctions;
+import dev.doctor4t.wathe.record.GameRecordManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -75,6 +76,13 @@ public class DreamerComponent implements AutoSyncedComponent, ServerTickingCompo
                 DreamerKillerComponent playerDreamer = DreamerKillerComponent.KEY.get(dreamer);
                 if (!playerDreamer.hasBecomeKiller) {
                     playerDreamer.dreamerCounts += 1;
+                    // 梦者计数是局内核心进度，记录成全局事件后，回放结算里也能看到“当前幻觉人数”。
+                    if (dreamer instanceof net.minecraft.server.network.ServerPlayerEntity serverDreamer) {
+                        NbtCompound extra = new NbtCompound();
+                        extra.putInt("counts", playerDreamer.dreamerCounts);
+                        extra.putInt("required", playerDreamer.dreamerRequired);
+                        GameRecordManager.recordGlobalEvent(serverDreamer.getServerWorld(), KinsWathe.id("dreamer_counts"), serverDreamer, extra);
+                    }
                     playerDreamer.sync();
                 }
             }

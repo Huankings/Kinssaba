@@ -4,6 +4,7 @@ import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.index.WatheItems;
 import dev.doctor4t.wathe.index.WatheSounds;
+import dev.doctor4t.wathe.record.ShopPurchaseTracker;
 import dev.doctor4t.wathe.util.ShopEntry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,7 @@ import java.util.Map;
 public class KinsWatheShops {
 
     private static final Map<String, Integer> ITEM_PRICES = new HashMap<>();
-    private static ArrayList<ShopEntry> FRAMING_ROLES_SHOP;
+    private static List<ShopEntry> FRAMING_ROLES_SHOP = Collections.emptyList();
 
     /// 提取其他模组商店物品价格
     static {
@@ -42,9 +44,15 @@ public class KinsWatheShops {
             try {
                 Class<?> noellesRolesClass = Class.forName("org.agmas.noellesroles.Noellesroles");
                 Field framingShopField = noellesRolesClass.getField("FRAMING_ROLES_SHOP");
-                FRAMING_ROLES_SHOP = (ArrayList<ShopEntry>) framingShopField.get(null);
+                Object shop = framingShopField.get(null);
+                if (shop instanceof List<?> list) {
+                    // 这里直接保留对 noellesroles 原列表对象的引用，
+                    // 这样即使对方在 onInitialize 里继续往列表追加内容，这边也能同步看到最新条目。
+                    FRAMING_ROLES_SHOP = (List<ShopEntry>) list;
+                }
             } catch (Exception exception) {
-                FRAMING_ROLES_SHOP = null;
+                // 兼容失败时退回空列表，避免梦者客户端/服务端商店界面直接空指针崩溃。
+                FRAMING_ROLES_SHOP = Collections.emptyList();
             }
         }
     }
@@ -156,6 +164,13 @@ public class KinsWatheShops {
             else if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) HackerComponent.refreshPotionEffect(player);
             else if (item == KinsWatheItems.ICON_POWER_RESTORATION) TechnicianComponent.stopBlackout(player);
             else player.giveItemStack(item.getDefaultStack());
+            /*
+             * KinsWathe 里很多职业都直接改写了 Wathe 的商店内容，
+             * 因此这里在购买成功时主动回填真实商品给 Wathe 回放系统，
+             * 防止回放仍按原版固定格子播报错误的商店物品。
+             */
+            ItemStack purchasedStack = item == WatheItems.NOTE ? new ItemStack(WatheItems.NOTE, 4) : item.getDefaultStack();
+            ShopPurchaseTracker.captureSuccessfulPurchase(player, purchasedStack, -1, price);
             if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
                 serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY, SoundCategory.PLAYERS,1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
             }
