@@ -33,6 +33,11 @@ public abstract class DreamerShopMixin extends LimitedHandledScreen<PlayerScreen
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(this.player.getWorld());
         if (gameWorld.isRole(this.player, KinsWatheRoles.DREAMER)) {
             List<ShopEntry> entries = KinsWatheShops.getKillerNeutralRolesShop();
+            if (entries.isEmpty()) {
+                // 如果 noellesroles 那边的共享伪装商店暂时不可用，这里直接不渲染，
+                // 至少可以避免客户端打开界面时因为空引用而崩溃。
+                return;
+            }
             int apart = 36;
             int x = this.width / 2 - (entries.size()) * apart / 2 + 9;
             int shouldBeY = (this.height - 32) / 2;

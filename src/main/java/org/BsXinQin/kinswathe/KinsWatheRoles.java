@@ -301,6 +301,12 @@ public class KinsWatheRoles {
             roles.add(noellesrolesRoles("CONTROLLER"));
             roles.add(noellesrolesRoles("CORONER"));
             roles.add(noellesrolesRoles("ENGINEER"));
+            roles.add(noellesrolesRoles("ROBBER"));
+            roles.add(noellesrolesRoles("BOMBER"));
+            roles.add(noellesrolesRoles("STALKER"));
+            roles.add(noellesrolesRoles("BRAINWASHER"));
+            roles.add(noellesrolesRoles("WINDER"));
+            roles.add(noellesrolesRoles("PROPHET"));
             roles.add(noellesrolesRoles("THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES"));
         }
         return List.copyOf(roles);
@@ -327,11 +333,15 @@ public class KinsWatheRoles {
             roles.add(noellesrolesRoles("MORPHLING"));
             roles.add(noellesrolesRoles("NOISEMAKER"));
             roles.add(noellesrolesRoles("EXECUTIONER"));
-            roles.add(noellesrolesRoles("RECALLER"));
             roles.add(noellesrolesRoles("CONTROLLER"));
             roles.add(noellesrolesRoles("CORPSEMAKER"));
             roles.add(noellesrolesRoles("CORONER"));
             roles.add(noellesrolesRoles("ENGINEER"));
+            roles.add(noellesrolesRoles("RECALLER"));
+            roles.add(noellesrolesRoles("ROBBER"));
+            roles.add(noellesrolesRoles("BOMBER"));
+            roles.add(noellesrolesRoles("BRAINWASHER"));
+            roles.add(noellesrolesRoles("STALKER"));
             roles.add(noellesrolesRoles("THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES"));
         }
         return List.copyOf(roles);
