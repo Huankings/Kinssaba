@@ -26,7 +26,11 @@ public abstract class HackerInstinctMixin {
     private static void isInstinctEnabled(@NotNull CallbackInfoReturnable<Boolean> cir) {
         if (MinecraftClient.getInstance().player == null) return;
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld());
-        if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.HACKER) && WatheClient.instinctKeybind.isPressed()) {
+        /*
+         * 黑客的本能由“本能键输入是否激活”控制。
+         * 统一入口会读取玩家自己的 /instinct key 设置，避免这里硬编码成长按模式。
+         */
+        if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.HACKER) && WatheClient.isInstinctInputActive()) {
             cir.setReturnValue(true);
         }
     }

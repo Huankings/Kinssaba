@@ -21,7 +21,11 @@ public abstract class DreamerInstinctMixin {
     private static void isInstinctEnabled(@NotNull CallbackInfoReturnable<Boolean> cir) {
         if (MinecraftClient.getInstance().player == null) return;
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld());
-        if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.DREAMER) && WatheClient.instinctKeybind.isPressed()) {
+        /*
+         * 梦者需要按本能键才进入本能透视。
+         * 这里走 WatheClient 统一入口，才能尊重玩家自己的开关 / 长按偏好。
+         */
+        if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.DREAMER) && WatheClient.isInstinctInputActive()) {
             cir.setReturnValue(true);
         }
     }

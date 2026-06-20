@@ -38,15 +38,15 @@ public abstract class CookShopMixin {
                     break;
                 case 1:
                     this.item = Items.COOKED_BEEF;
-                    this.price = 75;
+                    this.price = 25;
                     break;
                 case 2:
                     this.item = Items.COOKED_CHICKEN;
-                    this.price = 75;
+                    this.price = 25;
                     break;
                 case 3:
                     this.item = Items.COOKED_PORKCHOP;
-                    this.price = 75;
+                    this.price = 25;
                     break;
                 default:
                     return;

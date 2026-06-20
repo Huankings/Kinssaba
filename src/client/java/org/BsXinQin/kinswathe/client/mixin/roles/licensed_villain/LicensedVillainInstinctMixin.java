@@ -20,7 +20,11 @@ public abstract class LicensedVillainInstinctMixin {
     private static void isInstinctEnabled(@NotNull CallbackInfoReturnable<Boolean> cir) {
         if (MinecraftClient.getInstance().player == null) return;
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld());
-        if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.LICENSED_VILLAIN) && WatheClient.instinctKeybind.isPressed()) {
+        /*
+         * 持证反派的本能键判断统一交给 WatheClient。
+         * 这样该职业会和主 mod 本能一样，跟随每位玩家自己的 /instinct key 设置。
+         */
+        if (gameWorld.isRole(MinecraftClient.getInstance().player, KinsWatheRoles.LICENSED_VILLAIN) && WatheClient.isInstinctInputActive()) {
             cir.setReturnValue(true);
         }
     }
