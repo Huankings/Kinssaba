@@ -17,6 +17,7 @@ import org.BsXinQin.kinswathe.KinsWathe;
 import org.BsXinQin.kinswathe.KinsWatheEntities;
 import org.BsXinQin.kinswathe.KinsWatheItems;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
+import org.BsXinQin.kinswathe.client.instinct.KinsWatheInstinctHandlers;
 import org.BsXinQin.kinswathe.client.items.ItemExtraModel;
 import org.BsXinQin.kinswathe.client.items.ItemToolTip;
 import org.BsXinQin.kinswathe.client.roles.technician.CaptureDeviceEntityRenderer;
@@ -104,6 +105,8 @@ public class KinsWatheInitializeClient {
     }
 
     public static void init() {
+        // 统一把所有 KinsWathe 本能透视/能力描边接入 Wathe 的公开 Instinct API。
+        KinsWatheInstinctHandlers.register();
         //设置技能按键
         registerAbilityKey();
         //添加有技能的角色
