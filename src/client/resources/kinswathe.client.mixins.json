@@ -43,11 +43,6 @@
   "mixins": [
     "gui.ItemCrosshairMixin",
     "host.EndTextRendererMixin",
-    "host.KillerCohortHudMixin",
-    "host.KillerSidedTextMixin",
-    "host.UnlockDistanceMixin",
-    "roles.detective.DetectiveTargetHudMixin",
-    "roles.hacker.HackerTargetHudMixin",
-    "roles.physician.PhysicianDeathReasonMixin"
+    "host.UnlockDistanceMixin"
   ]
 }

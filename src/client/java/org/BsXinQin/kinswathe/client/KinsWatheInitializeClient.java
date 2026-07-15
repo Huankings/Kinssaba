@@ -20,6 +20,7 @@ import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.client.instinct.KinsWatheInstinctHandlers;
 import org.BsXinQin.kinswathe.client.items.ItemExtraModel;
 import org.BsXinQin.kinswathe.client.items.ItemToolTip;
+import org.BsXinQin.kinswathe.client.role_name.KinsRoleNameHudHandlers;
 import org.BsXinQin.kinswathe.client.roles.dreamer.DreamerMoodHud;
 import org.BsXinQin.kinswathe.client.roles.hacker.HackerMoodHud;
 import org.BsXinQin.kinswathe.client.roles.licensed_villain.LicensedVillainMoodHud;
@@ -111,6 +112,8 @@ public class KinsWatheInitializeClient {
     public static void init() {
         // 统一把所有 KinsWathe 本能透视/能力描边接入 Wathe 的公开 Instinct API。
         KinsWatheInstinctHandlers.register();
+        // 准心名字周围的职业提示 / 同伙规则统一接入 Wathe 的 RoleName HUD API。
+        KinsRoleNameHudHandlers.register();
         // 按职业分别注册心情 HUD 样式，避免不同职业的渲染逻辑继续塞进同一个 MoodRenderer mixin。
         DreamerMoodHud.register();
         HackerMoodHud.register();
