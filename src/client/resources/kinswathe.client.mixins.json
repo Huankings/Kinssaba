@@ -57,11 +57,7 @@
     "host.KillerSidedTextMixin",
     "host.UnlockDistanceMixin",
     "roles.detective.DetectiveTargetHudMixin",
-    "roles.dreamer.DreamerMoodMixin",
-    "roles.hacker.HackerMoodMixin",
     "roles.hacker.HackerTargetHudMixin",
-    "roles.licensed_villain.LicensedVillainMoodMixin",
-    "roles.physician.PhysicianDeathReasonMixin",
-    "roles.robot.RobotMoodMixin"
+    "roles.physician.PhysicianDeathReasonMixin"
   ]
 }
