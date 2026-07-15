@@ -15,26 +15,17 @@
     "host.SprintTimeFixMixin",
     "noellesroles.roles.jester.JesterJestMixin",
     "roles.cook.CookFinishEatMixin",
-    "roles.cook.CookShopMixin",
-    "roles.dreamer.DreamerShopMixin",
     "roles.drugmaker.DrugmakerGiveCoinsMixin",
-    "roles.drugmaker.DrugmakerShopMixin",
     "roles.hacker.HackerAvoidMimicMixin",
-    "roles.hacker.HackerShopMixin",
     "roles.hunter.HunterLockSlotMixin",
-    "roles.hunter.HunterShopMixin",
     "roles.hunter.HunterSprintMixin",
     "roles.kidnapper.KidnapperMoneyIncreaseMixin",
-    "roles.kidnapper.KidnapperShopMixin",
     "roles.licensed_villain.LicensedVillainKeepGameMixin",
     "roles.licensed_villain.LicensedVillainNoBackfireMixin",
     "roles.licensed_villain.LicensedVillainNoPickupMixin",
-    "roles.licensed_villain.LicensedVillainShopMixin",
-    "roles.physician.PhysicianShopMixin",
     "roles.physician.PhysicianTipPoisonMixin",
     "roles.robot.RobotBedPoisonMixin",
-    "roles.robot.RobotNoPoisonMixin",
-    "roles.technician.TechnicianShopMixin"
+    "roles.robot.RobotNoPoisonMixin"
   ],
   "injectors": {
     "defaultRequire": 1

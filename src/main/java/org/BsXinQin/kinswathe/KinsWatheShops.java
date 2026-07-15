@@ -1,27 +1,22 @@
 package org.BsXinQin.kinswathe;
 
+import dev.doctor4t.wathe.api.shop.ShopApi;
+import dev.doctor4t.wathe.api.shop.ShopPurchaseContext;
+import dev.doctor4t.wathe.api.shop.ShopPurchaseResult;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.index.WatheItems;
-import dev.doctor4t.wathe.index.WatheSounds;
 import dev.doctor4t.wathe.record.ShopPurchaseTracker;
 import dev.doctor4t.wathe.util.ShopEntry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
-import net.minecraft.util.Util;
-import net.minecraft.world.World;
-import org.BsXinQin.kinswathe.component.ConfigWorldComponent;
 import org.BsXinQin.kinswathe.roles.hacker.HackerComponent;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -77,93 +72,74 @@ public class KinsWatheShops {
         return ITEM_PRICES.getOrDefault(itemKey, defaultValue);
     }
 
-    /// 身份商店
-    //制毒师商店
-    public static List<ShopEntry> getDrugmakerShop(@NotNull World world) {
-        return Util.make(new ArrayList<>(), (entries) -> {
-            entries.add(new ShopEntry(KinsWatheItems.POISON_INJECTOR.getDefaultStack(), ConfigWorldComponent.KEY.get(world).DrugmakerPoisonInjectorPrice, ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(KinsWatheItems.BLOWGUN.getDefaultStack(), ConfigWorldComponent.KEY.get(world).DrugmakerBlowgunPrice, ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), getItemPrice("KNIFE", 100) * 2, ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.POISON_VIAL.getDefaultStack(), getItemPrice("POISON_VIAL", 100) / 2, ShopEntry.Type.POISON));
-            entries.add(new ShopEntry(WatheItems.SCORPION.getDefaultStack(), getItemPrice("SCORPION", 50) / 2, ShopEntry.Type.POISON));
-            entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.LOCKPICK.getDefaultStack(), getItemPrice("LOCKPICK", 50), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.BLACKOUT.getDefaultStack(), getItemPrice("BLACKOUT", 200), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
-        });
+    /**
+     * 读取 Wathe 默认杀手商店价格。
+     *
+     * <p>各职业 ShopHandler 只描述“相对默认商店怎么改”，价格统一从这里取，
+     * 避免 Wathe 以后调整默认价格时，扩展职业还残留旧数字。</p>
+     */
+    public static int getDefaultPrice(@NotNull Item item, int defaultValue) {
+        String itemKey = getItemKeyFromStack(item.getDefaultStack());
+        int cachedPrice = itemKey == null ? defaultValue : getItemPrice(itemKey, defaultValue);
+        return ShopApi.getDefaultPrice(item, cachedPrice);
     }
-    //黑客商店
-    public static List<ShopEntry> getHackerShop(@NotNull World world) {
-        if (!KinsWatheConfig.HANDLER.instance().HackerHasShop) return null;
-        return Util.make(new ArrayList<>(), (entries) -> {
-            entries.add(new ShopEntry(WatheItems.LOCKPICK.getDefaultStack(), getItemPrice("LOCKPICK", 50), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.BLACKOUT.getDefaultStack(), getItemPrice("BLACKOUT", 200), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH.getDefaultStack(), ConfigWorldComponent.KEY.get(world).HackerRefreshWeaponCooldownPrice, ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH.getDefaultStack(), ConfigWorldComponent.KEY.get(world).HackerRefreshAbilityCooldownPrice, ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(KinsWatheItems.ICON_POTION_EFFECT_REFRESH.getDefaultStack(), ConfigWorldComponent.KEY.get(world).HackerRefreshPotionEffectPrice, ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
-        });
+
+    public static int indexOfItem(@NotNull List<ShopEntry> entries, @NotNull Item item) {
+        for (int i = 0; i < entries.size(); i++) {
+            if (entries.get(i).stack().isOf(item)) {
+                return i;
+            }
+        }
+        return -1;
     }
-    //追猎者商店
-    public static List<ShopEntry> getHunterShop(@NotNull World world) {
-        return Util.make(new ArrayList<>(), (entries) -> {
-            entries.add(new ShopEntry(KinsWatheItems.HUNTING_KNIFE.getDefaultStack(), getItemPrice("KNIFE", 100), ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), getItemPrice("KNIFE", 100) * 7 / 4, ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), getItemPrice("REVOLVER", 300), ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.GRENADE.getDefaultStack(), getItemPrice("GRENADE", 350), ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.PSYCHO_MODE.getDefaultStack(), getItemPrice("PSYCHO_MODE", 300), ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.LOCKPICK.getDefaultStack(), getItemPrice("LOCKPICK", 50), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.CROWBAR.getDefaultStack(), getItemPrice("CROWBAR", 25), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.BLACKOUT.getDefaultStack(), getItemPrice("BLACKOUT", 200), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
-        });
+
+    public static void removeItem(@NotNull List<ShopEntry> entries, @NotNull Item item) {
+        entries.removeIf(entry -> entry.stack().isOf(item));
     }
-    //绑匪商店
-    public static List<ShopEntry> getKidnapperShop(@NotNull World world) {
-        return Util.make(new ArrayList<>(), (entries) -> {
-            entries.add(new ShopEntry(WatheItems.KNIFE.getDefaultStack(), getItemPrice("KNIFE", 100), ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.REVOLVER.getDefaultStack(), getItemPrice("REVOLVER", 300), ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.GRENADE.getDefaultStack(), getItemPrice("GRENADE", 350), ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(WatheItems.PSYCHO_MODE.getDefaultStack(), getItemPrice("PSYCHO_MODE", 300), ShopEntry.Type.WEAPON));
-            entries.add(new ShopEntry(KinsWatheItems.KNOCKOUT_DRUG.getDefaultStack(), ConfigWorldComponent.KEY.get(world).KidnapperKnockoutDrugPrice, ShopEntry.Type.POISON));
-            entries.add(new ShopEntry(WatheItems.POISON_VIAL.getDefaultStack(), getItemPrice("POISON_VIAL", 100), ShopEntry.Type.POISON));
-            entries.add(new ShopEntry(WatheItems.SCORPION.getDefaultStack(), getItemPrice("SCORPION", 50), ShopEntry.Type.POISON));
-            entries.add(new ShopEntry(WatheItems.FIRECRACKER.getDefaultStack(), getItemPrice("FIRECRACKER", 10), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.LOCKPICK.getDefaultStack(), getItemPrice("LOCKPICK", 50), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.BODY_BAG.getDefaultStack(), getItemPrice("BODY_BAG", 200), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.BLACKOUT.getDefaultStack(), getItemPrice("BLACKOUT", 200), ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(WatheItems.NOTE.getDefaultStack(), getItemPrice("NOTE", 10), ShopEntry.Type.TOOL));
-        });
+
+    public static void replaceItem(@NotNull List<ShopEntry> entries, @NotNull Item item, @NotNull ShopEntry replacement) {
+        int index = indexOfItem(entries, item);
+        if (index >= 0) {
+            entries.set(index, replacement);
+        }
     }
-    //技术员商店
-    public static List<ShopEntry> getTechnicianShop(@NotNull World world) {
-        return Util.make(new ArrayList<>(), (entries) -> {
-            entries.add(new ShopEntry(KinsWatheItems.WRENCH.getDefaultStack(), ConfigWorldComponent.KEY.get(world).TechnicianWrenchPrice, ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(KinsWatheItems.CAPTURE_DEVICE.getDefaultStack(), ConfigWorldComponent.KEY.get(world).TechnicianCaptureDevicePrice, ShopEntry.Type.TOOL));
-            entries.add(new ShopEntry(KinsWatheItems.ICON_POWER_RESTORATION.getDefaultStack(), ConfigWorldComponent.KEY.get(world).TechnicianPowerRestorationPrice, ShopEntry.Type.TOOL));
-        });
+
+    public static void insertBeforeItem(@NotNull List<ShopEntry> entries, @NotNull Item item, @NotNull ShopEntry entry) {
+        int index = indexOfItem(entries, item);
+        entries.add(index >= 0 ? index : 0, entry);
     }
-    //杀手方中立商店
+
+    public static void insertAfterItem(@NotNull List<ShopEntry> entries, @NotNull Item item, @NotNull ShopEntry entry) {
+        int index = indexOfItem(entries, item);
+        entries.add(index >= 0 ? index + 1 : entries.size(), entry);
+    }
+
+    // 杀手方中立商店兜底数据仍放在公共工具类里，具体职业通过 DreamerShopHandler 读取。
     public static List<ShopEntry> getKillerNeutralRolesShop() {
         return FRAMING_ROLES_SHOP;
     }
 
     /// 商店处理方法
+    public static @NotNull ShopPurchaseResult purchase(@NotNull ShopPurchaseContext context) {
+        PlayerEntity player = context.player();
+        ShopEntry entry = context.entry();
+        Item item = entry.stack().getItem();
+        if (context.balance() < entry.price() || player.getItemCooldownManager().isCoolingDown(item)) {
+            return ShopPurchaseResult.FAIL_SHOW_MESSAGE;
+        }
+
+        /*
+         * kinssaba 旧商店 mixin 里，很多特殊图标不是发物品，而是立刻执行能力。
+         * 现在这些能力仍然集中在这里交付，Wathe 负责后续扣钱、音效、同步和回放。
+         */
+        return deliverPurchasedStack(player, entry.stack())
+                ? ShopPurchaseResult.SUCCESS
+                : ShopPurchaseResult.FAIL_SHOW_MESSAGE;
+    }
+
     public static boolean handlePurchase(@NotNull PlayerEntity player, int balance, @NotNull Item item, int price) {
         if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
-            if (item == WatheItems.NOTE) player.giveItemStack((new ItemStack(WatheItems.NOTE, 4)));
-            else if (item == WatheItems.BLACKOUT) PlayerShopComponent.useBlackout(player);
-            else if (item == WatheItems.PSYCHO_MODE) PlayerShopComponent.usePsychoMode(player);
-            else if (item == KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH) HackerComponent.refreshWeaponCooldown(player);
-            else if (item == KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH) HackerComponent.refreshAbilityCooldown(player);
-            else if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) HackerComponent.refreshPotionEffect(player);
-            else if (item == KinsWatheItems.ICON_POWER_RESTORATION) TechnicianComponent.stopBlackout(player);
-            else player.giveItemStack(item.getDefaultStack());
+            deliverPurchasedStack(player, item == WatheItems.NOTE ? new ItemStack(WatheItems.NOTE, 4) : item.getDefaultStack());
             /*
              * KinsWathe 里很多职业都直接改写了 Wathe 的商店内容，
              * 因此这里在购买成功时主动回填真实商品给 Wathe 回放系统，
@@ -171,16 +147,35 @@ public class KinsWatheShops {
              */
             ItemStack purchasedStack = item == WatheItems.NOTE ? new ItemStack(WatheItems.NOTE, 4) : item.getDefaultStack();
             ShopPurchaseTracker.captureSuccessfulPurchase(player, purchasedStack, -1, price);
-            if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
-                serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY, SoundCategory.PLAYERS,1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
-            }
+            ShopApi.playBuySound(player);
             return true;
         } else {
-            player.sendMessage(Text.translatable("shop.purchase_failed").withColor(0xAA0000), true);
-            if (player instanceof @NotNull ServerPlayerEntity serverPlayer) {
-                serverPlayer.playSoundToPlayer(WatheSounds.UI_SHOP_BUY_FAIL, SoundCategory.PLAYERS,1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);
-            }
+            ShopApi.sendPurchaseFailedMessage(player);
+            ShopApi.playFailSound(player);
             return false;
         }
+    }
+
+    private static boolean deliverPurchasedStack(@NotNull PlayerEntity player, @NotNull ItemStack stack) {
+        Item item = stack.getItem();
+        if (item == WatheItems.BLACKOUT) return PlayerShopComponent.useBlackout(player);
+        if (item == WatheItems.PSYCHO_MODE) return PlayerShopComponent.usePsychoMode(player);
+        if (item == KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH) {
+            HackerComponent.refreshWeaponCooldown(player);
+            return true;
+        }
+        if (item == KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH) {
+            HackerComponent.refreshAbilityCooldown(player);
+            return true;
+        }
+        if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) {
+            HackerComponent.refreshPotionEffect(player);
+            return true;
+        }
+        if (item == KinsWatheItems.ICON_POWER_RESTORATION) {
+            TechnicianComponent.stopBlackout(player);
+            return true;
+        }
+        return player.giveItemStack(stack.copy());
     }
 }
