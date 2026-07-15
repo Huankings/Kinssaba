@@ -50,7 +50,6 @@
     "requireAnnotations": true
   },
   "mixins": [
-    "gui.IncomeIconMixin",
     "gui.ItemCrosshairMixin",
     "host.EndTextRendererMixin",
     "host.KillerCohortHudMixin",

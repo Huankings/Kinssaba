@@ -2,6 +2,8 @@ package org.BsXinQin.kinswathe;
 
 import dev.doctor4t.wathe.api.Role;
 import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.api.economy.EconomyApi;
+import dev.doctor4t.wathe.api.task.TaskCompletionApi;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
@@ -12,6 +14,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
@@ -27,6 +30,7 @@ import org.BsXinQin.kinswathe.roles.hunter.HunterAbility;
 import org.BsXinQin.kinswathe.roles.judge.JudgeAbility;
 import org.BsXinQin.kinswathe.roles.robot.RobotAbility;
 import org.agmas.harpymodloader.Harpymodloader;
+import org.agmas.harpymodloader.component.WorldModifierComponent;
 import org.agmas.harpymodloader.config.HarpyModLoaderConfig;
 import org.agmas.harpymodloader.events.ModdedRoleAssigned;
 import org.agmas.harpymodloader.modifiers.HMLModifiers;
@@ -203,19 +207,35 @@ public class KinsWatheRoles {
             Identifier.of(KinsWathe.MOD_ID, "magnate"),
             0xFFFF00,
             null,
-            new ArrayList<>(rolesHavePassiveIncome()),
+            null,
             false,
             false
-    ));
+    ).setEligibilityPredicate((gameWorld, player, modifier) -> {
+        /*
+         * 富豪只应该生成在拥有通用被动收入的角色身上。
+         * 这里不再维护手写职业名单，而是直接询问 Wathe 的被动收入 API；
+         * 这样后续其他扩展只要注册了被动收入，富豪就能自动识别。
+         */
+        if (!(player instanceof ServerPlayerEntity serverPlayer) || !(player.getWorld() instanceof ServerWorld serverWorld)) {
+            return false;
+        }
+        return EconomyApi.canReceivePassiveIncome(serverWorld, gameWorld, serverPlayer);
+    }));
     //任务大师
     public static Modifier TASKMASTER = registerModifier(new Modifier(
             Identifier.of(KinsWathe.MOD_ID, "taskmaster"),
             0xFF3399,
             null,
-            new ArrayList<>(rolesHaveTaskIncome()),
+            null,
             false,
             false
-    ));
+    ).setEligibilityPredicate((gameWorld, player, modifier) -> {
+        /*
+         * 任务大师按照你的确认：只根据“这个角色是否显示金币 HUD”来决定能否生成。
+         * 这样任何扩展职业只要通过 EconomyApi 注册了金币 HUD，就自然可以获得任务大师。
+         */
+        return EconomyApi.shouldRenderBalanceHud(gameWorld, player);
+    }));
     //违禁者
     public static Modifier VIOLATOR = registerModifier(new Modifier(
             Identifier.of(KinsWathe.MOD_ID, "violator"),
@@ -270,81 +290,6 @@ public class KinsWatheRoles {
     public static boolean isKillerSidedNeutral(@NotNull PlayerEntity player) {
         GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
         return FabricLoader.getInstance().isModLoaded("noellesroles") && gameWorld.getRole(player) != null && (KinsWatheRoles.noellesrolesKillerSidedNeutrals(gameWorld.getRole(player)) || gameWorld.isRole(player, noellesrolesRoles("MIMIC")));
-    }
-
-    /// 添加有任务收入的身份
-    public static List<Role> rolesHaveTaskIncome() {
-        List<Role> roles = new ArrayList<>();
-        roles.add(WatheRoles.KILLER);
-        roles.add(BELLRINGER);
-        roles.add(BODYMAKER);
-        roles.add(CLEANER);
-        roles.add(COOK);
-        roles.add(DETECTIVE);
-        roles.add(DRUGMAKER);
-        roles.add(HUNTER);
-        roles.add(JUDGE);
-        roles.add(KIDNAPPER);
-        roles.add(LICENSED_VILLAIN);
-        roles.add(PHYSICIAN);
-        roles.add(TECHNICIAN);
-        if (KinsWatheConfig.HANDLER.instance().HackerHasShop) roles.add(HACKER);
-        if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-            roles.add(noellesrolesRoles("PHANTOM"));
-            roles.add(noellesrolesRoles("SWAPPER"));
-            roles.add(noellesrolesRoles("TRAPPER"));
-            roles.add(noellesrolesRoles("RECALLER"));
-            roles.add(noellesrolesRoles("BARTENDER"));
-            roles.add(noellesrolesRoles("MORPHLING"));
-            roles.add(noellesrolesRoles("NOISEMAKER"));
-            roles.add(noellesrolesRoles("CORPSEMAKER"));
-            roles.add(noellesrolesRoles("CONTROLLER"));
-            roles.add(noellesrolesRoles("CORONER"));
-            roles.add(noellesrolesRoles("ENGINEER"));
-            roles.add(noellesrolesRoles("ROBBER"));
-            roles.add(noellesrolesRoles("BOMBER"));
-            roles.add(noellesrolesRoles("STALKER"));
-            roles.add(noellesrolesRoles("BRAINWASHER"));
-            roles.add(noellesrolesRoles("WINDER"));
-            roles.add(noellesrolesRoles("PROPHET"));
-            roles.add(noellesrolesRoles("THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES"));
-        }
-        return List.copyOf(roles);
-    }
-
-    /// 添加有被动收入的身份
-    public static List<Role> rolesHavePassiveIncome() {
-        List<Role> roles = new ArrayList<>();
-        roles.add(WatheRoles.KILLER);
-        roles.add(BODYMAKER);
-        roles.add(CLEANER);
-        roles.add(COOK);
-        roles.add(DREAMER);
-        roles.add(DRUGMAKER);
-        roles.add(HUNTER);
-        roles.add(JUDGE);
-        roles.add(KIDNAPPER);
-        if (KinsWatheConfig.HANDLER.instance().HackerHasShop) roles.add(HACKER);
-        if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-            roles.add(noellesrolesRoles("MIMIC"));
-            roles.add(noellesrolesRoles("JESTER"));
-            roles.add(noellesrolesRoles("PHANTOM"));
-            roles.add(noellesrolesRoles("SWAPPER"));
-            roles.add(noellesrolesRoles("MORPHLING"));
-            roles.add(noellesrolesRoles("NOISEMAKER"));
-            roles.add(noellesrolesRoles("EXECUTIONER"));
-            roles.add(noellesrolesRoles("CONTROLLER"));
-            roles.add(noellesrolesRoles("CORPSEMAKER"));
-            roles.add(noellesrolesRoles("CORONER"));
-            roles.add(noellesrolesRoles("ENGINEER"));
-            roles.add(noellesrolesRoles("RECALLER"));
-            roles.add(noellesrolesRoles("ROBBER"));
-            roles.add(noellesrolesRoles("BOMBER"));
-            roles.add(noellesrolesRoles("BRAINWASHER"));
-            roles.add(noellesrolesRoles("STALKER"));
-            roles.add(noellesrolesRoles("THE_INSANE_DAMNED_PARANOID_KILLER_OF_DOOM_DEATH_DESTRUCTION_AND_WAFFLES"));
-        }
-        return List.copyOf(roles);
     }
 
     /// 新增阵营
@@ -481,10 +426,106 @@ public class KinsWatheRoles {
         }
     }
 
+    private static void registerEconomyApi() {
+        /*
+         * 金币 HUD：迁移旧 IncomeIconMixin 的角色名单。
+         * 杀手能力角色由 Wathe 默认显示金币 HUD，因此这里只注册非默认但仍使用金币经济的 kinssaba 角色。
+         */
+        EconomyApi.registerBalanceHudRoles(List.of(
+                BELLRINGER,
+                COOK,
+                DETECTIVE,
+                DREAMER,
+                JUDGE,
+                LICENSED_VILLAIN,
+                PHYSICIAN,
+                TECHNICIAN
+        ));
+        EconomyApi.registerBalanceHudPredicate(
+                KinsWathe.id("balance_hud/hacker"),
+                EconomyApi.DEFAULT_PRIORITY,
+                (gameWorld, player, role) -> KinsWatheConfig.HANDLER.instance().HackerHasShop && role == HACKER
+        );
+
+        /*
+         * 通用被动收入：迁移旧 PassiveIncomeMixin 的额外角色。
+         * BODYMAKER/CLEANER/DRUGMAKER/HUNTER/KIDNAPPER 等杀手能力角色不需要注册，
+         * 因为 Wathe 的 EconomyApi 会保留“杀手能力角色默认拥有被动收入”的原行为。
+         */
+        EconomyApi.registerPassiveIncomeRoles(List.of(
+                COOK,
+                DREAMER,
+                JUDGE
+        ));
+        EconomyApi.registerPassiveIncomeRule(
+                KinsWathe.id("passive_income/hacker"),
+                EconomyApi.DEFAULT_PRIORITY,
+                context -> KinsWatheConfig.HANDLER.instance().HackerHasShop && context.role() == HACKER
+                        ? EconomyApi.PassiveIncomeDecision.ALLOW
+                        : EconomyApi.PassiveIncomeDecision.PASS
+        );
+
+        /*
+         * 任务金币统一在这里结算：
+         * 1. kinssaba 自己明确有任务收入的角色每个任务 50 金币；
+         * 2. Hacker 只有开启商店配置时才有任务收入；
+         * 3. Taskmaster 按你的确认，只要玩家当前角色拥有金币 HUD，就按阵营语义追加任务金币。
+         */
+        TaskCompletionApi.registerTaskIncomeProvider(
+                KinsWathe.id("task_income"),
+                TaskCompletionApi.DEFAULT_PRIORITY,
+                context -> {
+                    int income = 0;
+                    Role role = context.role();
+                    if (hasBaseTaskIncome(role)) {
+                        income += 50;
+                    }
+                    if (KinsWatheConfig.HANDLER.instance().HackerHasShop && role == HACKER) {
+                        income += 50;
+                    }
+
+                    WorldModifierComponent modifier = WorldModifierComponent.KEY.get(context.player().getWorld());
+                    if (modifier.isModifier(context.player(), TASKMASTER)
+                            && EconomyApi.shouldRenderBalanceHud(context.gameWorld(), context.player())) {
+                        income += role != null && role.canUseKiller() ? 50 : 25;
+                    }
+                    return income;
+                }
+        );
+
+        /*
+         * Magnate 的“双倍被动收入”现在作为 Wathe 被动收入数值修改器实现。
+         * 它只把本次基础收入再补一份；最终加钱前仍由 Wathe 统一套用阵营金币上限，
+         * 因此不会因为双倍效果突破上限。
+         */
+        EconomyApi.registerPassiveIncomeModifier(
+                KinsWathe.id("magnate_double_passive_income"),
+                EconomyApi.DEFAULT_PRIORITY,
+                (context, currentIncome) -> {
+                    WorldModifierComponent modifier = WorldModifierComponent.KEY.get(context.world());
+                    return modifier.isModifier(context.player(), MAGNATE)
+                            ? currentIncome + context.baseIncome()
+                            : currentIncome;
+                }
+        );
+    }
+
+    private static boolean hasBaseTaskIncome(Role role) {
+        return role == BELLRINGER
+                || role == COOK
+                || role == DETECTIVE
+                || role == JUDGE
+                || role == LICENSED_VILLAIN
+                || role == PHYSICIAN
+                || role == TECHNICIAN;
+    }
+
     /// 初始化方法
     public static void init() {
         //新增阵营
         addNewRoleCamps();
+        //注册 Wathe 公开经济接口
+        registerEconomyApi();
         //限制身份生成人数
         limitRolesGeneratePlayers();
         //注册中立结算界面
