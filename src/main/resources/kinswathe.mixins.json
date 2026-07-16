@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "host.AddDeathReasonMixin",
-    "host.CustomWinnerCheckMixin",
     "host.GameFnctionsMixin",
     "host.KillerNoBackfireMixin",
     "host.MoneyIncreaseMixin",
@@ -18,7 +17,6 @@
     "roles.hunter.HunterLockSlotMixin",
     "roles.hunter.HunterSprintMixin",
     "roles.kidnapper.KidnapperMoneyIncreaseMixin",
-    "roles.licensed_villain.LicensedVillainKeepGameMixin",
     "roles.licensed_villain.LicensedVillainNoBackfireMixin",
     "roles.licensed_villain.LicensedVillainNoPickupMixin",
     "roles.physician.PhysicianTipPoisonMixin",

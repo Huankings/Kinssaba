@@ -41,6 +41,5 @@ public class KinsWatheComponents implements EntityComponentInitializer, WorldCom
     public void registerWorldComponentFactories(@NotNull WorldComponentFactoryRegistry registry) {
         registry.register(GameSafeComponent.KEY, GameSafeComponent::new);
         registry.register(ConfigWorldComponent.KEY, ConfigWorldComponent::new);
-        registry.register(CustomWinnerComponent.KEY, CustomWinnerComponent::new);
     }
 }

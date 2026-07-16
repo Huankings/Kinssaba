@@ -7,7 +7,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import org.BsXinQin.kinswathe.KinsWatheConfig;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
-import org.BsXinQin.kinswathe.component.CustomWinnerComponent;
 import org.BsXinQin.kinswathe.component.GameSafeComponent;
 import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
 import org.BsXinQin.kinswathe.roles.cook.CookComponent;
@@ -29,12 +28,6 @@ import java.util.List;
 
 @Mixin(GameFunctions.class)
 public class GameFnctionsMixin {
-
-    @Inject(method = "initializeGame", at = @At("HEAD"))
-    private static void initializeGame(@NotNull ServerWorld serverWorld, CallbackInfo ci) {
-        CustomWinnerComponent customWinner = CustomWinnerComponent.KEY.get(serverWorld);
-        if (customWinner != null) customWinner.reset();
-    }
 
     @Inject(method = "resetPlayer", at = @At("TAIL"))
     private static void resetPlayer(@NotNull ServerPlayerEntity player, CallbackInfo ci) {

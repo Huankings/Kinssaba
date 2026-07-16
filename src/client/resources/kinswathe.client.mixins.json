@@ -7,8 +7,6 @@
     "gui.StaminaBarMixin",
     "host.BetterBlackOutMixin",
     "host.BetterBlackOutMixin$SoundSystemMixin",
-    "host.CustomWinnerAnnouncementMixin",
-    "host.CustomWinnerTextMixin",
     "host.GameSafeHudMixin",
     "host.GameSafeLimitKeysMixin",
     "host.KeyBindingMixin",
