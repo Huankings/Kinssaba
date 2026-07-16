@@ -26,6 +26,7 @@ import org.BsXinQin.kinswathe.client.roles.hacker.HackerMoodHud;
 import org.BsXinQin.kinswathe.client.roles.licensed_villain.LicensedVillainMoodHud;
 import org.BsXinQin.kinswathe.client.roles.robot.RobotMoodHud;
 import org.BsXinQin.kinswathe.client.roles.technician.CaptureDeviceEntityRenderer;
+import org.BsXinQin.kinswathe.client.visibility.KinsHeldItemVisibilityHandlers;
 import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.agmas.noellesroles.client.NoellesrolesClient;
 import org.lwjgl.glfw.GLFW;
@@ -119,6 +120,8 @@ public class KinsWatheInitializeClient {
         HackerMoodHud.register();
         LicensedVillainMoodHud.register();
         RobotMoodHud.register();
+        // 手持物不可见规则统一接入 Wathe API，替代旧的 HandView / HandPos Mixin。
+        KinsHeldItemVisibilityHandlers.register();
         //设置技能按键
         registerAbilityKey();
         //添加有技能的角色

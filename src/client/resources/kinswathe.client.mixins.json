@@ -28,11 +28,7 @@
     "roles.judge.JudgeScreenMixin",
     "roles.kidnapper.KidnapperControlledMixin",
     "roles.kidnapper.KidnapperKeyControlledMixin",
-    "roles.physician.PhysicianHandPosMixin",
-    "roles.physician.PhysicianHandViewMixin",
-    "roles.robot.RobotHudMixin",
-    "roles.technician.TechnicianHandPosMixin",
-    "roles.technician.TechnicianHandViewMixin"
+    "roles.robot.RobotHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1
