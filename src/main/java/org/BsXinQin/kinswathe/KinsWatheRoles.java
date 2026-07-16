@@ -6,7 +6,6 @@ import dev.doctor4t.wathe.api.economy.EconomyApi;
 import dev.doctor4t.wathe.api.task.TaskCompletionApi;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
-import dev.doctor4t.wathe.client.gui.RoleAnnouncementTexts;
 import dev.doctor4t.wathe.index.WatheItems;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -341,13 +340,6 @@ public class KinsWatheRoles {
         return (role1 == HACKER && role2 == noellesrolesRoles("MIMIC")) || (role1 == noellesrolesRoles("MIMIC") && role2 == HACKER);
     }
 
-    /// 注册中立结算界面
-    public static RoleAnnouncementTexts.RoleAnnouncementText NEUTRAL_TEXT = new KinsWatheAnnouncementText();
-    public static void registerNeutralAnnouncement() {
-        if (!KinsWatheConfig.HANDLER.instance().EnableNeutralAnnouncement) return;
-        RoleAnnouncementTexts.registerRoleAnnouncementText(NEUTRAL_TEXT);
-    }
-
     /// 设置初始事件
     public static void setDefaultEvents() {
         ModdedRoleAssigned.EVENT.register((player, role)->{
@@ -528,8 +520,7 @@ public class KinsWatheRoles {
         registerEconomyApi();
         //限制身份生成人数
         limitRolesGeneratePlayers();
-        //注册中立结算界面
-        registerNeutralAnnouncement();
+        // 中立结算板块已经迁移到 Wathe 本体，KinsWathe 不再注册第二套中立公告文本。
         //设置初始事件
         setDefaultEvents();
         //注册身份技能
