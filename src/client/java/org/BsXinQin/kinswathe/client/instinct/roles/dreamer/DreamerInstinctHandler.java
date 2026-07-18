@@ -16,8 +16,13 @@ public final class DreamerInstinctHandler {
 
     public static void register() {
         InstinctApi.registerAvailability(KinsWathe.id("instinct/dreamer_availability"), InstinctApi.DEFAULT_PRIORITY, viewer -> {
-            if (GameWorldComponent.KEY.get(viewer.getWorld()).isRole(viewer, KinsWatheRoles.DREAMER)
+            if (GameFunctions.isPlayerAliveAndSurvival(viewer)
+                    && GameWorldComponent.KEY.get(viewer.getWorld()).isRole(viewer, KinsWatheRoles.DREAMER)
                     && WatheClient.isInstinctInputActive()) {
+                /*
+                 * 梦者主动本能只属于仍在局内存活的梦者。
+                 * 死亡后角色表不会立刻清空，所以必须在资格层挡住旧身份继续开启本能。
+                 */
                 return InstinctApi.AvailabilityResult.ENABLE;
             }
             return InstinctApi.AvailabilityResult.PASS;
@@ -25,11 +30,13 @@ public final class DreamerInstinctHandler {
 
         InstinctApi.registerHighlight(KinsWathe.id("instinct/dreamer_targets"), KinsWatheInstinctHandlers.PRIORITY_INSTINCT_COLOR, (viewer, target) -> {
             if (target instanceof PlayerEntity targetPlayer
+                    && GameFunctions.isPlayerAliveAndSurvival(viewer)
                     && GameFunctions.isPlayerAliveAndSurvival(targetPlayer)
                     && GameWorldComponent.KEY.get(viewer.getWorld()).isRole(viewer, KinsWatheRoles.DREAMER)
                     && WatheClient.isInstinctEnabled()) {
                 /*
                  * 梦者主动本能：按本能键后，存活玩家统一显示梦者职业色。
+                 * viewer 也必须存活，避免死亡观察者的本能开启状态误触发梦者颜色。
                  * 这是标准本能链路，所以受 Convener 等 availability 禁用规则影响。
                  */
                 return InstinctApi.HighlightResult.color(KinsWatheRoles.DREAMER.color());
