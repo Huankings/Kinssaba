@@ -1,8 +1,10 @@
 package org.BsXinQin.kinswathe;
 
 import dev.doctor4t.wathe.api.shop.ShopApi;
+import dev.doctor4t.wathe.api.shop.ShopPrice;
 import dev.doctor4t.wathe.api.shop.ShopPurchaseContext;
 import dev.doctor4t.wathe.api.shop.ShopPurchaseResult;
+import dev.doctor4t.wathe.api.economy.EconomyApi;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.index.WatheItems;
@@ -12,6 +14,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.roles.hacker.HackerComponent;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianComponent;
 import org.jetbrains.annotations.NotNull;
@@ -25,6 +28,7 @@ import java.util.Map;
 public class KinsWatheShops {
 
     private static final Map<String, Integer> ITEM_PRICES = new HashMap<>();
+    private static final Map<String, ShopPrice> ITEM_SHOP_PRICES = new HashMap<>();
     private static List<ShopEntry> FRAMING_ROLES_SHOP = Collections.emptyList();
 
     /// 提取其他模组商店物品价格
@@ -32,6 +36,13 @@ public class KinsWatheShops {
         for (@NotNull ShopEntry entry : GameConstants.SHOP_ENTRIES) {
             String itemKey = getItemKeyFromStack(entry.stack());
             if (itemKey != null) {
+                /*
+                 * 这里同时缓存旧版 int 金币价格和新版 ShopPrice 完整价格。
+                 * int 价格只用于“基于金币做乘除/加减”的旧职业逻辑；
+                 * ShopPrice 会保留任务币、多货币 AND、多个支付方案 OR 等完整信息。
+                 * 它只适合明确要完整继承默认杀手商品价格的职业，普通商店请按货币单独读取。
+                 */
+                ITEM_SHOP_PRICES.put(itemKey, entry.shopPrice());
                 ITEM_PRICES.put(itemKey, entry.price());
             }
         }
@@ -77,11 +88,45 @@ public class KinsWatheShops {
      *
      * <p>各职业 ShopHandler 只描述“相对默认商店怎么改”，价格统一从这里取，
      * 避免 Wathe 以后调整默认价格时，扩展职业还残留旧数字。</p>
+     *
+     * <p>注意：这个方法只返回默认商店第 0 组支付方案里的金币价格。
+     * 例如开锁器会返回 50，而不会把 25 任务币也带进来。
+     * 中立职业、平民职业或只想做金币商店的扩展都应该用这个方法。</p>
      */
     public static int getDefaultPrice(@NotNull Item item, int defaultValue) {
         String itemKey = getItemKeyFromStack(item.getDefaultStack());
         int cachedPrice = itemKey == null ? defaultValue : getItemPrice(itemKey, defaultValue);
-        return ShopApi.getDefaultPrice(item, cachedPrice);
+        return getDefaultCurrencyPrice(item, 0, EconomyApi.MONEY, cachedPrice);
+    }
+
+    /**
+     * 按“支付方案索引 + 货币 id”细粒度读取默认价格。
+     *
+     * <p>用于疯魔模式这类有多组支付方案的商品：调用方可以明确读取
+     * 第 0 组金币、第 0 组任务币、第 1 组金币、第 1 组任务币，
+     * 不需要也不应该为了取一个数字而复制整套 ShopPrice。</p>
+     */
+    public static int getDefaultCurrencyPrice(
+            @NotNull Item item,
+            int optionIndex,
+            @NotNull Identifier currency,
+            int defaultValue
+    ) {
+        return ShopApi.getDefaultCurrencyPrice(item, optionIndex, currency, defaultValue);
+    }
+
+    /**
+     * 读取 Wathe 默认杀手商店的完整多货币价格。
+     *
+     * <p>和 {@link #getDefaultPrice(Item, int)} 不同，这里返回 {@link ShopPrice}，
+     * 因此不会把“50 金币 + 25 任务币”或“100 金币 / 50 任务币二选一”截断成单个金币数。
+     * 只有某个职业明确想完整继承默认杀手商品价格时才应该用这个方法；
+     * 中立职业如果无法获得任务币，不要用它复制开锁器、匕首、疯魔模式这类多货币条目。</p>
+     */
+    public static @NotNull ShopPrice getDefaultShopPrice(@NotNull Item item, int defaultValue) {
+        String itemKey = getItemKeyFromStack(item.getDefaultStack());
+        ShopPrice cachedPrice = itemKey == null ? null : ITEM_SHOP_PRICES.get(itemKey);
+        return cachedPrice == null ? ShopPrice.money(getDefaultPrice(item, defaultValue)) : cachedPrice;
     }
 
     public static int indexOfItem(@NotNull List<ShopEntry> entries, @NotNull Item item) {
@@ -124,7 +169,12 @@ public class KinsWatheShops {
         PlayerEntity player = context.player();
         ShopEntry entry = context.entry();
         Item item = entry.stack().getItem();
-        if (context.balance() < entry.price() || player.getItemCooldownManager().isCoolingDown(item)) {
+        /*
+         * 购买判定必须走 Wathe 的 ShopPrice，而不是只比较金币余额。
+         * 这样职业商店里的默认开锁器、匕首等条目如果继承了任务币价格，
+         * 就能正确判断“金币 + 任务币”或“金币 / 任务币二选一”是否满足。
+         */
+        if (!context.canAffordEntry() || player.getItemCooldownManager().isCoolingDown(item)) {
             return ShopPurchaseResult.FAIL_SHOW_MESSAGE;
         }
 

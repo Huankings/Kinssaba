@@ -30,6 +30,7 @@ public final class HunterShopHandler {
         KinsWatheShops.removeItem(entries, WatheItems.SCORPION);
 
         // 猎刀插在普通刀前，表示追猎者的首选武器。
+        // 这里按金币读取默认匕首价格；如果以后想让猎刀也支持任务币，需要显式读取并重新组合对应货币价格。
         KinsWatheShops.insertBeforeItem(entries, WatheItems.KNIFE, new ShopEntry(
                 KinsWatheItems.HUNTING_KNIFE.getDefaultStack(),
                 KinsWatheShops.getDefaultPrice(WatheItems.KNIFE, 100),

@@ -476,14 +476,31 @@ public class KinsWatheRoles {
                         income += 50;
                     }
 
-                    WorldModifierComponent modifier = WorldModifierComponent.KEY.get(context.player().getWorld());
-                    if (modifier.isModifier(context.player(), TASKMASTER)
-                            && EconomyApi.shouldRenderBalanceHud(context.gameWorld(), context.player())) {
-                        income += role != null && role.canUseKiller() ? 50 : 25;
+                    if (!context.gameWorld().canUseKillerFeatures(context.player())) {
+                        income += getTaskmasterTaskIncome(context);
                     }
                     return income;
                 }
         );
+
+        /*
+         * Wathe 多货币改造后，杀手完成任务默认只发任务币，并会跳过旧任务金币 provider，
+         * 避免普通杀手任务同时涨金币和任务币。
+         *
+         * 但 Taskmaster 是 kinssaba 明确声明的“任务额外金币”词条，所以这里单独监听真实任务完成事件：
+         * 只有玩家拥有杀手能力，并且身上真的带 Taskmaster 时，才额外补发 Taskmaster 的杀手金币奖励。
+         * 非杀手 Taskmaster 仍然留在上面的 provider 里处理，避免同一次任务重复发钱。
+         */
+        TaskCompletionApi.AFTER_TASK_COMPLETE.register(context -> {
+            if (!context.gameWorld().canUseKillerFeatures(context.player())) {
+                return;
+            }
+
+            int income = getTaskmasterTaskIncome(context);
+            if (income > 0) {
+                PlayerShopComponent.KEY.get(context.player()).addToBalance(income);
+            }
+        });
 
         /*
          * Magnate 的“双倍被动收入”现在作为 Wathe 被动收入数值修改器实现。
@@ -510,6 +527,21 @@ public class KinsWatheRoles {
                 || role == LICENSED_VILLAIN
                 || role == PHYSICIAN
                 || role == TECHNICIAN;
+    }
+
+    private static int getTaskmasterTaskIncome(TaskCompletionApi.TaskCompletionContext context) {
+        WorldModifierComponent modifier = WorldModifierComponent.KEY.get(context.player().getWorld());
+        Role role = context.role();
+        if (!modifier.isModifier(context.player(), TASKMASTER)
+                || !EconomyApi.shouldRenderBalanceHud(context.gameWorld(), context.player())) {
+            return 0;
+        }
+
+        /*
+         * 沿用旧逻辑：Taskmaster 给杀手语义的职业 50 金币，给非杀手但有金币 HUD 的职业 25 金币。
+         * 杀手分支现在由 AFTER_TASK_COMPLETE 单独调用，非杀手分支仍由任务金币 provider 调用。
+         */
+        return role != null && role.canUseKiller() ? 50 : 25;
     }
 
     /// 初始化方法
