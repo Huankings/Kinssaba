@@ -54,7 +54,28 @@ public final class KinsRoleNameHudHandlers {
                 RoleNameHudApi.DEFAULT_PRIORITY,
                 (viewer, subject, vanillaValue) -> {
                     GameWorldComponent gameWorld = GameWorldComponent.KEY.get(subject.getWorld());
-                    return countsAsKillerCohort(gameWorld, subject) ? true : null;
+                    /*
+                     * 双向 cohort 状态只保留“自己也可以看见同伙提示”的角色。
+                     * 真杀手由 Wathe 原始 vanillaValue 兜底处理；这里额外放行 Hacker，
+                     * 以及本次确认同样保留双向机制的 Noelles Executioner。
+                     * Dreamer、Jester、Vulture、Mimic 等只应该作为目标被杀手/Executioner/Hacker 看见，
+                     * 不能在这里返回 true，否则它们本人会反向判断谁是杀手。
+                     */
+                    return countsAsTwoWayKillerCohort(gameWorld, subject) ? true : null;
+                }
+        );
+
+        RoleNameHudApi.registerCohortTargetState(
+                KinsWathe.id("role_name/one_way_killer_sided_targets"),
+                RoleNameHudApi.DEFAULT_PRIORITY,
+                (viewer, target, vanillaValue) -> {
+                    GameWorldComponent gameWorld = GameWorldComponent.KEY.get(target.getWorld());
+                    /*
+                     * 单向目标状态只决定“target 看起来是不是杀手同伙”，不赋予 viewer 自己看同伙的资格。
+                     * 因此 Dreamer 和 Noelles 的 Jester/Vulture/Mimic 会在杀手侧玩家眼中显示同伙，
+                     * 但它们自己不会因为这个规则看出别人是不是同伙。Hacker 与 Executioner 已在双向规则处理。
+                     */
+                    return showsAsOneWayKillerCohortTarget(gameWorld, target) ? true : null;
                 }
         );
     }
@@ -206,10 +227,44 @@ public final class KinsRoleNameHudHandlers {
 
     private static boolean countsAsKillerCohort(@NotNull GameWorldComponent gameWorld, @NotNull PlayerEntity player) {
         Role role = gameWorld.getRole(player);
+        /*
+         * 这个 helper 是 Hacker 破解 HUD 的“广义杀手侧目标”过滤条件，
+         * 需要继续包含真杀手、Hacker、Dreamer、Noelles 杀手侧中立和 Mimic。
+         * 不要把它直接用于 RoleNameHudApi.registerCohortState，否则会重新制造双向泄露。
+         */
         return role != null
                 && (gameWorld.canUseKillerFeatures(player)
                 || KinsWatheRoles.KILLER_NEUTRAL_ROLES.contains(role)
                 || KinsWatheRoles.isKillerSidedNeutral(player));
+    }
+
+    private static boolean countsAsTwoWayKillerCohort(@NotNull GameWorldComponent gameWorld, @NotNull PlayerEntity player) {
+        Role role = gameWorld.getRole(player);
+        return role != null
+                && (role == KinsWatheRoles.HACKER
+                || isNoellesExecutioner(gameWorld, player));
+    }
+
+    private static boolean showsAsOneWayKillerCohortTarget(@NotNull GameWorldComponent gameWorld, @NotNull PlayerEntity player) {
+        Role role = gameWorld.getRole(player);
+        if (role == null) {
+            return false;
+        }
+
+        boolean kinsOneWayKillerNeutral = KinsWatheRoles.KILLER_NEUTRAL_ROLES.contains(role)
+                && role != KinsWatheRoles.HACKER;
+        boolean noellesOneWayKillerSided = KinsWatheRoles.isKillerSidedNeutral(player)
+                && !isNoellesExecutioner(gameWorld, player);
+        return kinsOneWayKillerNeutral || noellesOneWayKillerSided;
+    }
+
+    private static boolean isNoellesExecutioner(@NotNull GameWorldComponent gameWorld, @NotNull PlayerEntity player) {
+        if (!FabricLoader.getInstance().isModLoaded("noellesroles")) {
+            return false;
+        }
+
+        Role executioner = KinsWatheRoles.noellesrolesRoles("EXECUTIONER");
+        return executioner != null && gameWorld.isRole(player, executioner);
     }
 
     private static @Nullable PlayerEntity aliveTarget(@Nullable PlayerEntity target) {
