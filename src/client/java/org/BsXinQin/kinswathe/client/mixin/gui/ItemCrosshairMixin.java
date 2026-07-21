@@ -51,7 +51,6 @@ public class ItemCrosshairMixin {
             renderCrosshair(context, target);
         }
         else if (mainHandStack.isOf(KinsWatheItems.HUNTING_KNIFE) ||
-                 mainHandStack.isOf(KinsWatheItems.PAN) ||
                  mainHandStack.isOf(KinsWatheItems.POISON_INJECTOR)) {
             ci.cancel();
             context.getMatrices().push();

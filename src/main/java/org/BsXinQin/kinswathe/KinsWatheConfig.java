@@ -72,9 +72,6 @@ public class KinsWatheConfig {
     @SerialEntry(comment = "Bellringer: modify reduce time of ability (seconds).")
     public int BellringerReduceSeconds = 60;
 
-    @SerialEntry(comment = "Cook: modify price of Pan.")
-    public int CookPanPrice = 250;
-
     @SerialEntry(comment = "Detective: modify price and cooldown of ability.")
     public int DetectiveAbilityPrice = 200;
     @SerialEntry
@@ -110,9 +107,6 @@ public class KinsWatheConfig {
     public int LicensedVillainPlayerLimit = 10;
     @SerialEntry
     public int LicensedVillainRevolverPrice = 300;
-
-    @SerialEntry(comment = "Physician: modify price of Pill.")
-    public int PhysicianPillPrice = 300;
 
     @SerialEntry(comment = "Robot: modify duration and cooldown of ability.")
     public int RobotAbilityDuration = GameConstants.getInTicks(0,10) / 20;

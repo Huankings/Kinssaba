@@ -18,9 +18,6 @@
   "announcement.role.kinswathe.cleaner": "清道夫",
   "announcement.goals.kinswathe.cleaner": "扫除一切障碍！",
 
-  "announcement.role.kinswathe.cook": "厨师",
-  "announcement.goals.kinswathe.cook": "透过墙壁看见吃过东西的玩家！",
-
   "announcement.role.kinswathe.detective": "侦探",
   "announcement.goals.kinswathe.detective": "调查出一切！",
   "tip.kinswathe.detective.innocent": "%s 是平民",
@@ -54,11 +51,6 @@
   "tip.kinswathe.licensed_villain.weapon": "执照恶棍已经获取了武器！",
   "game.win.kinswathe.licensed_villain": "执照恶棍执行了他的正义",
 
-  "announcement.role.kinswathe.physician": "医师",
-  "announcement.goals.kinswathe.physician": "透过墙壁看见中毒的玩家，然后治疗他们",
-  "tip.kinswathe.physician.medical_kit": "你感觉好多了",
-  "tip.kinswathe.physician.poisoned": "有人似乎中毒了",
-
   "announcement.role.kinswathe.robot": "机器人",
   "announcement.goals.kinswathe.robot": "毫无感情可言的机器。",
   "replay.skill_use.kinswathe.bellringer": "%s 减少了 %s 秒的时间，花费 %s 金币",
@@ -69,8 +61,6 @@
   "replay.skill_use.kinswathe.robot": "%s 发动了夜视能力",
   "replay.skill_use.kinswathe.kidnapper.release": "%s 提前结束了对 %s 的劫持",
   "replay.skill_use.kinswathe.kidnapper.release_end": "%s 的被劫持状态结束",
-  "replay.item_use.kinswathe.medical_kit": "%s 用医疗箱解除了 %s 的异常状态",
-  "replay.item_use.kinswathe.pill": "%s 饮用了药丸",
   "replay.item_use.kinswathe.knockout_drug": "%s 使用迷药迷晕并劫持了 %s",
   "replay.item_use.kinswathe.knockout_drug.failed_robot": "%s 无法被 %s 的迷药迷晕",
   "replay.item_use.kinswathe.poison_injector": "%s 用毒液注射器注射毒液给 %s",
@@ -78,15 +68,9 @@
   "replay.item_use.kinswathe.sulfuric_acid_barrel": "%s 使用硫酸桶溶解了 %s 的尸体",
   "replay.item_hit.kinswathe.blowgun": "%s 使用吹矢命中了 %s",
   "replay.item_hit.kinswathe.blowgun.failed_robot": "%s 无法被 %s 的吹矢中毒",
-  "replay.item_hit.kinswathe.pan": "%s 用平底锅敲晕了 %s",
-  "replay.global.kinswathe.pan_stun_end": "%s 的眩晕状态解除",
   "replay.global.kinswathe.robot_night_vision_end": "%s 的夜视时间结束",
   "replay.global.kinswathe.robot.poison_immune": "%s 无法被带有毒药的 %s 中毒，毒源来自于 %s",
   "replay.global.kinswathe.robot.bed_poison_immune": "%s 无法被 %s 放置的蝎子中毒",
-  "replay.shield_blocked.kinswathe.pill.item": "%s 的药丸抵挡住了来自 %s 的伤害",
-  "replay.shield_blocked.kinswathe.pill.by_item": "%s 的药丸抵挡住了来自 %s 的 %s 伤害",
-  "replay.shield_blocked.kinswathe.pan.item": "%s 的平底锅抵挡了来自 %s 的伤害",
-  "replay.shield_blocked.kinswathe.pan.by_item": "%s 的平底锅抵挡了来自 %s 的 %s 伤害",
 
   "announcement.role.kinswathe.technician": "技术员",
   "announcement.goals.kinswathe.technician": "用技术解决问题！",
@@ -109,15 +93,6 @@
 
   "item.kinswathe.knockout_drug": "迷药",
   "item.kinswathe.knockout_drug.tooltip": "用于玩家，可迷晕其 20 秒\n被作用的玩家将会一直跟随你\n按下潜行键可以释放玩家\n一次性物品，冷却 45 秒",
-
-  "item.kinswathe.medical_kit": "医疗箱",
-  "item.kinswathe.medical_kit.tooltip": "用于玩家，可移除其中毒效果\n冷却 1 分钟",
-
-  "item.kinswathe.pan": "平底锅",
-  "item.kinswathe.pan.tooltip": "右键蓄力一秒，靠近目标即可击晕 5 秒\n当蓄力期间遭受枪击，则摧毁平底锅来抵消此次伤害\n冷却 45 秒",
-
-  "item.kinswathe.pill": "药丸",
-  "item.kinswathe.pill.tooltip": "右键食用\n让玩家额外承受一次伤害\n一次性物品，冷却 3 分钟",
 
   "item.kinswathe.poison_injector": "毒液注射器",
   "item.kinswathe.poison_injector.tooltip": "用于玩家，使其中毒\n如果目标已经中毒，则直接致死\n冷却 1 分钟",
@@ -156,10 +131,6 @@
   "guidebook.role.title.kinswathe:cleaner": "不留痕迹",
   "guidebook.role.description.kinswathe:cleaner": "清道夫是杀手组织派来的清理专家。\n\n初始携带一个硫酸桶，可以用来溶解尸体，并获得金币报酬。\n\n清道夫可以使用技能清理地面上的所有掉落物。\n\n对于杀手们来说，清道夫是最可靠的合作伙伴——毕竟，没有尸体就没有证据。",
 
-  "guidebook.role.kinswathe:cook": "厨师",
-  "guidebook.role.title.kinswathe:cook": "颠勺大师",
-  "guidebook.role.description.kinswathe:cook": "列车上最受欢迎的人，毕竟谁不想在旅途中吃上一口热乎的呢？\n\n平底锅不仅能用来烹饪，危急时刻还能当做武器击晕敌人。甚至，它能够用来挡子弹！\n\n每当有乘客食用食物时，厨师能够短暂地看到他们的位置，毕竟没人能逃过厨师的注视。\n\n记住，厨师只是个普通人，别拿着平底锅去追杀手...",
-
   "guidebook.role.kinswathe:detective": "侦探",
   "guidebook.role.title.kinswathe:detective": "真相追寻者",
   "guidebook.role.description.kinswathe:detective": "侦探乘坐这趟列车并非偶然，他收到了一封匿名信，信中暗示这趟旅程将发生命案。\n\n他可以使用洞察能力判断一名目标是否为无辜者。\n\n但是无法直接找出杀手——侦探的能力只能告诉他谁是无辜的，而剩下的，则需要他自己推理...",
@@ -183,10 +154,6 @@
   "guidebook.role.kinswathe:licensed_villain": "执照恶棍",
   "guidebook.role.title.kinswathe:licensed_villain": "持证上岗",
   "guidebook.role.description.kinswathe:licensed_villain": "执照恶棍是持有官方认证的恶人执照的稀有角色，他仅会在人数足够时出现。\n\n执照恶棍的胜利条件与众不同——他必须杀死所有人。当所有平民阵营或所有杀手阵营死亡时，游戏并不会结束，只有他能亲手终结一切。\n\n执照恶棍拥有 15 秒的冲刺时间，上车的时候会自带一个开锁器，且每完成一项任务可获得金币。\n\n在商店中可以购买左轮手枪，并且他使用左轮手枪时不会有任何错误开火惩罚——毕竟是专业的。",
-
-  "guidebook.role.kinswathe:physician": "医师",
-  "guidebook.role.title.kinswathe:physician": "白衣天使",
-  "guidebook.role.description.kinswathe:physician": "列车上最值得信赖的人，发誓要救死扶伤！\n\n医师天生具备敏锐的嗅觉，能够看到被下毒的乘客——但是他似乎无法分辨出幻觉试剂。并且拥有 15 秒的冲刺时间，这足以在危急时刻赶到患者身边。当然，分析出尸体的死因也是医师必备的一项技能。\n\n初始携带一个医疗箱，可以使用医疗箱为一名玩家解毒，这一行为也将被视为完成一次任务，可以获得对应的报酬。\n\n在商店中可以购买药丸，服用后可使自己额外承受一次攻击。",
 
   "guidebook.role.kinswathe:robot": "机器人",
   "guidebook.role.title.kinswathe:robot": "机械造物",

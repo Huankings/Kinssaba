@@ -7,12 +7,10 @@ import dev.doctor4t.wathe.api.shop.ShopPurchaseContext;
 import dev.doctor4t.wathe.api.shop.ShopPurchaseResult;
 import dev.doctor4t.wathe.util.ShopEntry;
 import net.minecraft.entity.player.PlayerEntity;
-import org.BsXinQin.kinswathe.roles.cook.CookShopHandler;
 import org.BsXinQin.kinswathe.roles.drugmaker.DrugmakerShopHandler;
 import org.BsXinQin.kinswathe.roles.hunter.HunterShopHandler;
 import org.BsXinQin.kinswathe.roles.kidnapper.KidnapperShopHandler;
 import org.BsXinQin.kinswathe.roles.licensed_villain.LicensedVillainShopHandler;
-import org.BsXinQin.kinswathe.roles.physician.PhysicianShopHandler;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianShopHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,8 +36,6 @@ public final class KinsWatheShopBootstrap {
         ShopApi.registerShopModifier(KinsWathe.id("kidnapper_shop"), ShopApi.DEFAULT_PRIORITY, KidnapperShopHandler::modifyShop);
 
         register(KinsWatheRoles.TECHNICIAN, player -> TechnicianShopHandler.getShopEntries(player.getWorld()));
-        register(KinsWatheRoles.COOK, player -> CookShopHandler.getShopEntries(player.getWorld()));
-        register(KinsWatheRoles.PHYSICIAN, player -> PhysicianShopHandler.getShopEntries(player.getWorld()));
         register(KinsWatheRoles.LICENSED_VILLAIN, player -> LicensedVillainShopHandler.getShopEntries(player.getWorld()));
     }
 

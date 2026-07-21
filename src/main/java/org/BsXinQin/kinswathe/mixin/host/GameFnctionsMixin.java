@@ -9,10 +9,8 @@ import org.BsXinQin.kinswathe.KinsWatheConfig;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.component.GameSafeComponent;
 import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
-import org.BsXinQin.kinswathe.roles.cook.CookComponent;
 import org.BsXinQin.kinswathe.roles.hunter.HunterComponent;
 import org.BsXinQin.kinswathe.roles.kidnapper.KidnapperComponent;
-import org.BsXinQin.kinswathe.roles.physician.PhysicianComponent;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianComponent;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,10 +28,8 @@ public class GameFnctionsMixin {
         GameSafeComponent.KEY.get(player.getWorld()).reset();
         PlayerEffectComponent.KEY.get(player).reset();
         AbilityPlayerComponent.KEY.get(player).reset();
-        CookComponent.KEY.get(player).reset();
         HunterComponent.KEY.get(player).reset();
         KidnapperComponent.KEY.get(player).reset();
-        PhysicianComponent.KEY.get(player).reset();
         TechnicianComponent.KEY.get(player).reset();
     }
 

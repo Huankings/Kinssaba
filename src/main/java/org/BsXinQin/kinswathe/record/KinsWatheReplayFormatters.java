@@ -2,10 +2,7 @@ package org.BsXinQin.kinswathe.record;
 
 import dev.doctor4t.wathe.record.GameRecordEvent;
 import dev.doctor4t.wathe.record.GameRecordManager;
-import dev.doctor4t.wathe.record.replay.DefaultReplayFormatters;
-import dev.doctor4t.wathe.record.replay.ReplayEventFormatter;
 import dev.doctor4t.wathe.record.replay.ReplayGenerator;
-import dev.doctor4t.wathe.record.replay.ReplayRegistry;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
@@ -33,22 +30,15 @@ public final class KinsWatheReplayFormatters {
         registerSkillFormatter(id("robot_night_vision"), KinsWatheReplayFormatters::formatRobotNightVision);
         registerSkillFormatter(id("kidnapper_release"), KinsWatheReplayFormatters::formatKidnapperRelease);
 
-        registerItemUseFormatter(id("medical_kit"), KinsWatheReplayFormatters::formatMedicalKitUse);
-        registerItemUseFormatter(id("pill"), KinsWatheReplayFormatters::formatPillUse);
         registerItemUseFormatter(id("knockout_drug"), KinsWatheReplayFormatters::formatKnockoutDrugUse);
         registerItemUseFormatter(id("poison_injector"), KinsWatheReplayFormatters::formatPoisonInjectorUse);
         registerItemUseFormatter(id("sulfuric_acid_barrel"), KinsWatheReplayFormatters::formatSulfuricAcidBarrelUse);
 
         registerItemHitFormatter(id("blowgun"), KinsWatheReplayFormatters::formatBlowgunHit);
-        registerItemHitFormatter(id("pan"), KinsWatheReplayFormatters::formatPanHit);
 
-        registerGlobalEventFormatter(id("pan_stun_end"), KinsWatheReplayFormatters::formatPanStunEnd);
         registerGlobalEventFormatter(id("robot_night_vision_end"), KinsWatheReplayFormatters::formatRobotNightVisionEnd);
         registerGlobalEventFormatter(id("robot_poison_immune"), KinsWatheReplayFormatters::formatRobotPoisonImmune);
         registerGlobalEventFormatter(id("robot_bed_poison_immune"), KinsWatheReplayFormatters::formatRobotBedPoisonImmune);
-
-        registerShieldSourceFormatter(id("pill"), KinsWatheReplayFormatters::formatPillShield);
-        registerShieldSourceFormatter(id("pan"), KinsWatheReplayFormatters::formatPanShield);
     }
 
     private static @Nullable Text actorText(GameRecordEvent event, GameRecordManager.MatchRecord match) {
@@ -67,20 +57,6 @@ public final class KinsWatheReplayFormatters {
 
     private static @Nullable UUID uuid(NbtCompound data, String key) {
         return data.containsUuid(key) ? data.getUuid(key) : null;
-    }
-
-    private static @Nullable Text formatShieldBlock(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world, String singleKey, String byItemKey) {
-        Text victimText = targetText(event, match);
-        if (victimText == null) {
-            return null;
-        }
-
-        Text damageName = DefaultReplayFormatters.formatBlockedDamageName(event.data(), world);
-        Text attackerText = actorText(event, match);
-        if (attackerText != null) {
-            return Text.translatable(byItemKey, victimText, attackerText, damageName);
-        }
-        return Text.translatable(singleKey, victimText, damageName);
     }
 
     private static @Nullable Text formatBellringerReduceTime(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
@@ -134,20 +110,6 @@ public final class KinsWatheReplayFormatters {
         return Text.translatable("replay.skill_use.kinswathe.kidnapper.release_end", actor);
     }
 
-    private static @Nullable Text formatMedicalKitUse(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        Text target = targetText(event, match);
-        if (actor == null || target == null) {
-            return null;
-        }
-        return Text.translatable("replay.item_use.kinswathe.medical_kit", actor, target);
-    }
-
-    private static @Nullable Text formatPillUse(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        return actor == null ? null : Text.translatable("replay.item_use.kinswathe.pill", actor);
-    }
-
     private static @Nullable Text formatKnockoutDrugUse(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
         Text actor = actorText(event, match);
         Text target = targetText(event, match);
@@ -193,20 +155,6 @@ public final class KinsWatheReplayFormatters {
         return Text.translatable("replay.item_hit.kinswathe.blowgun", actor, target);
     }
 
-    private static @Nullable Text formatPanHit(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        Text target = targetText(event, match);
-        if (actor == null || target == null) {
-            return null;
-        }
-        return Text.translatable("replay.item_hit.kinswathe.pan", actor, target);
-    }
-
-    private static @Nullable Text formatPanStunEnd(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        return actor == null ? null : Text.translatable("replay.global.kinswathe.pan_stun_end", actor);
-    }
-
     private static @Nullable Text formatRobotNightVisionEnd(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
         Text actor = actorText(event, match);
         return actor == null ? null : Text.translatable("replay.global.kinswathe.robot_night_vision_end", actor);
@@ -235,23 +183,4 @@ public final class KinsWatheReplayFormatters {
         return poisonerText == null ? null : Text.translatable("replay.global.kinswathe.robot.bed_poison_immune", actor, poisonerText);
     }
 
-    private static @Nullable Text formatPillShield(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        return formatShieldBlock(
-                event,
-                match,
-                world,
-                "replay.shield_blocked.kinswathe.pill.item",
-                "replay.shield_blocked.kinswathe.pill.by_item"
-        );
-    }
-
-    private static @Nullable Text formatPanShield(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        return formatShieldBlock(
-                event,
-                match,
-                world,
-                "replay.shield_blocked.kinswathe.pan.item",
-                "replay.shield_blocked.kinswathe.pan.by_item"
-        );
-    }
 }

@@ -36,21 +36,6 @@ public class KinsWatheItems {
             new KnockoutDrugItem(new Item.Settings().maxCount(4)),
             "knockout_drug"
     );
-    //医疗箱
-    public static final Item MEDICAL_KIT = registerItem(
-            new MedicalKitItem(new Item.Settings().maxCount(1)),
-            "medical_kit"
-    );
-    //平底锅
-    public static final Item PAN = registerItem(
-            new PanItem(new Item.Settings().maxCount(1)),
-            "pan"
-    );
-    //药丸
-    public static final Item PILL = registerItem(
-            new PillItem(new Item.Settings().maxCount(1)),
-            "pill"
-    );
     //毒液注射器
     public static final Item POISON_INJECTOR = registerItem(
             new PoisonInjectorItem(new Item.Settings().maxCount(1)),
@@ -96,9 +81,6 @@ public class KinsWatheItems {
         GameConstants.ITEM_COOLDOWNS.put(CAPTURE_DEVICE, GameConstants.getInTicks(1,0));
         GameConstants.ITEM_COOLDOWNS.put(HUNTING_KNIFE, GameConstants.getInTicks(0,45));
         GameConstants.ITEM_COOLDOWNS.put(KNOCKOUT_DRUG, GameConstants.getInTicks(0,45));
-        GameConstants.ITEM_COOLDOWNS.put(MEDICAL_KIT, GameConstants.getInTicks(1,0));
-        GameConstants.ITEM_COOLDOWNS.put(PAN, GameConstants.getInTicks(0,45));
-        GameConstants.ITEM_COOLDOWNS.put(PILL, GameConstants.getInTicks(3,0));
         GameConstants.ITEM_COOLDOWNS.put(POISON_INJECTOR, GameConstants.getInTicks(1,0));
         GameConstants.ITEM_COOLDOWNS.put(SULFURIC_ACID_BARREL, GameConstants.getInTicks(1,0));
         GameConstants.ITEM_COOLDOWNS.put(WRENCH, GameConstants.getInTicks(2,0));
@@ -113,9 +95,6 @@ public class KinsWatheItems {
             entries.add(CAPTURE_DEVICE);
             entries.add(HUNTING_KNIFE);
             entries.add(KNOCKOUT_DRUG);
-            entries.add(MEDICAL_KIT);
-            entries.add(PAN);
-            entries.add(PILL);
             entries.add(POISON_INJECTOR);
             entries.add(SULFURIC_ACID_BARREL);
             entries.add(WRENCH);

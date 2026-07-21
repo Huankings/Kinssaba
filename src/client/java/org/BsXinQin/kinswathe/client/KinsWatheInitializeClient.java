@@ -86,9 +86,6 @@ public class KinsWatheInitializeClient {
             ItemToolTip.addItemtip(KinsWatheItems.CAPTURE_DEVICE, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.HUNTING_KNIFE, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.KNOCKOUT_DRUG, itemStack, list);
-            ItemToolTip.addItemtip(KinsWatheItems.MEDICAL_KIT, itemStack, list);
-            ItemToolTip.addItemtip(KinsWatheItems.PAN, itemStack, list);
-            ItemToolTip.addItemtip(KinsWatheItems.PILL, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.POISON_INJECTOR, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.SULFURIC_ACID_BARREL, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.WRENCH, itemStack, list);

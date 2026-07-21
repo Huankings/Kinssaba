@@ -76,16 +76,6 @@ public class KinsWatheRoles {
             -1,
             true
     ));
-    //厨师
-    public static Role COOK = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "cook"),
-            0xCCFF99,
-            true,
-            false,
-            Role.MoodType.REAL,
-            WatheRoles.CIVILIAN.getMaxSprintTime(),
-            false
-    ));
     //侦探
     public static Role DETECTIVE = registerRole(new Role(
             Identifier.of(KinsWathe.MOD_ID, "detective"),
@@ -143,16 +133,6 @@ public class KinsWatheRoles {
             false,
             false,
             Role.MoodType.FAKE,
-            WatheRoles.CIVILIAN.getMaxSprintTime() * 3 / 2,
-            false
-    ));
-    //医师
-    public static Role PHYSICIAN = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "physician"),
-            0xFFE5CC,
-            true,
-            false,
-            Role.MoodType.REAL,
             WatheRoles.CIVILIAN.getMaxSprintTime() * 3 / 2,
             false
     ));
@@ -319,10 +299,6 @@ public class KinsWatheRoles {
             if (role.equals(LICENSED_VILLAIN)) {
                 player.giveItemStack(WatheItems.LOCKPICK.getDefaultStack());
             }
-            //医师初始物品
-            if (role.equals(PHYSICIAN)) {
-                player.giveItemStack(KinsWatheItems.MEDICAL_KIT.getDefaultStack());
-            }
         });
     }
 
@@ -362,11 +338,9 @@ public class KinsWatheRoles {
          */
         EconomyApi.registerBalanceHudRoles(List.of(
                 BELLRINGER,
-                COOK,
                 DETECTIVE,
                 JUDGE,
                 LICENSED_VILLAIN,
-                PHYSICIAN,
                 TECHNICIAN
         ));
 
@@ -376,7 +350,6 @@ public class KinsWatheRoles {
          * 因为 Wathe 的 EconomyApi 会保留“杀手能力角色默认拥有被动收入”的原行为。
          */
         EconomyApi.registerPassiveIncomeRoles(List.of(
-                COOK,
                 JUDGE
         ));
 
@@ -440,11 +413,9 @@ public class KinsWatheRoles {
 
     private static boolean hasBaseTaskIncome(Role role) {
         return role == BELLRINGER
-                || role == COOK
                 || role == DETECTIVE
                 || role == JUDGE
                 || role == LICENSED_VILLAIN
-                || role == PHYSICIAN
                 || role == TECHNICIAN;
     }
 

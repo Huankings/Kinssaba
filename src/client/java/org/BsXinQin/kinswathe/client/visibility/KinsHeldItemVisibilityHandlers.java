@@ -17,8 +17,5 @@ public final class KinsHeldItemVisibilityHandlers {
     public static void register() {
         // 技术员的捕获装置：只有 Technician 自己拿出时才对别人不可见。
         HeldItemInvisibilityApi.registerHiddenItem(KinsWatheRoles.TECHNICIAN, KinsWatheItems.CAPTURE_DEVICE);
-
-        // 医师的药丸：只有 Physician 自己拿出时才对别人不可见。
-        HeldItemInvisibilityApi.registerHiddenItem(KinsWatheRoles.PHYSICIAN, KinsWatheItems.PILL);
     }
 }

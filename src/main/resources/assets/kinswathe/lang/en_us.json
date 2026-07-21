@@ -18,9 +18,6 @@
   "announcement.role.kinswathe.cleaner": "Cleaner",
   "announcement.goals.kinswathe.cleaner": "Remove all obstacles!",
 
-  "announcement.role.kinswathe.cook": "Cook",
-  "announcement.goals.kinswathe.cook": "See players that eat through walls!",
-
   "announcement.role.kinswathe.detective": "Detective",
   "announcement.goals.kinswathe.detective": "Investigate everything!",
   "tip.kinswathe.detective.innocent": "%s is innocent",
@@ -54,11 +51,6 @@
   "tip.kinswathe.licensed_villain.weapon": "Licensed Villain has obtained weapon!",
   "game.win.kinswathe.licensed_villain": "The licensed villain ended everyone's life!",
 
-  "announcement.role.kinswathe.physician": "Physician",
-  "announcement.goals.kinswathe.physician": "See poisoned players through walls and treat them.",
-  "tip.kinswathe.physician.medical_kit": "You feel much better now",
-  "tip.kinswathe.physician.poisoned": "Someone seems to be poisoned",
-
   "announcement.role.kinswathe.robot": "Robot",
   "announcement.goals.kinswathe.robot": "A machine devoid of any emotion.",
   "replay.skill_use.kinswathe.bellringer": "%s reduced %s seconds, costing %s coins",
@@ -69,8 +61,6 @@
   "replay.skill_use.kinswathe.robot": "%s activated night vision",
   "replay.skill_use.kinswathe.kidnapper.release": "%s ended kidnapping of %s early",
   "replay.skill_use.kinswathe.kidnapper.release_end": "%s's kidnapped state ended",
-  "replay.item_use.kinswathe.medical_kit": "%s used a medical kit to clear %s's abnormal status",
-  "replay.item_use.kinswathe.pill": "%s drank a pill",
   "replay.item_use.kinswathe.knockout_drug": "%s used knockout drug to daze and kidnap %s",
   "replay.item_use.kinswathe.knockout_drug.failed_robot": "%s cannot be dazed by %s's knockout drug",
   "replay.item_use.kinswathe.poison_injector": "%s injected poison into %s with poison injector",
@@ -78,15 +68,9 @@
   "replay.item_use.kinswathe.sulfuric_acid_barrel": "%s dissolved %s's body with sulfuric acid barrel",
   "replay.item_hit.kinswathe.blowgun": "%s hit %s with blowgun",
   "replay.item_hit.kinswathe.blowgun.failed_robot": "%s cannot be poisoned by %s's blowgun",
-  "replay.item_hit.kinswathe.pan": "%s stunned %s with a pan",
-  "replay.global.kinswathe.pan_stun_end": "%s's stun has ended",
   "replay.global.kinswathe.robot_night_vision_end": "%s's night vision has ended",
   "replay.global.kinswathe.robot.poison_immune": "%s cannot be poisoned by poisoned %s, source from %s",
   "replay.global.kinswathe.robot.bed_poison_immune": "%s cannot be poisoned by scorpion placed by %s",
-  "replay.shield_blocked.kinswathe.pill.item": "%s's pill blocked damage from %s",
-  "replay.shield_blocked.kinswathe.pill.by_item": "%s's pill blocked %s damage from %s",
-  "replay.shield_blocked.kinswathe.pan.item": "%s's pan blocked damage from %s",
-  "replay.shield_blocked.kinswathe.pan.by_item": "%s's pan blocked %s damage from %s",
 
   "announcement.role.kinswathe.technician": "Technician",
   "announcement.goals.kinswathe.technician": "Use technology to solve problems!",
@@ -109,15 +93,6 @@
 
   "item.kinswathe.knockout_drug": "Knockout Drug",
   "item.kinswathe.knockout_drug.tooltip": "Use on a player to daze it for 20 seconds\nThe affected player will follow you\nUse sneaking key to release it\nSingle use, 45 seconds cooldown",
-
-  "item.kinswathe.medical_kit": "Medical Kit",
-  "item.kinswathe.medical_kit.tooltip": "Use on a player to remove poison\n1 minute cooldown",
-
-  "item.kinswathe.pan": "Pan",
-  "item.kinswathe.pan.tooltip": "Right-click, hold for a second and stun target for 5 seconds\nIf shot during holding, destroy pan to protects player one extra hit of life\n45 seconds cooldown",
-
-  "item.kinswathe.pill": "Pill",
-  "item.kinswathe.pill.tooltip": "Right-click to eat\nProtects player one extra hit of life\nSingle use, 3 minutes cooldown",
 
   "item.kinswathe.poison_injector": "Poison Injector",
   "item.kinswathe.poison_injector.tooltip": "Use on a player to poison it\nIf target have been poisoned, directly cause death\n1 minute cooldown",
@@ -156,10 +131,6 @@
   "guidebook.role.title.kinswathe:cleaner": "Leaves No Trace",
   "guidebook.role.description.kinswathe:cleaner": "The Cleaner is an cleanup expert sent by the killer organization.\n\nStarts with Sulfuric Acid Barrel, which can be used to dissolve bodies, and can get coins when dissolve a body.\n\nThe Cleaner can use their ability to clear all dropped items on the ground.\n\nFor killers, the Cleaner is the most reliable partner — after all, no body means no evidence.",
 
-  "guidebook.role.kinswathe:cook": "Cook",
-  "guidebook.role.title.kinswathe:cook": "Frying Pan Master",
-  "guidebook.role.description.kinswathe:cook": "The most popular person on the train — after all, who doesn't want a hot meal during the journey?\n\nPan isn't just for cooking; in critical moments, it can be used as weapon to stun enemies. It can even block bullets!\n\nWhenever a passenger eats food, the Cook can briefly see their location — after all, no one can escape the Cook's gaze.\n\nRemember, the Cook is just an ordinary person. Don't go chasing killers with Pan...",
-
   "guidebook.role.kinswathe:detective": "Detective",
   "guidebook.role.title.kinswathe:detective": "Truth Seeker",
   "guidebook.role.description.kinswathe:detective": "The Detective's presence on this train is no coincidence — he received an anonymous letter hinting that a murder would occur during this journey.\n\nHe can use his Insight ability to determine if a target is innocent.\n\nBut he cannot directly identify the killer — his ability only tells him who is innocent. The rest, he must deduce himself...",
@@ -183,10 +154,6 @@
   "guidebook.role.kinswathe:licensed_villain": "Licensed Villain",
   "guidebook.role.title.kinswathe:licensed_villain": "Officially Certified",
   "guidebook.role.description.kinswathe:licensed_villain": "The Licensed Villain is a rare character holding an officially certified villain license. He only appears when there are enough players.\n\nThe Licensed Villain's win condition is unique — he must kill everyone. When all civilians or all killers are eliminated, the game does not end. Only he can end it all with his own hands.\n\nThe Licensed Villain has 15 seconds of sprint time, boards with Lockpick, and receives coins for completing tasks.\n\nRevolver can be purchased at the shop, and he suffers no misfire penalty when using it — after all, he's a professional.",
-
-  "guidebook.role.kinswathe:physician": "Physician",
-  "guidebook.role.title.kinswathe:physician": "Angel in White",
-  "guidebook.role.description.kinswathe:physician": "The most trustworthy person on the train, sworn to heal the wounded and save the dying!\n\nThe Physician has a keen sense of smell, allowing them to see poisoned passengers — though they seem unable to distinguish the Illusion Reagent. They also have 15 seconds of sprint time, enough to reach patients in critical moments. Of course, analyzing the cause of death of bodies is also an essential skill for the Physician.\n\nStarts with Medical Kit, which can be used to detoxify a player. This action is also considered completing a task and rewards corresponding payment.\n\nPill can be purchased at the shop. Taking it allows the Physician to withstand one additional attack.",
 
   "guidebook.role.kinswathe:robot": "Robot",
   "guidebook.role.title.kinswathe:robot": "Mechanical Being",
