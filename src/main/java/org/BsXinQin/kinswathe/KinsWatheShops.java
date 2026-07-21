@@ -10,17 +10,13 @@ import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.index.WatheItems;
 import dev.doctor4t.wathe.record.ShopPurchaseTracker;
 import dev.doctor4t.wathe.util.ShopEntry;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import org.BsXinQin.kinswathe.roles.hacker.HackerComponent;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianComponent;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Field;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +25,6 @@ public class KinsWatheShops {
 
     private static final Map<String, Integer> ITEM_PRICES = new HashMap<>();
     private static final Map<String, ShopPrice> ITEM_SHOP_PRICES = new HashMap<>();
-    private static List<ShopEntry> FRAMING_ROLES_SHOP = Collections.emptyList();
 
     /// 提取其他模组商店物品价格
     static {
@@ -44,21 +39,6 @@ public class KinsWatheShops {
                  */
                 ITEM_SHOP_PRICES.put(itemKey, entry.shopPrice());
                 ITEM_PRICES.put(itemKey, entry.price());
-            }
-        }
-        if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-            try {
-                Class<?> noellesRolesClass = Class.forName("org.agmas.noellesroles.Noellesroles");
-                Field framingShopField = noellesRolesClass.getField("FRAMING_ROLES_SHOP");
-                Object shop = framingShopField.get(null);
-                if (shop instanceof List<?> list) {
-                    // 这里直接保留对 noellesroles 原列表对象的引用，
-                    // 这样即使对方在 onInitialize 里继续往列表追加内容，这边也能同步看到最新条目。
-                    FRAMING_ROLES_SHOP = (List<ShopEntry>) list;
-                }
-            } catch (Exception exception) {
-                // 兼容失败时退回空列表，避免梦者客户端/服务端商店界面直接空指针崩溃。
-                FRAMING_ROLES_SHOP = Collections.emptyList();
             }
         }
     }
@@ -159,11 +139,6 @@ public class KinsWatheShops {
         entries.add(index >= 0 ? index + 1 : entries.size(), entry);
     }
 
-    // 杀手方中立商店兜底数据仍放在公共工具类里，具体职业通过 DreamerShopHandler 读取。
-    public static List<ShopEntry> getKillerNeutralRolesShop() {
-        return FRAMING_ROLES_SHOP;
-    }
-
     /// 商店处理方法
     public static @NotNull ShopPurchaseResult purchase(@NotNull ShopPurchaseContext context) {
         PlayerEntity player = context.player();
@@ -210,18 +185,6 @@ public class KinsWatheShops {
         Item item = stack.getItem();
         if (item == WatheItems.BLACKOUT) return PlayerShopComponent.useBlackout(player);
         if (item == WatheItems.PSYCHO_MODE) return PlayerShopComponent.usePsychoMode(player);
-        if (item == KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH) {
-            HackerComponent.refreshWeaponCooldown(player);
-            return true;
-        }
-        if (item == KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH) {
-            HackerComponent.refreshAbilityCooldown(player);
-            return true;
-        }
-        if (item == KinsWatheItems.ICON_POTION_EFFECT_REFRESH) {
-            HackerComponent.refreshPotionEffect(player);
-            return true;
-        }
         if (item == KinsWatheItems.ICON_POWER_RESTORATION) {
             TechnicianComponent.stopBlackout(player);
             return true;

@@ -29,14 +29,12 @@ public final class KinsWatheReplayFormatters {
         registerSkillFormatter(id("bellringer_reduce_time"), KinsWatheReplayFormatters::formatBellringerReduceTime);
         registerSkillFormatter(id("cleaner_clear_items"), KinsWatheReplayFormatters::formatCleanerClearItems);
         registerSkillFormatter(id("detective_check"), KinsWatheReplayFormatters::formatDetectiveCheck);
-        registerSkillFormatter(id("hacker_reveal"), KinsWatheReplayFormatters::formatHackerReveal);
         registerSkillFormatter(id("hunter_refresh"), KinsWatheReplayFormatters::formatHunterRefresh);
         registerSkillFormatter(id("robot_night_vision"), KinsWatheReplayFormatters::formatRobotNightVision);
         registerSkillFormatter(id("kidnapper_release"), KinsWatheReplayFormatters::formatKidnapperRelease);
 
         registerItemUseFormatter(id("medical_kit"), KinsWatheReplayFormatters::formatMedicalKitUse);
         registerItemUseFormatter(id("pill"), KinsWatheReplayFormatters::formatPillUse);
-        registerItemUseFormatter(id("dream_imprint"), KinsWatheReplayFormatters::formatDreamImprintUse);
         registerItemUseFormatter(id("knockout_drug"), KinsWatheReplayFormatters::formatKnockoutDrugUse);
         registerItemUseFormatter(id("poison_injector"), KinsWatheReplayFormatters::formatPoisonInjectorUse);
         registerItemUseFormatter(id("sulfuric_acid_barrel"), KinsWatheReplayFormatters::formatSulfuricAcidBarrelUse);
@@ -44,13 +42,11 @@ public final class KinsWatheReplayFormatters {
         registerItemHitFormatter(id("blowgun"), KinsWatheReplayFormatters::formatBlowgunHit);
         registerItemHitFormatter(id("pan"), KinsWatheReplayFormatters::formatPanHit);
 
-        registerGlobalEventFormatter(id("dreamer_counts"), KinsWatheReplayFormatters::formatDreamerCounts);
         registerGlobalEventFormatter(id("pan_stun_end"), KinsWatheReplayFormatters::formatPanStunEnd);
         registerGlobalEventFormatter(id("robot_night_vision_end"), KinsWatheReplayFormatters::formatRobotNightVisionEnd);
         registerGlobalEventFormatter(id("robot_poison_immune"), KinsWatheReplayFormatters::formatRobotPoisonImmune);
         registerGlobalEventFormatter(id("robot_bed_poison_immune"), KinsWatheReplayFormatters::formatRobotBedPoisonImmune);
 
-        registerShieldSourceFormatter(id("dream_imprint"), KinsWatheReplayFormatters::formatDreamImprintShield);
         registerShieldSourceFormatter(id("pill"), KinsWatheReplayFormatters::formatPillShield);
         registerShieldSourceFormatter(id("pan"), KinsWatheReplayFormatters::formatPanShield);
     }
@@ -113,15 +109,6 @@ public final class KinsWatheReplayFormatters {
         return Text.translatable(innocent ? "replay.skill_use.kinswathe.detective.innocent" : "replay.skill_use.kinswathe.detective.notinnocent", actor, target);
     }
 
-    private static @Nullable Text formatHackerReveal(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        Text target = targetText(event, match);
-        if (actor == null || target == null) {
-            return null;
-        }
-        return Text.translatable("replay.skill_use.kinswathe.hacker", actor, target);
-    }
-
     private static @Nullable Text formatHunterRefresh(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
         Text actor = actorText(event, match);
         if (actor == null) {
@@ -159,15 +146,6 @@ public final class KinsWatheReplayFormatters {
     private static @Nullable Text formatPillUse(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
         Text actor = actorText(event, match);
         return actor == null ? null : Text.translatable("replay.item_use.kinswathe.pill", actor);
-    }
-
-    private static @Nullable Text formatDreamImprintUse(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        Text target = targetText(event, match);
-        if (actor == null || target == null) {
-            return null;
-        }
-        return Text.translatable("replay.item_use.kinswathe.dream_imprint", actor, target);
     }
 
     private static @Nullable Text formatKnockoutDrugUse(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
@@ -224,14 +202,6 @@ public final class KinsWatheReplayFormatters {
         return Text.translatable("replay.item_hit.kinswathe.pan", actor, target);
     }
 
-    private static @Nullable Text formatDreamerCounts(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        if (actor == null) {
-            return null;
-        }
-        return Text.translatable("replay.global.kinswathe.dreamer_counts", actor, event.data().getInt("counts"), event.data().getInt("required"));
-    }
-
     private static @Nullable Text formatPanStunEnd(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
         Text actor = actorText(event, match);
         return actor == null ? null : Text.translatable("replay.global.kinswathe.pan_stun_end", actor);
@@ -263,16 +233,6 @@ public final class KinsWatheReplayFormatters {
         }
         Text poisonerText = playerText(uuid(event.data(), "poisoner"), match);
         return poisonerText == null ? null : Text.translatable("replay.global.kinswathe.robot.bed_poison_immune", actor, poisonerText);
-    }
-
-    private static @Nullable Text formatDreamImprintShield(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        return formatShieldBlock(
-                event,
-                match,
-                world,
-                "replay.shield_blocked.kinswathe.dream_imprint.item",
-                "replay.shield_blocked.kinswathe.dream_imprint.by_item"
-        );
     }
 
     private static @Nullable Text formatPillShield(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {

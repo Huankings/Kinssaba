@@ -13,7 +13,6 @@
     "noellesroles.roles.jester.JesterJestMixin",
     "roles.cook.CookFinishEatMixin",
     "roles.drugmaker.DrugmakerGiveCoinsMixin",
-    "roles.hacker.HackerAvoidMimicMixin",
     "roles.hunter.HunterLockSlotMixin",
     "roles.hunter.HunterSprintMixin",
     "roles.kidnapper.KidnapperMoneyIncreaseMixin",

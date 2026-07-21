@@ -34,10 +34,6 @@ import org.BsXinQin.kinswathe.packet.items.PanC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
 import org.BsXinQin.kinswathe.roles.cook.CookComponent;
-import org.BsXinQin.kinswathe.roles.dreamer.DreamerComponent;
-import org.BsXinQin.kinswathe.roles.dreamer.DreamerKillerComponent;
-import org.BsXinQin.kinswathe.roles.hacker.HackerComponent;
-import org.BsXinQin.kinswathe.roles.hacker.HackerPhoneComponent;
 import org.BsXinQin.kinswathe.roles.hunter.HunterComponent;
 import org.BsXinQin.kinswathe.roles.kidnapper.KidnapperComponent;
 import org.BsXinQin.kinswathe.roles.physician.PhysicianComponent;
@@ -156,7 +152,6 @@ public class KinsWatheGameSettings {
         //死亡事件
         AllowPlayerDeath.EVENT.register(((player, killer, identifier) -> {
             GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
-            DreamerComponent playerDream = DreamerComponent.KEY.get(player);
             PhysicianComponent playerPhysician = PhysicianComponent.KEY.get(player);
             ServerPlayerEntity victimPlayer = player instanceof ServerPlayerEntity serverPlayer ? serverPlayer : null;
             ServerPlayerEntity attackerPlayer = killer instanceof ServerPlayerEntity serverAttacker ? serverAttacker : null;
@@ -182,22 +177,6 @@ public class KinsWatheGameSettings {
                     player.playSound(SoundEvents.ENTITY_ITEM_BREAK, 1.0f, 1.0f);
                     return false;
                 }
-            }
-            //梦者死亡事件
-            if (playerDream.dreamArmor > 0) {
-                // 梦之印记挡伤同理：先记回放，再进行瞬移和清空护盾。
-                NbtCompound extra = new NbtCompound();
-                extra.putString("death_reason", identifier.toString());
-                GameRecordManager.recordShieldBlocked(
-                        victimPlayer,
-                        attackerPlayer,
-                        KinsWathe.id("dream_imprint"),
-                        GameFunctions.resolveDamageItemForBlockedDeath(killer, identifier),
-                        extra
-                );
-                playerDream.teleportToDreamer();
-                playerDream.reset();
-                return false;
             }
             //医师死亡事件
             if (playerPhysician.physicianArmor > 0) {
@@ -241,10 +220,6 @@ public class KinsWatheGameSettings {
             PlayerEffectComponent.KEY.get(player).reset();
             AbilityPlayerComponent.KEY.get(player).reset();
             CookComponent.KEY.get(player).reset();
-            DreamerComponent.KEY.get(player).reset();
-            DreamerKillerComponent.KEY.get(player).reset();
-            HackerComponent.KEY.get(player).reset();
-            HackerPhoneComponent.KEY.get(player).reset();
             HunterComponent.KEY.get(player).reset();
             KidnapperComponent.KEY.get(player).reset();
             PhysicianComponent.KEY.get(player).reset();

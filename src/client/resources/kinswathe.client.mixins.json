@@ -19,7 +19,6 @@
     "roles.bodymaker.BodymakerSuggestorMixin",
     "roles.cleaner.CleanerHudMixin",
     "roles.detective.DetectiveHudMixin",
-    "roles.dreamer.DreamerHudMixin",
     "roles.hunter.HunterFovMixin",
     "roles.hunter.HunterHudMixin",
     "roles.hunter.HunterLockSlotMixin",

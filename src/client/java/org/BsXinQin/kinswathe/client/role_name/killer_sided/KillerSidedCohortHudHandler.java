@@ -21,8 +21,8 @@ public final class KillerSidedCohortHudHandler {
                 (viewer, subject, vanillaValue) -> {
                     GameWorldComponent gameWorld = GameWorldComponent.KEY.get(subject.getWorld());
                     /*
-                     * 只有 Hacker 与 Noelles Executioner 在这里返回 true。
-                     * Dreamer、Jester、Vulture、Mimic 等只应作为目标被显示，不能让它们获得反查资格。
+                     * 只有 Noelles Executioner 这类双向同伙资格在这里返回 true。
+                     * Jester、Vulture、Mimic 等只应作为目标被显示，不能让它们获得反查资格。
                      */
                     return KinsKillerSidedCohortSupport.countsAsTwoWayKillerCohort(gameWorld, subject)
                             ? true

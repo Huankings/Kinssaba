@@ -21,8 +21,6 @@ import org.BsXinQin.kinswathe.client.instinct.KinsWatheInstinctHandlers;
 import org.BsXinQin.kinswathe.client.items.ItemExtraModel;
 import org.BsXinQin.kinswathe.client.items.ItemToolTip;
 import org.BsXinQin.kinswathe.client.role_name.KinsRoleNameHudHandlers;
-import org.BsXinQin.kinswathe.client.roles.dreamer.DreamerMoodHud;
-import org.BsXinQin.kinswathe.client.roles.hacker.HackerMoodHud;
 import org.BsXinQin.kinswathe.client.roles.licensed_villain.LicensedVillainMoodHud;
 import org.BsXinQin.kinswathe.client.roles.robot.RobotMoodHud;
 import org.BsXinQin.kinswathe.client.roles.technician.CaptureDeviceEntityRenderer;
@@ -86,7 +84,6 @@ public class KinsWatheInitializeClient {
             //添加KinsWathe物品描述
             ItemToolTip.addItemtip(KinsWatheItems.BLOWGUN, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.CAPTURE_DEVICE, itemStack, list);
-            ItemToolTip.addItemtip(KinsWatheItems.DREAM_IMPRINT, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.HUNTING_KNIFE, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.KNOCKOUT_DRUG, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.MEDICAL_KIT, itemStack, list);
@@ -100,13 +97,9 @@ public class KinsWatheInitializeClient {
                 ItemToolTip.addCooldowntip(Registries.ITEM.get(Identifier.of("noellesroles", "fake_revolver")), itemStack, list);
             }
             //添加图标描述
-            ItemToolTip.addItemtip(KinsWatheItems.ICON_ABILITY_COOLDOWN_REFRESH, itemStack, list);
-            ItemToolTip.addItemtip(KinsWatheItems.ICON_POTION_EFFECT_REFRESH, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.ICON_POWER_RESTORATION, itemStack, list);
-            ItemToolTip.addItemtip(KinsWatheItems.ICON_WEAPON_COOLDOWN_REFRESH, itemStack, list);
         }));
         //注册物品额外材质
-        ItemExtraModel.registerExtraModel(KinsWatheItems.PHONE);
         ItemExtraModel.registerExtraModel(KinsWatheItems.POISON_INJECTOR);
     }
 
@@ -116,8 +109,6 @@ public class KinsWatheInitializeClient {
         // 准心名字周围的职业提示 / 同伙规则统一接入 Wathe 的 RoleName HUD API。
         KinsRoleNameHudHandlers.register();
         // 按职业分别注册心情 HUD 样式，避免不同职业的渲染逻辑继续塞进同一个 MoodRenderer mixin。
-        DreamerMoodHud.register();
-        HackerMoodHud.register();
         LicensedVillainMoodHud.register();
         RobotMoodHud.register();
         // 手持物不可见规则统一接入 Wathe API，替代旧的 HandView / HandPos Mixin。

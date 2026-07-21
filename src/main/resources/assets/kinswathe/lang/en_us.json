@@ -27,32 +27,10 @@
   "tip.kinswathe.detective.notinnocent": "%s is not innocent",
   "hud.kinswathe.detective.target": "Use %s to investigate",
 
-  "announcement.role.kinswathe.dreamer": "Dreamer",
-  "announcement.goals.kinswathe.dreamer": "Make your world incredible!",
-  "tip.kinswathe.dreamer.imprint": "%s has left a mark on you",
-  "tip.kinswathe.dreamer.disconnect": "Marked player seems to disconnect...",
-  "tip.kinswathe.dreamer.counts": "%s/%s players has been deluded",
-  "tip.kinswathe.dreamer.fake_poisoned": "Someone was deluded",
-
   "announcement.role.kinswathe.drugmaker": "Drugmaker",
   "announcement.goals.kinswathe.drugmaker": "Conquer everyone with poison!",
   "tip.kinswathe.drugmaker.poison_failed": "It seems to be immune to poisoning...",
   "tip.kinswathe.drugmaker.poisoned": "Someone was poisoned",
-
-  "announcement.role.kinswathe.hacker": "Hacker",
-  "announcement.goals.kinswathe.hacker": "Attempting to hack into the entire train...",
-  "hud.kinswathe.hacker.target": "Cracking role",
-  "hud.kinswathe.hacker.target_hacked": "Role cracking completed",
-  "hud.kinswathe.hacker.target_safe": "Unable to crack role in safe time",
-  "item.kinswathe.icon_ability_cooldown_refresh": "Refresh Ability Cooldown",
-  "item.kinswathe.icon_ability_cooldown_refresh.tooltip": "Refresh cooldown of all killers' ability and Psycho Mode\nActivated instantly on purchase, 5 minutes cooldown",
-  "tip.kinswathe.hacker.ability_cooldown_refresh": "Hacker refresh ability cooldown for you",
-  "item.kinswathe.icon_potion_effect_refresh": "Refresh Potion Effect",
-  "item.kinswathe.icon_potion_effect_refresh.tooltip": "Clear killers' potion effect\nActivated instantly on purchase, 3 minutes cooldown",
-  "tip.kinswathe.hacker.potion_effect_refresh": "Hacker clear potion effect for you",
-  "item.kinswathe.icon_weapon_cooldown_refresh": "Refresh Weapon Cooldown",
-  "item.kinswathe.icon_weapon_cooldown_refresh.tooltip": "Refresh cooldown of all killers' weapon\nActivated instantly on purchase, 5 minutes cooldown",
-  "tip.kinswathe.hacker.weapon_cooldown_refresh": "Hacker refresh weapon cooldown for you",
 
   "announcement.role.kinswathe.hunter": "Hunter",
   "announcement.goals.kinswathe.hunter": "Enjoy your prey to the fullest!",
@@ -87,14 +65,12 @@
   "replay.skill_use.kinswathe.cleaner": "%s cleared dropped items, costing %s coins",
   "replay.skill_use.kinswathe.detective.innocent": "%s found %s is innocent",
   "replay.skill_use.kinswathe.detective.notinnocent": "%s found %s is not innocent",
-  "replay.skill_use.kinswathe.hacker": "%s cracked %s's role",
   "replay.skill_use.kinswathe.hunter": "%s refreshed knife and hunting knife cooldown, costing %s coins",
   "replay.skill_use.kinswathe.robot": "%s activated night vision",
   "replay.skill_use.kinswathe.kidnapper.release": "%s ended kidnapping of %s early",
   "replay.skill_use.kinswathe.kidnapper.release_end": "%s's kidnapped state ended",
   "replay.item_use.kinswathe.medical_kit": "%s used a medical kit to clear %s's abnormal status",
   "replay.item_use.kinswathe.pill": "%s drank a pill",
-  "replay.item_use.kinswathe.dream_imprint": "%s marked %s with a dream imprint",
   "replay.item_use.kinswathe.knockout_drug": "%s used knockout drug to daze and kidnap %s",
   "replay.item_use.kinswathe.knockout_drug.failed_robot": "%s cannot be dazed by %s's knockout drug",
   "replay.item_use.kinswathe.poison_injector": "%s injected poison into %s with poison injector",
@@ -103,13 +79,10 @@
   "replay.item_hit.kinswathe.blowgun": "%s hit %s with blowgun",
   "replay.item_hit.kinswathe.blowgun.failed_robot": "%s cannot be poisoned by %s's blowgun",
   "replay.item_hit.kinswathe.pan": "%s stunned %s with a pan",
-  "replay.global.kinswathe.dreamer_counts": "%s current delusion count %s/%s",
   "replay.global.kinswathe.pan_stun_end": "%s's stun has ended",
   "replay.global.kinswathe.robot_night_vision_end": "%s's night vision has ended",
   "replay.global.kinswathe.robot.poison_immune": "%s cannot be poisoned by poisoned %s, source from %s",
   "replay.global.kinswathe.robot.bed_poison_immune": "%s cannot be poisoned by scorpion placed by %s",
-  "replay.shield_blocked.kinswathe.dream_imprint.item": "%s's dream imprint shield blocked damage from %s",
-  "replay.shield_blocked.kinswathe.dream_imprint.by_item": "%s's dream imprint shield blocked %s damage from %s",
   "replay.shield_blocked.kinswathe.pill.item": "%s's pill blocked damage from %s",
   "replay.shield_blocked.kinswathe.pill.by_item": "%s's pill blocked %s damage from %s",
   "replay.shield_blocked.kinswathe.pan.item": "%s's pan blocked damage from %s",
@@ -131,9 +104,6 @@
   "item.kinswathe.capture_device": "Capture Device",
   "item.kinswathe.capture_device.tooltip": "Right-click to place down on floors\nTrap passing player and inform the user\nCapture Device will automatically disappear after a period of time\nInvisible to other players, both placed and in hand\n1 minute cooldown",
 
-  "item.kinswathe.dream_imprint": "Dream Imprint",
-  "item.kinswathe.dream_imprint.tooltip": "Use on a player to protect one extra hit of life\nTarget will teleport to user if it dies and give a delusion count\nSingle use",
-
   "item.kinswathe.hunting_knife": "Hunting Knife",
   "item.kinswathe.hunting_knife.tooltip": "Right-click, hold for a second and get close to your victim\nCompared to Knife, it has a longer holding-time\nIf stop holding after sprinting, two times holding-time cooldown\nAfter a kill, cannot be used for 45 seconds\nAttack to knock back / push a player (no cooldown)",
 
@@ -145,9 +115,6 @@
 
   "item.kinswathe.pan": "Pan",
   "item.kinswathe.pan.tooltip": "Right-click, hold for a second and stun target for 5 seconds\nIf shot during holding, destroy pan to protects player one extra hit of life\n45 seconds cooldown",
-
-  "item.kinswathe.phone": "Phone",
-  "item.kinswathe.phone.tooltip": "Right-click to switch between Free-Voice-Group and Killer-Voice-Group",
 
   "item.kinswathe.pill": "Pill",
   "item.kinswathe.pill.tooltip": "Right-click to eat\nProtects player one extra hit of life\nSingle use, 3 minutes cooldown",
@@ -197,17 +164,9 @@
   "guidebook.role.title.kinswathe:detective": "Truth Seeker",
   "guidebook.role.description.kinswathe:detective": "The Detective's presence on this train is no coincidence — he received an anonymous letter hinting that a murder would occur during this journey.\n\nHe can use his Insight ability to determine if a target is innocent.\n\nBut he cannot directly identify the killer — his ability only tells him who is innocent. The rest, he must deduce himself...",
 
-  "guidebook.role.kinswathe:dreamer": "Dreamer",
-  "guidebook.role.title.kinswathe:dreamer": "Illusion Weaver",
-  "guidebook.role.description.kinswathe:dreamer": "The Dreamer serves the killer organization, walking between reality and illusion.\n\nStarts with Dream Imprint, which can be used on a target, allowing them to withstand one extra attack.\n\nWhen a marked target takes damage, they are instantly teleported back to the Dreamer, and the Dreamer gains one count toward the number of non-killer players who have taken the Illusion Reagent.\n\nThe number of non-killer players required to take the Illusion Reagent is one-quarter of the total players. When enough non-killer players have taken it, the Dreamer's identity transforms into a killer.\n\nTo the Dreamer, reality is merely a dream that can be rewritten.",
-
   "guidebook.role.kinswathe:drugmaker": "Drugmaker",
   "guidebook.role.title.kinswathe:drugmaker": "Lethal Formula",
   "guidebook.role.description.kinswathe:drugmaker": "The Drugmaker is the killer most skilled with poisons, savoring every second of his prey's suffering after being poisoned. He is only deployed to assist killers when there are enough players.\n\nThe Drugmaker can see players who are genuinely poisoned — after all, they are his masterpieces. Whenever a player is poisoned, he receives a reward of coins.\n\nPoison Injector and Blowgun can be purchased at the shop — two distinctly different methods of poisoning.\n\nFor the Drugmaker, death is just a matter of prescription.",
-
-  "guidebook.role.kinswathe:hacker": "Hacker",
-  "guidebook.role.title.kinswathe:hacker": "Shadow Supporter",
-  "guidebook.role.description.kinswathe:hacker": "The Hacker is the technical elite of the killer team, working in the shadows to help killers achieve their winning goal.\n\nThe Hacker equips all killers with phones, enabling them to communicate remotely.\n\nCracking roles is also a skill a hacker should possess — after staring at a player long enough, they can crack their role and send it to all killers' phones, and get coins.\n\nOf course, the Hacker can also use their technology to help killers turn off lights, refresh weapon cooldowns or ability cooldowns, and even clear potion effects from them!\n\nRemember, the Hacker needs to stay undercover — never reveal their role to civilians too early...",
 
   "guidebook.role.kinswathe:hunter": "Hunter",
   "guidebook.role.title.kinswathe:hunter": "Hunting Time",

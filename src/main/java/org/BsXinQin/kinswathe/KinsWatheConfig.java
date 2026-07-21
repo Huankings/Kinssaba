@@ -80,9 +80,6 @@ public class KinsWatheConfig {
     @SerialEntry
     public int DetectiveAbilityCooldown = GameConstants.getInTicks(1,30) / 20;
 
-    @SerialEntry(comment = "Dreamer: modify initial quantity of Dream Imprint.")
-    public int DreamerInitialItemQuantity = 1;
-
     @SerialEntry(comment = "Drugmaker: modify generation player limit, get coins when someone was poisoned and price of Poison Injector and Blowgun.")
     public int DrugmakerPlayerLimit = 10;
     @SerialEntry
@@ -91,21 +88,6 @@ public class KinsWatheConfig {
     public int DrugmakerPoisonInjectorPrice = 100;
     @SerialEntry
     public int DrugmakerBlowgunPrice = 175;
-
-    @SerialEntry(comment = "Hacker: modify generation limit, hacking time, whether to enable shop and price of props.")
-    public int HackerPlayerLimit = 10;
-    @SerialEntry
-    public boolean HackerGenerateWithMimic = false;
-    @SerialEntry
-    public int HackerHackingTime = GameConstants.getInTicks(0,30) / 20;
-    @SerialEntry
-    public boolean HackerHasShop = true;
-    @SerialEntry
-    public int HackerRefreshWeaponCooldownPrice = 300;
-    @SerialEntry
-    public int HackerRefreshAbilityCooldownPrice = 400;
-    @SerialEntry
-    public int HackerRefreshPotionEffectPrice = 200;
 
     @SerialEntry(comment = "Hunter: modify price and cooldown of ability.")
     public int HunterAbilityPrice = 125;

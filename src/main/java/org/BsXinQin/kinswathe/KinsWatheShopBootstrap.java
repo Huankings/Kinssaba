@@ -8,9 +8,7 @@ import dev.doctor4t.wathe.api.shop.ShopPurchaseResult;
 import dev.doctor4t.wathe.util.ShopEntry;
 import net.minecraft.entity.player.PlayerEntity;
 import org.BsXinQin.kinswathe.roles.cook.CookShopHandler;
-import org.BsXinQin.kinswathe.roles.dreamer.DreamerShopHandler;
 import org.BsXinQin.kinswathe.roles.drugmaker.DrugmakerShopHandler;
-import org.BsXinQin.kinswathe.roles.hacker.HackerShopHandler;
 import org.BsXinQin.kinswathe.roles.hunter.HunterShopHandler;
 import org.BsXinQin.kinswathe.roles.kidnapper.KidnapperShopHandler;
 import org.BsXinQin.kinswathe.roles.licensed_villain.LicensedVillainShopHandler;
@@ -39,17 +37,10 @@ public final class KinsWatheShopBootstrap {
         ShopApi.registerShopModifier(KinsWathe.id("hunter_shop"), ShopApi.DEFAULT_PRIORITY, HunterShopHandler::modifyShop);
         ShopApi.registerShopModifier(KinsWathe.id("kidnapper_shop"), ShopApi.DEFAULT_PRIORITY, KidnapperShopHandler::modifyShop);
 
-        register(KinsWatheRoles.HACKER, player -> HackerShopHandler.getShopEntries(player.getWorld()));
         register(KinsWatheRoles.TECHNICIAN, player -> TechnicianShopHandler.getShopEntries(player.getWorld()));
         register(KinsWatheRoles.COOK, player -> CookShopHandler.getShopEntries(player.getWorld()));
         register(KinsWatheRoles.PHYSICIAN, player -> PhysicianShopHandler.getShopEntries(player.getWorld()));
         register(KinsWatheRoles.LICENSED_VILLAIN, player -> LicensedVillainShopHandler.getShopEntries(player.getWorld()));
-
-        /*
-         * 梦者复用 NoellesRoles 的伪装商店。KinsWatheShops 内部已经做了 noellesroles
-         * 未加载时的空列表兜底，所以这里可以直接注册，不需要再写客户端/服务端双份判空 mixin。
-         */
-        register(KinsWatheRoles.DREAMER, player -> DreamerShopHandler.getShopEntries());
     }
 
     private static void register(@NotNull Role role, @NotNull EntriesProvider entriesProvider) {

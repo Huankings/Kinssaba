@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * kinssaba 准心额外 HUD 的绘制工具。
  *
- * <p>Hacker、Detective、Physician 都沿用旧 mixin 的同一行位置：
+ * <p>Detective、Physician 等准心提示都沿用旧 mixin 的同一行位置：
  * 准心名字下方 32px，并用 0.6 倍缩放绘制。</p>
  */
 public final class KinsRoleNameHudRenderSupport {

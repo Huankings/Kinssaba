@@ -11,7 +11,6 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -23,8 +22,6 @@ import org.BsXinQin.kinswathe.roles.bellringer.BellringerAbility;
 import org.BsXinQin.kinswathe.roles.bodymaker.BodymakerAbility;
 import org.BsXinQin.kinswathe.roles.cleaner.CleanerAbility;
 import org.BsXinQin.kinswathe.roles.detective.DetectiveAbility;
-import org.BsXinQin.kinswathe.roles.dreamer.DreamerKillerComponent;
-import org.BsXinQin.kinswathe.roles.hacker.HackerPhoneComponent;
 import org.BsXinQin.kinswathe.roles.hunter.HunterAbility;
 import org.BsXinQin.kinswathe.roles.judge.JudgeAbility;
 import org.BsXinQin.kinswathe.roles.robot.RobotAbility;
@@ -99,16 +96,6 @@ public class KinsWatheRoles {
             WatheRoles.CIVILIAN.getMaxSprintTime(),
             false
     ));
-    //梦者
-    public static Role DREAMER = registerNoellesRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "dreamer"),
-            0xE5CCFF,
-            false,
-            false,
-            Role.MoodType.FAKE,
-            -1,
-            true
-    ));
     //制毒师
     public static Role DRUGMAKER = registerRole(new Role(
             Identifier.of(KinsWathe.MOD_ID, "drugmaker"),
@@ -117,16 +104,6 @@ public class KinsWatheRoles {
             true,
             Role.MoodType.FAKE,
             -1,
-            true
-    ));
-    //黑客
-    public static Role HACKER = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "hacker"),
-            0x808080,
-            false,
-            false,
-            Role.MoodType.FAKE,
-            WatheRoles.CIVILIAN.getMaxSprintTime(),
             true
     ));
     //追猎者
@@ -252,13 +229,6 @@ public class KinsWatheRoles {
         ROLES.put(role.identifier().getPath(), role);
         return role;
     }
-    public static Role registerNoellesRole(Role role) {
-        if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-            WatheRoles.registerRole(role);
-            ROLES.put(role.identifier().getPath(), role);
-        }
-        return role;
-    }
     //注册词条
     public static Modifier registerModifier(Modifier modifier) {
         HMLModifiers.registerModifier(modifier);
@@ -305,11 +275,7 @@ public class KinsWatheRoles {
     }
     //新增杀手方中立身份
     public static void addKillerNeutralRoles() {
-        KILLER_NEUTRAL_ROLES.add(HACKER);
-        if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-            KILLER_NEUTRAL_ROLES.add(DREAMER);
-            Harpymodloader.setRoleMaximum(DREAMER, 1);
-        }
+        // 当前 kinssaba 侧没有需要单独加入杀手侧中立池的职业。
     }
 
     /// 限制身份生成人数
@@ -320,24 +286,12 @@ public class KinsWatheRoles {
                 Harpymodloader.setRoleMaximum(DRUGMAKER,1);} else {
                 Harpymodloader.setRoleMaximum(DRUGMAKER,0);
             }
-            //限制黑客生成人数
-            if (server.getPlayerManager().getCurrentPlayerCount() >= KinsWatheConfig.HANDLER.instance().HackerPlayerLimit) {
-                Harpymodloader.setRoleMaximum(HACKER,1);} else {
-                Harpymodloader.setRoleMaximum(HACKER,0);
-            }
             //限制执照恶棍生成人数
             if (server.getPlayerManager().getCurrentPlayerCount() >= KinsWatheConfig.HANDLER.instance().LicensedVillainPlayerLimit) {
                 Harpymodloader.setRoleMaximum(LICENSED_VILLAIN,1);} else {
                 Harpymodloader.setRoleMaximum(LICENSED_VILLAIN,0);
             }
         }));
-    }
-
-    /// 限制冲突身份同时生成
-    public static boolean conflictRolesGenerate(@NotNull Role role1, @NotNull Role role2) {
-        if (!FabricLoader.getInstance().isModLoaded("noellesroles")) return false;
-        if (KinsWatheConfig.HANDLER.instance().HackerGenerateWithMimic) return false;
-        return (role1 == HACKER && role2 == noellesrolesRoles("MIMIC")) || (role1 == noellesrolesRoles("MIMIC") && role2 == HACKER);
     }
 
     /// 设置初始事件
@@ -347,8 +301,6 @@ public class KinsWatheRoles {
             ability.cooldown = KinsWatheConfig.HANDLER.instance().StartingCooldown * 20;
             GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
             PlayerShopComponent playerShop = PlayerShopComponent.KEY.get(player);
-            DreamerKillerComponent playerDreamer = DreamerKillerComponent.KEY.get(player);
-            HackerPhoneComponent phone = HackerPhoneComponent.KEY.get(player);
             //阵营初始收入
             if (KinsWatheConfig.HANDLER.instance().EnableWatheModify) {
                 if (gameWorld.isInnocent(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialCivilianIncome);
@@ -358,21 +310,6 @@ public class KinsWatheRoles {
             //清道夫初始物品
             if (role.equals(CLEANER)) {
                 player.giveItemStack(KinsWatheItems.SULFURIC_ACID_BARREL.getDefaultStack());
-            }
-            //梦者初始物品
-            if (role.equals(DREAMER)) {
-                player.giveItemStack(new ItemStack(KinsWatheItems.DREAM_IMPRINT, KinsWatheConfig.HANDLER.instance().DreamerInitialItemQuantity));
-                playerDreamer.setDreamerRequired();
-            }
-            //黑客初始物品
-            if (role.equals(HACKER)) {
-                player.giveItemStack(phone.getPhone());
-                for (ServerPlayerEntity serverPlayer : player.getServer().getPlayerManager().getPlayerList()) {
-                    if (serverPlayer == null) continue;
-                    if (gameWorld.canUseKillerFeatures(serverPlayer)) {
-                        serverPlayer.giveItemStack(phone.getPhone());
-                    }
-                }
             }
             //绑匪初始物品
             if (role.equals(KIDNAPPER)) {
@@ -427,17 +364,11 @@ public class KinsWatheRoles {
                 BELLRINGER,
                 COOK,
                 DETECTIVE,
-                DREAMER,
                 JUDGE,
                 LICENSED_VILLAIN,
                 PHYSICIAN,
                 TECHNICIAN
         ));
-        EconomyApi.registerBalanceHudPredicate(
-                KinsWathe.id("balance_hud/hacker"),
-                EconomyApi.DEFAULT_PRIORITY,
-                (gameWorld, player, role) -> KinsWatheConfig.HANDLER.instance().HackerHasShop && role == HACKER
-        );
 
         /*
          * 通用被动收入：迁移旧 PassiveIncomeMixin 的额外角色。
@@ -446,22 +377,13 @@ public class KinsWatheRoles {
          */
         EconomyApi.registerPassiveIncomeRoles(List.of(
                 COOK,
-                DREAMER,
                 JUDGE
         ));
-        EconomyApi.registerPassiveIncomeRule(
-                KinsWathe.id("passive_income/hacker"),
-                EconomyApi.DEFAULT_PRIORITY,
-                context -> KinsWatheConfig.HANDLER.instance().HackerHasShop && context.role() == HACKER
-                        ? EconomyApi.PassiveIncomeDecision.ALLOW
-                        : EconomyApi.PassiveIncomeDecision.PASS
-        );
 
         /*
          * 任务金币统一在这里结算：
          * 1. kinssaba 自己明确有任务收入的角色每个任务 50 金币；
-         * 2. Hacker 只有开启商店配置时才有任务收入；
-         * 3. Taskmaster 按你的确认，只要玩家当前角色拥有金币 HUD，就按阵营语义追加任务金币。
+         * 2. Taskmaster 按你的确认，只要玩家当前角色拥有金币 HUD，就按阵营语义追加任务金币。
          */
         TaskCompletionApi.registerTaskIncomeProvider(
                 KinsWathe.id("task_income"),
@@ -470,9 +392,6 @@ public class KinsWatheRoles {
                     int income = 0;
                     Role role = context.role();
                     if (hasBaseTaskIncome(role)) {
-                        income += 50;
-                    }
-                    if (KinsWatheConfig.HANDLER.instance().HackerHasShop && role == HACKER) {
                         income += 50;
                     }
 

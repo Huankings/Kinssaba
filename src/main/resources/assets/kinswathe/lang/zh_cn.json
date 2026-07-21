@@ -27,32 +27,10 @@
   "tip.kinswathe.detective.notinnocent": "%s 不是平民",
   "hud.kinswathe.detective.target": "按下 %s 键调查该目标身份",
 
-  "announcement.role.kinswathe.dreamer": "梦者",
-  "announcement.goals.kinswathe.dreamer": "让你的世界变得不可思议！",
-  "tip.kinswathe.dreamer.imprint": "%s 与你烙下了印记",
-  "tip.kinswathe.dreamer.disconnect": "烙印之人似乎与你而去了...",
-  "tip.kinswathe.dreamer.counts": "已服用幻觉试剂的玩家 %s/%s",
-  "tip.kinswathe.dreamer.fake_poisoned": "有人陷入了幻觉",
-
   "announcement.role.kinswathe.drugmaker": "制毒师",
   "announcement.goals.kinswathe.drugmaker": "用毒药征服所有人！",
   "tip.kinswathe.drugmaker.poison_failed": "它似乎无法中毒...",
   "tip.kinswathe.drugmaker.poisoned": "有人中毒了",
-
-  "announcement.role.kinswathe.hacker": "黑客",
-  "announcement.goals.kinswathe.hacker": "试图辅助杀手破解平民的身份...",
-  "hud.kinswathe.hacker.target": "正在破解角色身份",
-  "hud.kinswathe.hacker.target_hacked": "角色身份已被破解",
-  "hud.kinswathe.hacker.target_safe": "安全时间内无法破解角色身份",
-  "item.kinswathe.icon_ability_cooldown_refresh": "刷新技能冷却",
-  "item.kinswathe.icon_ability_cooldown_refresh.tooltip": "刷新所有杀手的技能与疯魔模式冷却\n购买后立即生效，冷却 5 分钟",
-  "tip.kinswathe.hacker.ability_cooldown_refresh": "黑客为你刷新了技能冷却",
-  "item.kinswathe.icon_potion_effect_refresh": "刷新药水状态",
-  "item.kinswathe.icon_potion_effect_refresh.tooltip": "清除所有杀手的药水状态\n购买后立即生效，冷却 3 分钟",
-  "tip.kinswathe.hacker.potion_effect_refresh": "黑客为你清除了药水状态",
-  "item.kinswathe.icon_weapon_cooldown_refresh": "刷新武器冷却",
-  "item.kinswathe.icon_weapon_cooldown_refresh.tooltip": "刷新所有杀手的武器冷却\n购买后立即生效，冷却 3 分钟",
-  "tip.kinswathe.hacker.weapon_cooldown_refresh": "黑客为你刷新了武器冷却",
 
   "announcement.role.kinswathe.hunter": "追猎者",
   "announcement.goals.kinswathe.hunter": "尽情享受你的猎物！",
@@ -87,14 +65,12 @@
   "replay.skill_use.kinswathe.cleaner": "%s 清理了场上掉落物，花费 %s 金币",
   "replay.skill_use.kinswathe.detective.innocent": "%s 调查出 %s 的身份为平民",
   "replay.skill_use.kinswathe.detective.notinnocent": "%s 调查出 %s 的身份不是平民",
-  "replay.skill_use.kinswathe.hacker": "%s 破解了 %s 的身份",
   "replay.skill_use.kinswathe.hunter": "%s 刷新了匕首和猎刀的冷却时间，花费 %s 金币",
   "replay.skill_use.kinswathe.robot": "%s 发动了夜视能力",
   "replay.skill_use.kinswathe.kidnapper.release": "%s 提前结束了对 %s 的劫持",
   "replay.skill_use.kinswathe.kidnapper.release_end": "%s 的被劫持状态结束",
   "replay.item_use.kinswathe.medical_kit": "%s 用医疗箱解除了 %s 的异常状态",
   "replay.item_use.kinswathe.pill": "%s 饮用了药丸",
-  "replay.item_use.kinswathe.dream_imprint": "%s 用梦之印记烙印了 %s",
   "replay.item_use.kinswathe.knockout_drug": "%s 使用迷药迷晕并劫持了 %s",
   "replay.item_use.kinswathe.knockout_drug.failed_robot": "%s 无法被 %s 的迷药迷晕",
   "replay.item_use.kinswathe.poison_injector": "%s 用毒液注射器注射毒液给 %s",
@@ -103,13 +79,10 @@
   "replay.item_hit.kinswathe.blowgun": "%s 使用吹矢命中了 %s",
   "replay.item_hit.kinswathe.blowgun.failed_robot": "%s 无法被 %s 的吹矢中毒",
   "replay.item_hit.kinswathe.pan": "%s 用平底锅敲晕了 %s",
-  "replay.global.kinswathe.dreamer_counts": "%s 当前的幻觉人数 %s/%s",
   "replay.global.kinswathe.pan_stun_end": "%s 的眩晕状态解除",
   "replay.global.kinswathe.robot_night_vision_end": "%s 的夜视时间结束",
   "replay.global.kinswathe.robot.poison_immune": "%s 无法被带有毒药的 %s 中毒，毒源来自于 %s",
   "replay.global.kinswathe.robot.bed_poison_immune": "%s 无法被 %s 放置的蝎子中毒",
-  "replay.shield_blocked.kinswathe.dream_imprint.item": "%s 的梦之印记护盾抵挡了来自 %s 的伤害",
-  "replay.shield_blocked.kinswathe.dream_imprint.by_item": "%s 的梦之印记护盾抵挡了来自 %s 的 %s 伤害",
   "replay.shield_blocked.kinswathe.pill.item": "%s 的药丸抵挡住了来自 %s 的伤害",
   "replay.shield_blocked.kinswathe.pill.by_item": "%s 的药丸抵挡住了来自 %s 的 %s 伤害",
   "replay.shield_blocked.kinswathe.pan.item": "%s 的平底锅抵挡了来自 %s 的伤害",
@@ -131,9 +104,6 @@
   "item.kinswathe.capture_device": "捕捉装置",
   "item.kinswathe.capture_device.tooltip": "右键点击放置在地板上\n困住路过的玩家并告知使用者\n捕捉装置将会在一段时间后自动消失\n对其他玩家不可见，无论是放置后还是手中持有时\n冷却 1 分钟",
 
-  "item.kinswathe.dream_imprint": "梦之印记",
-  "item.kinswathe.dream_imprint.tooltip": "用于玩家，使其额外承受一次伤害\n对方受到伤害后传送到使用者身边，并给予一个服用幻觉试剂次数\n一次性物品",
-
   "item.kinswathe.hunting_knife": "猎刀",
   "item.kinswathe.hunting_knife.tooltip": "右键蓄力一秒，靠近目标即可发动暗杀\n相较于匕首，拥有更持久的蓄力时间\n如果疾跑后停止蓄力，冷却两倍蓄力时间\n击杀后冷却 45 秒\n攻击可击退玩家（无冷却）",
 
@@ -145,9 +115,6 @@
 
   "item.kinswathe.pan": "平底锅",
   "item.kinswathe.pan.tooltip": "右键蓄力一秒，靠近目标即可击晕 5 秒\n当蓄力期间遭受枪击，则摧毁平底锅来抵消此次伤害\n冷却 45 秒",
-
-  "item.kinswathe.phone": "手机",
-  "item.kinswathe.phone.tooltip": "右键可以在自由语音频道和杀手语音频道间切换",
 
   "item.kinswathe.pill": "药丸",
   "item.kinswathe.pill.tooltip": "右键食用\n让玩家额外承受一次伤害\n一次性物品，冷却 3 分钟",
@@ -197,17 +164,9 @@
   "guidebook.role.title.kinswathe:detective": "真相追寻者",
   "guidebook.role.description.kinswathe:detective": "侦探乘坐这趟列车并非偶然，他收到了一封匿名信，信中暗示这趟旅程将发生命案。\n\n他可以使用洞察能力判断一名目标是否为无辜者。\n\n但是无法直接找出杀手——侦探的能力只能告诉他谁是无辜的，而剩下的，则需要他自己推理...",
 
-  "guidebook.role.kinswathe:dreamer": "梦者",
-  "guidebook.role.title.kinswathe:dreamer": "虚幻编织者",
-  "guidebook.role.description.kinswathe:dreamer": "梦者是一位为杀手组织服务的角色，他游走于现实与虚幻之间。\n\n初始携带梦之印记，可以对目标使用，使其额外承受一次攻击。\n\n当被印记标记的目标受到伤害时，会立即传送回梦者身边，并为梦者添加一次服用幻觉试剂的非杀手玩家数量的计数。\n\n需要服用幻觉试剂的非杀手玩家数量为总玩家数的四分之一，当有足够的非杀手玩家服用幻觉试剂后，梦者的身份转变为杀手。\n\n对梦者而言，现实只是一场可以被改写的梦。",
-
   "guidebook.role.kinswathe:drugmaker": "制毒师",
   "guidebook.role.title.kinswathe:drugmaker": "致命配方",
   "guidebook.role.description.kinswathe:drugmaker": "制毒师是杀手中最擅长用毒的存在，他享受着猎物中毒后挣扎的每一秒，他只会在人数足够时被派去辅助杀手。\n\n制毒师能够看到真正中毒的玩家——毕竟那是他的杰作。每当有玩家中毒，他都能获得一笔金币作为回报。\n\n在商店中可以购买毒液注射器和吹矢，这是两种截然不同的下毒方式。\n\n对于制毒师来说，死亡只是一剂药方的事。",
-
-  "guidebook.role.kinswathe:hacker": "黑客",
-  "guidebook.role.title.kinswathe:hacker": "幕后协助者",
-  "guidebook.role.description.kinswathe:hacker": "黑客是杀手团队中的技术精英，他会在暗地里帮助杀手达成获胜目标。\n\n黑客为所有杀手都配备了手机，这可以方便他们远程交流。\n\n破解身份的技术也是一个黑客该具备的技能，他可以在对着一名玩家看足够久的时间后完成对其身份的破解，并发送到全体杀手同伙的手机上，然后获得报酬。\n\n当然，黑客也可以利用自己的技术帮助杀手关闭灯光、刷新武器冷却或技能冷却，甚至是清除他们身上的的药水效果！\n\n铭记黑客需要伪装，万万不可过早向平民暴露自己的身份...",
 
   "guidebook.role.kinswathe:hunter": "追猎者",
   "guidebook.role.title.kinswathe:hunter": "猎杀时刻",
