@@ -23,9 +23,7 @@ public final class KinsWatheReplayFormatters {
     }
 
     public static void register() {
-        registerSkillFormatter(id("bellringer_reduce_time"), KinsWatheReplayFormatters::formatBellringerReduceTime);
         registerSkillFormatter(id("cleaner_clear_items"), KinsWatheReplayFormatters::formatCleanerClearItems);
-        registerSkillFormatter(id("detective_check"), KinsWatheReplayFormatters::formatDetectiveCheck);
         registerSkillFormatter(id("hunter_refresh"), KinsWatheReplayFormatters::formatHunterRefresh);
         registerSkillFormatter(id("robot_night_vision"), KinsWatheReplayFormatters::formatRobotNightVision);
         registerSkillFormatter(id("kidnapper_release"), KinsWatheReplayFormatters::formatKidnapperRelease);
@@ -59,30 +57,12 @@ public final class KinsWatheReplayFormatters {
         return data.containsUuid(key) ? data.getUuid(key) : null;
     }
 
-    private static @Nullable Text formatBellringerReduceTime(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        if (actor == null) {
-            return null;
-        }
-        return Text.translatable("replay.skill_use.kinswathe.bellringer", actor, event.data().getInt("seconds"), event.data().getInt("price"));
-    }
-
     private static @Nullable Text formatCleanerClearItems(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
         Text actor = actorText(event, match);
         if (actor == null) {
             return null;
         }
         return Text.translatable("replay.skill_use.kinswathe.cleaner", actor, event.data().getInt("price"));
-    }
-
-    private static @Nullable Text formatDetectiveCheck(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        Text target = targetText(event, match);
-        if (actor == null || target == null) {
-            return null;
-        }
-        boolean innocent = event.data().getBoolean("innocent");
-        return Text.translatable(innocent ? "replay.skill_use.kinswathe.detective.innocent" : "replay.skill_use.kinswathe.detective.notinnocent", actor, target);
     }
 
     private static @Nullable Text formatHunterRefresh(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {

@@ -18,10 +18,8 @@ import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
-import org.BsXinQin.kinswathe.roles.bellringer.BellringerAbility;
 import org.BsXinQin.kinswathe.roles.bodymaker.BodymakerAbility;
 import org.BsXinQin.kinswathe.roles.cleaner.CleanerAbility;
-import org.BsXinQin.kinswathe.roles.detective.DetectiveAbility;
 import org.BsXinQin.kinswathe.roles.hunter.HunterAbility;
 import org.BsXinQin.kinswathe.roles.judge.JudgeAbility;
 import org.BsXinQin.kinswathe.roles.robot.RobotAbility;
@@ -46,16 +44,6 @@ public class KinsWatheRoles {
     public static HashMap<String, Modifier> getModifiers() {return MODIFIERS;}
 
     /// 新增身份
-    //敲钟人
-    public static Role BELLRINGER = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "bellringer"),
-            0x66B2FF,
-            true,
-            false,
-            Role.MoodType.REAL,
-            WatheRoles.CIVILIAN.getMaxSprintTime(),
-            true
-    ));
     //造尸怪
     public static Role BODYMAKER = registerRole(new Role(
             Identifier.of(KinsWathe.MOD_ID,"bodymaker"),
@@ -75,16 +63,6 @@ public class KinsWatheRoles {
             Role.MoodType.FAKE,
             -1,
             true
-    ));
-    //侦探
-    public static Role DETECTIVE = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "detective"),
-            0xFFFFCC,
-            true,
-            false,
-            Role.MoodType.REAL,
-            WatheRoles.CIVILIAN.getMaxSprintTime(),
-            false
     ));
     //制毒师
     public static Role DRUGMAKER = registerRole(new Role(
@@ -305,9 +283,7 @@ public class KinsWatheRoles {
     /// 注册身份技能
     public static void registerRolesAbility() {
         ServerPlayNetworking.registerGlobalReceiver(AbilityC2SPacket.ID, (payload, context) -> {
-            BellringerAbility.register(context.player());
             CleanerAbility.register(context.player());
-            DetectiveAbility.register(context.player());
             HunterAbility.register(context.player());
             RobotAbility.register(context.player());
         });
@@ -337,8 +313,6 @@ public class KinsWatheRoles {
          * 杀手能力角色由 Wathe 默认显示金币 HUD，因此这里只注册非默认但仍使用金币经济的 kinssaba 角色。
          */
         EconomyApi.registerBalanceHudRoles(List.of(
-                BELLRINGER,
-                DETECTIVE,
                 JUDGE,
                 LICENSED_VILLAIN,
                 TECHNICIAN
@@ -412,9 +386,7 @@ public class KinsWatheRoles {
     }
 
     private static boolean hasBaseTaskIncome(Role role) {
-        return role == BELLRINGER
-                || role == DETECTIVE
-                || role == JUDGE
+        return role == JUDGE
                 || role == LICENSED_VILLAIN
                 || role == TECHNICIAN;
     }

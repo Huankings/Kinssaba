@@ -52,12 +52,7 @@ public class KinsWatheConfig {
     public boolean PreventKillerDropRevolver = false;
 
     /// 关于KinsWathe修改
-    @SerialEntry(comment = "\n\n[Kin's Wathe] Modify:\nBellringer: modify price and cooldown of ability.")
-    public int BellringerAbilityPrice = 200;
-    @SerialEntry
-    public int BellringerAbilityCooldown = GameConstants.getInTicks(2,0) / 20;
-
-    @SerialEntry(comment = "Bodymaker: modify cooldown of ability and whether to fake role of body.")
+    @SerialEntry(comment = "\n\n[Kin's Wathe] Modify:\nBodymaker: modify cooldown of ability and whether to fake role of body.")
     public int BodymakerAbilityCooldown = GameConstants.getInTicks(1,30) / 20;
     @SerialEntry
     public boolean BodymakerAbilityFakeRole = true;
@@ -68,14 +63,6 @@ public class KinsWatheConfig {
     public int CleanerAbilityPrice = 200;
     @SerialEntry
     public int CleanerAbilityCooldown = GameConstants.getInTicks(2,30) / 20;
-
-    @SerialEntry(comment = "Bellringer: modify reduce time of ability (seconds).")
-    public int BellringerReduceSeconds = 60;
-
-    @SerialEntry(comment = "Detective: modify price and cooldown of ability.")
-    public int DetectiveAbilityPrice = 200;
-    @SerialEntry
-    public int DetectiveAbilityCooldown = GameConstants.getInTicks(1,30) / 20;
 
     @SerialEntry(comment = "Drugmaker: modify generation player limit, get coins when someone was poisoned and price of Poison Injector and Blowgun.")
     public int DrugmakerPlayerLimit = 10;

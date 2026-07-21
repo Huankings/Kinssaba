@@ -30,10 +30,8 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
     public boolean EnableBetterBlackout = true;
     public boolean EnableAutoPsychoInstinct = true;
     //关于KinsWathe修改
-    public int BellringerAbilityPrice = 200;
     public boolean BodymakerAbilityFakeRole = true;
     public int CleanerAbilityPrice = 200;
-    public int DetectiveAbilityPrice = 200;
     public int DrugmakerGetCoins = 50;
     public int DrugmakerPoisonInjectorPrice = 100;
     public int DrugmakerBlowgunPrice = 175;
@@ -59,10 +57,8 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         EnableBetterBlackout = KinsWatheConfig.HANDLER.instance().EnableBetterBlackout; tag.putBoolean("EnableBetterBlackout", this.EnableBetterBlackout);
         EnableAutoPsychoInstinct = KinsWatheConfig.HANDLER.instance().EnableAutoPsychoInstinct; tag.putBoolean("EnableAutoPsychoInstinct", this.EnableAutoPsychoInstinct);
         //关于KinsWathe修改
-        BellringerAbilityPrice = KinsWatheConfig.HANDLER.instance().BellringerAbilityPrice; tag.putInt("BellringerAbilityPrice", this.BellringerAbilityPrice);
         BodymakerAbilityFakeRole = KinsWatheConfig.HANDLER.instance().BodymakerAbilityFakeRole; tag.putBoolean("BodymakerAbilityFakeRole", this.BodymakerAbilityFakeRole);
         CleanerAbilityPrice = KinsWatheConfig.HANDLER.instance().CleanerAbilityPrice; tag.putInt("CleanerAbilityPrice", this.CleanerAbilityPrice);
-        DetectiveAbilityPrice = KinsWatheConfig.HANDLER.instance().DetectiveAbilityPrice; tag.putInt("DetectiveAbilityPrice", this.DetectiveAbilityPrice);
         DrugmakerGetCoins = KinsWatheConfig.HANDLER.instance().DrugmakerGetCoins; tag.putInt("DrugmakerGetCoins", this.DrugmakerGetCoins);
         DrugmakerPoisonInjectorPrice = KinsWatheConfig.HANDLER.instance().DrugmakerPoisonInjectorPrice; tag.putInt("DrugmakerPoisonInjectorPrice", this.DrugmakerPoisonInjectorPrice);
         DrugmakerBlowgunPrice = KinsWatheConfig.HANDLER.instance().DrugmakerBlowgunPrice; tag.putInt("DrugmakerBlowgunPrice", this.DrugmakerBlowgunPrice);
@@ -88,10 +84,8 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         if (tag.contains("EnableBetterBlackout"))   this.EnableBetterBlackout = tag.getBoolean("EnableBetterBlackout");
         if (tag.contains("EnableAutoPsychoInstinct"))   this.EnableAutoPsychoInstinct = tag.getBoolean("EnableAutoPsychoInstinct");
         //关于KinsWathe修改
-        if (tag.contains("BellringerAbilityPrice"))   this.BellringerAbilityPrice = tag.getInt("BellringerAbilityPrice");
         if (tag.contains("BodymakerAbilityFakeRole"))   this.BodymakerAbilityFakeRole = tag.getBoolean("BodymakerAbilityFakeRole");
         if (tag.contains("CleanerAbilityPrice"))   this.CleanerAbilityPrice = tag.getInt("CleanerAbilityPrice");
-        if (tag.contains("DetectiveAbilityPrice"))   this.DetectiveAbilityPrice = tag.getInt("DetectiveAbilityPrice");
         if (tag.contains("DrugmakerGetCoins"))   this.DrugmakerGetCoins = tag.getInt("DrugmakerGetCoins");
         if (tag.contains("DrugmakerPoisonInjectorPrice"))   this.DrugmakerPoisonInjectorPrice = tag.getInt("DrugmakerPoisonInjectorPrice");
         if (tag.contains("DrugmakerBlowgunPrice"))   this.DrugmakerBlowgunPrice = tag.getInt("DrugmakerBlowgunPrice");

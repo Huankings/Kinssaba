@@ -57,8 +57,6 @@ public class KinsWatheInitializeClient {
                     GameWorldComponent gameWorld = GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld());
                     boolean sendAbilityPacket = false;
                     Role[] rolesWithAbility = new Role[]{
-                            KinsWatheRoles.BELLRINGER,
-                            KinsWatheRoles.DETECTIVE,
                             KinsWatheRoles.HUNTER,
                             KinsWatheRoles.ROBOT,
                             KinsWatheRoles.CLEANER

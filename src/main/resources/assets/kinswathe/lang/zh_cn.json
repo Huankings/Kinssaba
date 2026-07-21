@@ -9,20 +9,11 @@
 
   "announcement.title.neutral": "中立",
 
-  "announcement.role.kinswathe.bellringer": "敲钟人",
-  "announcement.goals.kinswathe.bellringer": "查看时间，并修改时间。",
-
   "announcement.role.kinswathe.bodymaker": "造尸怪",
   "announcement.goals.kinswathe.bodymaker": "伪造尸体，混淆视听",
 
   "announcement.role.kinswathe.cleaner": "清道夫",
   "announcement.goals.kinswathe.cleaner": "扫除一切障碍！",
-
-  "announcement.role.kinswathe.detective": "侦探",
-  "announcement.goals.kinswathe.detective": "调查出一切！",
-  "tip.kinswathe.detective.innocent": "%s 是平民",
-  "tip.kinswathe.detective.notinnocent": "%s 不是平民",
-  "hud.kinswathe.detective.target": "按下 %s 键调查该目标身份",
 
   "announcement.role.kinswathe.drugmaker": "制毒师",
   "announcement.goals.kinswathe.drugmaker": "用毒药征服所有人！",
@@ -53,10 +44,7 @@
 
   "announcement.role.kinswathe.robot": "机器人",
   "announcement.goals.kinswathe.robot": "毫无感情可言的机器。",
-  "replay.skill_use.kinswathe.bellringer": "%s 减少了 %s 秒的时间，花费 %s 金币",
   "replay.skill_use.kinswathe.cleaner": "%s 清理了场上掉落物，花费 %s 金币",
-  "replay.skill_use.kinswathe.detective.innocent": "%s 调查出 %s 的身份为平民",
-  "replay.skill_use.kinswathe.detective.notinnocent": "%s 调查出 %s 的身份不是平民",
   "replay.skill_use.kinswathe.hunter": "%s 刷新了匕首和猎刀的冷却时间，花费 %s 金币",
   "replay.skill_use.kinswathe.robot": "%s 发动了夜视能力",
   "replay.skill_use.kinswathe.kidnapper.release": "%s 提前结束了对 %s 的劫持",
@@ -119,10 +107,6 @@
 
   "guidebook.namespace.kinswathe": "模组: Kin's Wathe",
 
-  "guidebook.role.kinswathe:bellringer": "敲钟人",
-  "guidebook.role.title.kinswathe:bellringer": "时间掌控者",
-  "guidebook.role.description.kinswathe:bellringer": "敲钟人掌握着列车的时间奥秘，能够聆听到时光流逝的声音。\n\n敲钟人每时每刻都能知晓当前剩余的回合时间。每完成一项任务可获得 50 枚金币。\n\n每隔一段时间，敲钟人可以敲响时间之钟，使剩余时间减少 1 分钟。\n\n时间的流逝将严重打乱杀手们的节奏。",
-
   "guidebook.role.kinswathe:bodymaker": "造尸怪",
   "guidebook.role.title.kinswathe:bodymaker": "尸体捏造者",
   "guidebook.role.description.kinswathe:bodymaker": "尸体很容易欺骗人，而造尸怪最擅长的就是伪造尸体！\n\n无论是死因还是身份，造尸怪都能够在自己的作品上随意捏造，想必这一定会让调查者陷入重重困惑。",
@@ -130,10 +114,6 @@
   "guidebook.role.kinswathe:cleaner": "清道夫",
   "guidebook.role.title.kinswathe:cleaner": "不留痕迹",
   "guidebook.role.description.kinswathe:cleaner": "清道夫是杀手组织派来的清理专家。\n\n初始携带一个硫酸桶，可以用来溶解尸体，并获得金币报酬。\n\n清道夫可以使用技能清理地面上的所有掉落物。\n\n对于杀手们来说，清道夫是最可靠的合作伙伴——毕竟，没有尸体就没有证据。",
-
-  "guidebook.role.kinswathe:detective": "侦探",
-  "guidebook.role.title.kinswathe:detective": "真相追寻者",
-  "guidebook.role.description.kinswathe:detective": "侦探乘坐这趟列车并非偶然，他收到了一封匿名信，信中暗示这趟旅程将发生命案。\n\n他可以使用洞察能力判断一名目标是否为无辜者。\n\n但是无法直接找出杀手——侦探的能力只能告诉他谁是无辜的，而剩下的，则需要他自己推理...",
 
   "guidebook.role.kinswathe:drugmaker": "制毒师",
   "guidebook.role.title.kinswathe:drugmaker": "致命配方",

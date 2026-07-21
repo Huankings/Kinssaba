@@ -9,20 +9,11 @@
 
   "announcement.title.neutral": "Neutrals",
 
-  "announcement.role.kinswathe.bellringer": "Bellringer",
-  "announcement.goals.kinswathe.bellringer": "Check time, and modify time.",
-
   "announcement.role.kinswathe.bodymaker": "Bodymaker",
   "announcement.goals.kinswathe.bodymaker": "Fake bodies to confuse others.",
 
   "announcement.role.kinswathe.cleaner": "Cleaner",
   "announcement.goals.kinswathe.cleaner": "Remove all obstacles!",
-
-  "announcement.role.kinswathe.detective": "Detective",
-  "announcement.goals.kinswathe.detective": "Investigate everything!",
-  "tip.kinswathe.detective.innocent": "%s is innocent",
-  "tip.kinswathe.detective.notinnocent": "%s is not innocent",
-  "hud.kinswathe.detective.target": "Use %s to investigate",
 
   "announcement.role.kinswathe.drugmaker": "Drugmaker",
   "announcement.goals.kinswathe.drugmaker": "Conquer everyone with poison!",
@@ -53,10 +44,7 @@
 
   "announcement.role.kinswathe.robot": "Robot",
   "announcement.goals.kinswathe.robot": "A machine devoid of any emotion.",
-  "replay.skill_use.kinswathe.bellringer": "%s reduced %s seconds, costing %s coins",
   "replay.skill_use.kinswathe.cleaner": "%s cleared dropped items, costing %s coins",
-  "replay.skill_use.kinswathe.detective.innocent": "%s found %s is innocent",
-  "replay.skill_use.kinswathe.detective.notinnocent": "%s found %s is not innocent",
   "replay.skill_use.kinswathe.hunter": "%s refreshed knife and hunting knife cooldown, costing %s coins",
   "replay.skill_use.kinswathe.robot": "%s activated night vision",
   "replay.skill_use.kinswathe.kidnapper.release": "%s ended kidnapping of %s early",
@@ -119,10 +107,6 @@
 
   "guidebook.namespace.kinswathe": "Mod: Kin's Wathe",
 
-  "guidebook.role.kinswathe:bellringer": "Bellringer",
-  "guidebook.role.title.kinswathe:bellringer": "Time Master",
-  "guidebook.role.description.kinswathe:bellringer": "The Bellringer holds the secrets of time aboard the train, able to know how much time remains.\n\nEvery so often, the Bellringer can ring the Time Bell, reducing the remaining time by 1 minute.\n\nThe passage of time will severely disrupt the killers' rhythm.",
-
   "guidebook.role.kinswathe:bodymaker": "Bodymaker",
   "guidebook.role.title.kinswathe:bodymaker": "Body Forger",
   "guidebook.role.description.kinswathe:bodymaker": "Bodies are easy to deceive, and the Bodymaker specializes in forging them!\n\nWhether it's cause of death or identity, the Bodymaker can freely fabricate details on their creations, surely leaving investigators deeply perplexed.",
@@ -130,10 +114,6 @@
   "guidebook.role.kinswathe:cleaner": "Cleaner",
   "guidebook.role.title.kinswathe:cleaner": "Leaves No Trace",
   "guidebook.role.description.kinswathe:cleaner": "The Cleaner is an cleanup expert sent by the killer organization.\n\nStarts with Sulfuric Acid Barrel, which can be used to dissolve bodies, and can get coins when dissolve a body.\n\nThe Cleaner can use their ability to clear all dropped items on the ground.\n\nFor killers, the Cleaner is the most reliable partner — after all, no body means no evidence.",
-
-  "guidebook.role.kinswathe:detective": "Detective",
-  "guidebook.role.title.kinswathe:detective": "Truth Seeker",
-  "guidebook.role.description.kinswathe:detective": "The Detective's presence on this train is no coincidence — he received an anonymous letter hinting that a murder would occur during this journey.\n\nHe can use his Insight ability to determine if a target is innocent.\n\nBut he cannot directly identify the killer — his ability only tells him who is innocent. The rest, he must deduce himself...",
 
   "guidebook.role.kinswathe:drugmaker": "Drugmaker",
   "guidebook.role.title.kinswathe:drugmaker": "Lethal Formula",
