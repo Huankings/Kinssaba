@@ -16,10 +16,7 @@
     "roles.bodymaker.BodymakerDoNotCloseMixin",
     "roles.bodymaker.BodymakerScreenMixin",
     "roles.bodymaker.BodymakerSuggestorMixin",
-    "roles.judge.JudgeScreenMixin",
-    "roles.kidnapper.KidnapperControlledMixin",
-    "roles.kidnapper.KidnapperKeyControlledMixin",
-    "roles.robot.RobotHudMixin"
+    "roles.judge.JudgeScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -28,7 +25,6 @@
     "requireAnnotations": true
   },
   "mixins": [
-    "gui.ItemCrosshairMixin",
     "host.UnlockDistanceMixin"
   ]
 }

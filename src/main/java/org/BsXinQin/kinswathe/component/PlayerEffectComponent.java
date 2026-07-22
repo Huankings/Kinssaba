@@ -22,8 +22,6 @@ public class PlayerEffectComponent implements AutoSyncedComponent, ServerTicking
     @NotNull private final PlayerEntity player;
     public int stunTicks = 0;
     private @Nullable Identifier stunSource = null;
-    private int robotNightVisionTicks = 0;
-    private @Nullable Identifier robotNightVisionEndSource = null;
 
     public PlayerEffectComponent(@NotNull PlayerEntity player) {this.player = player;}
 
@@ -38,16 +36,6 @@ public class PlayerEffectComponent implements AutoSyncedComponent, ServerTicking
             if (this.stunTicks == 0 && this.stunSource != null && this.player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
                 GameRecordManager.recordGlobalEvent(serverPlayer.getServerWorld(), this.stunSource, serverPlayer, null);
                 this.stunSource = null;
-            }
-        }
-
-        if (this.robotNightVisionTicks > 0) {
-            -- this.robotNightVisionTicks;
-            changed = true;
-            // 机器人夜视结束需要有稳定的服务端回放，不依赖客户端药水状态是否显示完成。
-            if (this.robotNightVisionTicks == 0 && this.robotNightVisionEndSource != null && this.player instanceof net.minecraft.server.network.ServerPlayerEntity serverPlayer) {
-                GameRecordManager.recordGlobalEvent(serverPlayer.getServerWorld(), this.robotNightVisionEndSource, serverPlayer, null);
-                this.robotNightVisionEndSource = null;
             }
         }
 
@@ -68,18 +56,9 @@ public class PlayerEffectComponent implements AutoSyncedComponent, ServerTicking
         this.sync();
     }
 
-    public void setRobotNightVisionTicks(int ticks, @Nullable Identifier endSource) {
-        this.robotNightVisionTicks = Math.max(0, ticks);
-        // endSource 专门用来记录夜视结束时的回放类型，当前由机器人能力复用。
-        this.robotNightVisionEndSource = this.robotNightVisionTicks > 0 ? endSource : null;
-        this.sync();
-    }
-
     public void reset() {
         this.stunTicks = 0;
         this.stunSource = null;
-        this.robotNightVisionTicks = 0;
-        this.robotNightVisionEndSource = null;
         this.sync();
     }
 
@@ -93,17 +72,11 @@ public class PlayerEffectComponent implements AutoSyncedComponent, ServerTicking
         if (this.stunSource != null) {
             tag.putString("stunSource", this.stunSource.toString());
         }
-        tag.putInt("robotNightVisionTicks", this.robotNightVisionTicks);
-        if (this.robotNightVisionEndSource != null) {
-            tag.putString("robotNightVisionEndSource", this.robotNightVisionEndSource.toString());
-        }
     }
 
     @Override
     public void readFromNbt(@NotNull NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         this.stunTicks = tag.contains("stunTicks") ? tag.getInt("stunTicks") : 0;
         this.stunSource = tag.contains("stunSource") ? Identifier.of(tag.getString("stunSource")) : null;
-        this.robotNightVisionTicks = tag.contains("robotNightVisionTicks") ? tag.getInt("robotNightVisionTicks") : 0;
-        this.robotNightVisionEndSource = tag.contains("robotNightVisionEndSource") ? Identifier.of(tag.getString("robotNightVisionEndSource")) : null;
     }
 }

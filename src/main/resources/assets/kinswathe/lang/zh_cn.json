@@ -12,44 +12,17 @@
   "announcement.role.kinswathe.bodymaker": "造尸怪",
   "announcement.goals.kinswathe.bodymaker": "伪造尸体，混淆视听",
 
-  "announcement.role.kinswathe.drugmaker": "制毒师",
-  "announcement.goals.kinswathe.drugmaker": "用毒药征服所有人！",
-  "tip.kinswathe.drugmaker.poison_failed": "它似乎无法中毒...",
-  "tip.kinswathe.drugmaker.poisoned": "有人中毒了",
-
   "announcement.role.kinswathe.judge": "大法官",
   "announcement.goals.kinswathe.judge": "公平公正!",
   "tip.kinswathe.judge.notification": "你正在接受审判",
   "tip.kinswathe.judge.ability_failed": "对方似乎不在场...",
   "hud.kinswathe.judge.ready": "审判准备就绪",
 
-  "announcement.role.kinswathe.kidnapper": "绑匪",
-  "announcement.goals.kinswathe.kidnapper": "将乘客绑架到隐蔽的角落。",
-  "tip.kinswathe.kidnapper.daze_failed": "它似乎无法被迷晕...",
-  "tip.kinswathe.kidnapper.warning": "你正在被绑匪劫持！",
-  "tip.kinswathe.kidnapper.timeleft": "剩余劫持时间：%s 秒",
-  "tip.kinswathe.kidnapper.release": "劫持已结束",
-
   "announcement.role.kinswathe.licensed_villain": "执照恶棍",
   "announcement.goals.kinswathe.licensed_villain": "你或许还尚存有一丝良知...",
   "announcement.win.kinswathe.licensed_villain": "执照恶棍胜利",
   "tip.kinswathe.licensed_villain.weapon": "执照恶棍已经获取了武器！",
   "game.win.kinswathe.licensed_villain": "执照恶棍执行了他的正义",
-
-  "announcement.role.kinswathe.robot": "机器人",
-  "announcement.goals.kinswathe.robot": "毫无感情可言的机器。",
-  "replay.skill_use.kinswathe.robot": "%s 发动了夜视能力",
-  "replay.skill_use.kinswathe.kidnapper.release": "%s 提前结束了对 %s 的劫持",
-  "replay.skill_use.kinswathe.kidnapper.release_end": "%s 的被劫持状态结束",
-  "replay.item_use.kinswathe.knockout_drug": "%s 使用迷药迷晕并劫持了 %s",
-  "replay.item_use.kinswathe.knockout_drug.failed_robot": "%s 无法被 %s 的迷药迷晕",
-  "replay.item_use.kinswathe.poison_injector": "%s 用毒液注射器注射毒液给 %s",
-  "replay.item_use.kinswathe.poison_injector.failed_robot": "%s 无法被 %s 的毒液注射器中毒",
-  "replay.item_hit.kinswathe.blowgun": "%s 使用吹矢命中了 %s",
-  "replay.item_hit.kinswathe.blowgun.failed_robot": "%s 无法被 %s 的吹矢中毒",
-  "replay.global.kinswathe.robot_night_vision_end": "%s 的夜视时间结束",
-  "replay.global.kinswathe.robot.poison_immune": "%s 无法被带有毒药的 %s 中毒，毒源来自于 %s",
-  "replay.global.kinswathe.robot.bed_poison_immune": "%s 无法被 %s 放置的蝎子中毒",
 
   "announcement.role.kinswathe.technician": "技术员",
   "announcement.goals.kinswathe.technician": "用技术解决问题！",
@@ -61,17 +34,8 @@
   "announcement.modifier.kinswathe.taskmaster": "任务大师",
   "announcement.modifier.kinswathe.violator": "违禁者",
 
-  "item.kinswathe.blowgun": "吹矢",
-  "item.kinswathe.blowgun.tooltip": "瞄准、右键点击并射击\n被射中的目标将会中毒\n冷却 1 分钟",
-
   "item.kinswathe.capture_device": "捕捉装置",
   "item.kinswathe.capture_device.tooltip": "右键点击放置在地板上\n困住路过的玩家并告知使用者\n捕捉装置将会在一段时间后自动消失\n对其他玩家不可见，无论是放置后还是手中持有时\n冷却 1 分钟",
-
-  "item.kinswathe.knockout_drug": "迷药",
-  "item.kinswathe.knockout_drug.tooltip": "用于玩家，可迷晕其 20 秒\n被作用的玩家将会一直跟随你\n按下潜行键可以释放玩家\n一次性物品，冷却 45 秒",
-
-  "item.kinswathe.poison_injector": "毒液注射器",
-  "item.kinswathe.poison_injector.tooltip": "用于玩家，使其中毒\n如果目标已经中毒，则直接致死\n冷却 1 分钟",
 
   "item.kinswathe.wrench": "扳手",
   "item.kinswathe.wrench.tooltip": "用于任意被堵死或撬开的门将其恢复正常\n冷却 2 分钟",
@@ -96,25 +60,13 @@
   "guidebook.role.title.kinswathe:bodymaker": "尸体捏造者",
   "guidebook.role.description.kinswathe:bodymaker": "尸体很容易欺骗人，而造尸怪最擅长的就是伪造尸体！\n\n无论是死因还是身份，造尸怪都能够在自己的作品上随意捏造，想必这一定会让调查者陷入重重困惑。",
 
-  "guidebook.role.kinswathe:drugmaker": "制毒师",
-  "guidebook.role.title.kinswathe:drugmaker": "致命配方",
-  "guidebook.role.description.kinswathe:drugmaker": "制毒师是杀手中最擅长用毒的存在，他享受着猎物中毒后挣扎的每一秒，他只会在人数足够时被派去辅助杀手。\n\n制毒师能够看到真正中毒的玩家——毕竟那是他的杰作。每当有玩家中毒，他都能获得一笔金币作为回报。\n\n在商店中可以购买毒液注射器和吹矢，这是两种截然不同的下毒方式。\n\n对于制毒师来说，死亡只是一剂药方的事。",
-
   "guidebook.role.kinswathe:judge": "大法官",
   "guidebook.role.title.kinswathe:judge": "正义的化身",
   "guidebook.role.description.kinswathe:judge": "大法官登上这趟列车纯属休假，但骨子里的正义感使自己无法对罪恶视而不见。\n\n法官可以使用他的审判能力，使一名目标发出光芒。\n\n有人说被法官标记的人终将接受审判，但也有人担心法官的判决是否真的公正...",
 
-  "guidebook.role.kinswathe:kidnapper": "绑匪",
-  "guidebook.role.title.kinswathe:kidnapper": "黑暗交易",
-  "guidebook.role.description.kinswathe:kidnapper": "绑匪从不光明正大杀人，他更喜欢将猎物变成听话的傀儡。\n\n在商店中可以购买迷药，使用后可使目标陷入昏迷状态，并跟随绑匪移动。绑匪也会在登上列车前自带一个迷药，以备不时之需。\n\n如果绑匪亲自击杀昏迷中的目标将获得一笔额外的报酬。\n\n被迷药作用的目标将会黑屏，无法攻击或使用物品，也无法使用语音聊天——他们只能盲目地跟随，直到解除药效。不过，要是你有办法在这期间脱离足够远的距离，绑匪就拿你没办法了。\n\n没人知道绑匪把这些乘客带去了哪里，也没人想知道。",
-
   "guidebook.role.kinswathe:licensed_villain": "执照恶棍",
   "guidebook.role.title.kinswathe:licensed_villain": "持证上岗",
   "guidebook.role.description.kinswathe:licensed_villain": "执照恶棍是持有官方认证的恶人执照的稀有角色，他仅会在人数足够时出现。\n\n执照恶棍的胜利条件与众不同——他必须杀死所有人。当所有平民阵营或所有杀手阵营死亡时，游戏并不会结束，只有他能亲手终结一切。\n\n执照恶棍拥有 15 秒的冲刺时间，上车的时候会自带一个开锁器，且每完成一项任务可获得金币。\n\n在商店中可以购买左轮手枪，并且他使用左轮手枪时不会有任何错误开火惩罚——毕竟是专业的。",
-
-  "guidebook.role.kinswathe:robot": "机器人",
-  "guidebook.role.title.kinswathe:robot": "机械造物",
-  "guidebook.role.description.kinswathe:robot": "机器人混入了这趟列车，没人知道它的目的是什么。\n\n作为机械构造体，它没有情绪，免疫毒药，不会被迷药迷晕，并且拥有无限的体力。\n\n每隔一段时间，机器人可以启动夜视模式，在黑暗中也能清晰视物。\n\n有人说它只是出了故障，也有人坚信它带着某种使命...",
 
   "guidebook.role.kinswathe:technician": "技术员",
   "guidebook.role.title.kinswathe:technician": "专业维护员",

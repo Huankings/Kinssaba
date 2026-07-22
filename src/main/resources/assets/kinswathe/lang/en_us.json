@@ -12,44 +12,17 @@
   "announcement.role.kinswathe.bodymaker": "Bodymaker",
   "announcement.goals.kinswathe.bodymaker": "Fake bodies to confuse others.",
 
-  "announcement.role.kinswathe.drugmaker": "Drugmaker",
-  "announcement.goals.kinswathe.drugmaker": "Conquer everyone with poison!",
-  "tip.kinswathe.drugmaker.poison_failed": "It seems to be immune to poisoning...",
-  "tip.kinswathe.drugmaker.poisoned": "Someone was poisoned",
-
   "announcement.role.kinswathe.judge": "Judge",
   "announcement.goals.kinswathe.judge": "Fair and just!",
   "tip.kinswathe.judge.notification": "You are undergoing justice",
   "tip.kinswathe.judge.ability_failed": "Target seems not to be present...",
   "hud.kinswathe.judge.ready": "Ready to judge",
 
-  "announcement.role.kinswathe.kidnapper": "Kidnapper",
-  "announcement.goals.kinswathe.kidnapper": "Kidnap passenger to a concealed corner.",
-  "tip.kinswathe.kidnapper.daze_failed": "It seems to be immune to dazing...",
-  "tip.kinswathe.kidnapper.warning": "You are being kidnapping!",
-  "tip.kinswathe.kidnapper.timeleft": "Remaining kidnap time: %ss",
-  "tip.kinswathe.kidnapper.release": "Kidnap has ended",
-
   "announcement.role.kinswathe.licensed_villain": "Licensed Villain",
   "announcement.goals.kinswathe.licensed_villain": "You might still retain a shred of conscience...",
   "announcement.win.kinswathe.licensed_villain": "Licensed Villain Win!",
   "tip.kinswathe.licensed_villain.weapon": "Licensed Villain has obtained weapon!",
   "game.win.kinswathe.licensed_villain": "The licensed villain ended everyone's life!",
-
-  "announcement.role.kinswathe.robot": "Robot",
-  "announcement.goals.kinswathe.robot": "A machine devoid of any emotion.",
-  "replay.skill_use.kinswathe.robot": "%s activated night vision",
-  "replay.skill_use.kinswathe.kidnapper.release": "%s ended kidnapping of %s early",
-  "replay.skill_use.kinswathe.kidnapper.release_end": "%s's kidnapped state ended",
-  "replay.item_use.kinswathe.knockout_drug": "%s used knockout drug to daze and kidnap %s",
-  "replay.item_use.kinswathe.knockout_drug.failed_robot": "%s cannot be dazed by %s's knockout drug",
-  "replay.item_use.kinswathe.poison_injector": "%s injected poison into %s with poison injector",
-  "replay.item_use.kinswathe.poison_injector.failed_robot": "%s cannot be poisoned by %s's poison injector",
-  "replay.item_hit.kinswathe.blowgun": "%s hit %s with blowgun",
-  "replay.item_hit.kinswathe.blowgun.failed_robot": "%s cannot be poisoned by %s's blowgun",
-  "replay.global.kinswathe.robot_night_vision_end": "%s's night vision has ended",
-  "replay.global.kinswathe.robot.poison_immune": "%s cannot be poisoned by poisoned %s, source from %s",
-  "replay.global.kinswathe.robot.bed_poison_immune": "%s cannot be poisoned by scorpion placed by %s",
 
   "announcement.role.kinswathe.technician": "Technician",
   "announcement.goals.kinswathe.technician": "Use technology to solve problems!",
@@ -61,17 +34,8 @@
   "announcement.modifier.kinswathe.taskmaster": "Taskmaster",
   "announcement.modifier.kinswathe.violator": "Violator",
 
-  "item.kinswathe.blowgun": "Blowgun",
-  "item.kinswathe.blowgun.tooltip": "Point, right-click and shoot\nTarget that be shooted will be poisoned\n1 minute cooldown",
-
   "item.kinswathe.capture_device": "Capture Device",
   "item.kinswathe.capture_device.tooltip": "Right-click to place down on floors\nTrap passing player and inform the user\nCapture Device will automatically disappear after a period of time\nInvisible to other players, both placed and in hand\n1 minute cooldown",
-
-  "item.kinswathe.knockout_drug": "Knockout Drug",
-  "item.kinswathe.knockout_drug.tooltip": "Use on a player to daze it for 20 seconds\nThe affected player will follow you\nUse sneaking key to release it\nSingle use, 45 seconds cooldown",
-
-  "item.kinswathe.poison_injector": "Poison Injector",
-  "item.kinswathe.poison_injector.tooltip": "Use on a player to poison it\nIf target have been poisoned, directly cause death\n1 minute cooldown",
 
   "item.kinswathe.wrench": "Wrench",
   "item.kinswathe.wrench.tooltip": "Use on any jammed or pried door to restore to normal\n2 minutes cooldown",
@@ -96,25 +60,13 @@
   "guidebook.role.title.kinswathe:bodymaker": "Body Forger",
   "guidebook.role.description.kinswathe:bodymaker": "Bodies are easy to deceive, and the Bodymaker specializes in forging them!\n\nWhether it's cause of death or identity, the Bodymaker can freely fabricate details on their creations, surely leaving investigators deeply perplexed.",
 
-  "guidebook.role.kinswathe:drugmaker": "Drugmaker",
-  "guidebook.role.title.kinswathe:drugmaker": "Lethal Formula",
-  "guidebook.role.description.kinswathe:drugmaker": "The Drugmaker is the killer most skilled with poisons, savoring every second of his prey's suffering after being poisoned. He is only deployed to assist killers when there are enough players.\n\nThe Drugmaker can see players who are genuinely poisoned — after all, they are his masterpieces. Whenever a player is poisoned, he receives a reward of coins.\n\nPoison Injector and Blowgun can be purchased at the shop — two distinctly different methods of poisoning.\n\nFor the Drugmaker, death is just a matter of prescription.",
-
   "guidebook.role.kinswathe:judge": "Judge",
   "guidebook.role.title.kinswathe:judge": "Embodiment of Justice",
   "guidebook.role.description.kinswathe:judge": "The Judge boarded this train purely for vacation, but his innate sense of justice prevents him from turning a blind eye to evil.\n\nThe Judge can use his Judgment ability to make a target emit light.\n\nSome say those marked by the Judge will eventually face trial, but others worry whether the Judge's verdicts are truly just...",
 
-  "guidebook.role.kinswathe:kidnapper": "Kidnapper",
-  "guidebook.role.title.kinswathe:kidnapper": "Dark Dealings",
-  "guidebook.role.description.kinswathe:kidnapper": "The Kidnapper doesn't kill openly; he prefers to turn his prey into obedient puppets.\n\nKnockout Drug can be purchased at the shop. Using it renders a target unconscious, causing them to follow the Kidnapper. The Kidnapper also boards the train with Knockout Drug, just in case.\n\nIf the Kidnapper personally kill the dazed target, he will receive an additional reward.\n\nA target affected by Knockout Drug will have a black screen, unable to attack, use items, or use voice chat — they can only follow blindly until the effect wears off. However, if you can get far enough away during this time, the Kidnapper won't be able to catch you.\n\nNo one knows where the Kidnapper takes these passengers, and no one wants to know.",
-
   "guidebook.role.kinswathe:licensed_villain": "Licensed Villain",
   "guidebook.role.title.kinswathe:licensed_villain": "Officially Certified",
   "guidebook.role.description.kinswathe:licensed_villain": "The Licensed Villain is a rare character holding an officially certified villain license. He only appears when there are enough players.\n\nThe Licensed Villain's win condition is unique — he must kill everyone. When all civilians or all killers are eliminated, the game does not end. Only he can end it all with his own hands.\n\nThe Licensed Villain has 15 seconds of sprint time, boards with Lockpick, and receives coins for completing tasks.\n\nRevolver can be purchased at the shop, and he suffers no misfire penalty when using it — after all, he's a professional.",
-
-  "guidebook.role.kinswathe:robot": "Robot",
-  "guidebook.role.title.kinswathe:robot": "Mechanical Being",
-  "guidebook.role.description.kinswathe:robot": "The Robot has infiltrated this train; no one knows its purpose.\n\nAs a mechanical construct, it has no mood, is immune to poison, cannot be knocked out by Knockout Drug, and has unlimited stamina.\n\nEvery so often, the Robot can activate Night Vision mode, allowing it to see clearly in the dark.\n\nSome say it's just malfunctioning, while others believe it carries some kind of mission...",
 
   "guidebook.role.kinswathe:technician": "Technician",
   "guidebook.role.title.kinswathe:technician": "Professional Maintenance Worker",

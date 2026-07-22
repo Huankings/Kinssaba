@@ -16,25 +16,10 @@ import org.jetbrains.annotations.NotNull;
 public class KinsWatheItems {
 
     /// 新增物品
-    //吹矢
-    public static final Item BLOWGUN = registerItem(
-            new BlowgunItem(new Item.Settings().maxCount(1)),
-            "blowgun"
-    );
     //捕捉装置
     public static final Item CAPTURE_DEVICE = registerItem(
             new CaptureDeviceItem(new Item.Settings().maxCount(1)),
             "capture_device"
-    );
-    //迷药
-    public static final Item KNOCKOUT_DRUG = registerItem(
-            new KnockoutDrugItem(new Item.Settings().maxCount(4)),
-            "knockout_drug"
-    );
-    //毒液注射器
-    public static final Item POISON_INJECTOR = registerItem(
-            new PoisonInjectorItem(new Item.Settings().maxCount(1)),
-            "poison_injector"
     );
     //扳手
     public static final Item WRENCH = registerItem(
@@ -67,10 +52,7 @@ public class KinsWatheItems {
     /// 添加物品冷却
     public static void addItemCooldowns() {
         //物品冷却
-        GameConstants.ITEM_COOLDOWNS.put(BLOWGUN, GameConstants.getInTicks(1,0));
         GameConstants.ITEM_COOLDOWNS.put(CAPTURE_DEVICE, GameConstants.getInTicks(1,0));
-        GameConstants.ITEM_COOLDOWNS.put(KNOCKOUT_DRUG, GameConstants.getInTicks(0,45));
-        GameConstants.ITEM_COOLDOWNS.put(POISON_INJECTOR, GameConstants.getInTicks(1,0));
         GameConstants.ITEM_COOLDOWNS.put(WRENCH, GameConstants.getInTicks(2,0));
         //图标冷却
         GameConstants.ITEM_COOLDOWNS.put(ICON_POWER_RESTORATION, GameConstants.getInTicks(3,0));
@@ -79,10 +61,7 @@ public class KinsWatheItems {
     /// 添加物品组别
     public static void addItemGroup() {
         ItemGroupEvents.modifyEntriesEvent(WatheItems.EQUIPMENT_GROUP).register(entries -> {
-            entries.add(BLOWGUN);
             entries.add(CAPTURE_DEVICE);
-            entries.add(KNOCKOUT_DRUG);
-            entries.add(POISON_INJECTOR);
             entries.add(WRENCH);
         });
     }

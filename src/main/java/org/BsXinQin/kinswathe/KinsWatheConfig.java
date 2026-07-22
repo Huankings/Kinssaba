@@ -57,15 +57,6 @@ public class KinsWatheConfig {
     @SerialEntry
     public boolean BodymakerAbilityFakeRole = true;
 
-    @SerialEntry(comment = "Drugmaker: modify generation player limit, get coins when someone was poisoned and price of Poison Injector and Blowgun.")
-    public int DrugmakerPlayerLimit = 10;
-    @SerialEntry
-    public int DrugmakerGetCoins = 50;
-    @SerialEntry
-    public int DrugmakerPoisonInjectorPrice = 100;
-    @SerialEntry
-    public int DrugmakerBlowgunPrice = 175;
-
     @SerialEntry(comment = "Judge: modify price and cooldown of ability.")
     public int JudgeAbilityPrice = 300;
     @SerialEntry
@@ -73,20 +64,10 @@ public class KinsWatheConfig {
     @SerialEntry
     public int JudgeAbilityCooldown = GameConstants.getInTicks(3,0) / 20;
 
-    @SerialEntry(comment = "Kidnapper: modify price of Knockout Drug and get additional coins when kill dazed player.")
-    public int KidnapperKnockoutDrugPrice = 75;
-    @SerialEntry
-    public int KidnapperGetAdditionalCoins = 100;
-
     @SerialEntry(comment = "Licensed Villain: modify generation player limit and price of Revolver.")
     public int LicensedVillainPlayerLimit = 10;
     @SerialEntry
     public int LicensedVillainRevolverPrice = 300;
-
-    @SerialEntry(comment = "Robot: modify duration and cooldown of ability.")
-    public int RobotAbilityDuration = GameConstants.getInTicks(0,10) / 20;
-    @SerialEntry
-    public int RobotAbilityCooldown = GameConstants.getInTicks(1,30) / 20;
 
     @SerialEntry(comment = "Technician: modify price of props and Capture Device parameter.")
     public int TechnicianWrenchPrice = 100;

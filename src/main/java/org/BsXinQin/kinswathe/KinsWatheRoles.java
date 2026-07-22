@@ -15,12 +15,10 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
-import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
 import org.BsXinQin.kinswathe.roles.bodymaker.BodymakerAbility;
 import org.BsXinQin.kinswathe.roles.judge.JudgeAbility;
-import org.BsXinQin.kinswathe.roles.robot.RobotAbility;
 import org.agmas.harpymodloader.Harpymodloader;
 import org.agmas.harpymodloader.component.WorldModifierComponent;
 import org.agmas.harpymodloader.config.HarpyModLoaderConfig;
@@ -52,16 +50,6 @@ public class KinsWatheRoles {
             -1,
             true
     ));
-    //制毒师
-    public static Role DRUGMAKER = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "drugmaker"),
-            0x4C0099,
-            false,
-            true,
-            Role.MoodType.FAKE,
-            -1,
-            true
-    ));
     //大法官
     public static Role JUDGE = registerRole(new Role(
             Identifier.of(KinsWathe.MOD_ID, "judge"),
@@ -72,16 +60,6 @@ public class KinsWatheRoles {
             WatheRoles.CIVILIAN.getMaxSprintTime(),
             false
     ));
-    //绑匪
-    public static Role KIDNAPPER = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "kidnapper"),
-            0xCC0066,
-            false,
-            true,
-            Role.MoodType.FAKE,
-            -1,
-            true
-    ));
     //执照恶棍
     public static Role LICENSED_VILLAIN = registerRole(new Role(
             Identifier.of(KinsWathe.MOD_ID, "licensed_villain"),
@@ -90,16 +68,6 @@ public class KinsWatheRoles {
             false,
             Role.MoodType.FAKE,
             WatheRoles.CIVILIAN.getMaxSprintTime() * 3 / 2,
-            false
-    ));
-    //机器人
-    public static Role ROBOT = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "robot"),
-            0xC0C0C0,
-            true,
-            false,
-            Role.MoodType.FAKE,
-            -1,
             false
     ));
     //技术员
@@ -217,11 +185,6 @@ public class KinsWatheRoles {
     /// 限制身份生成人数
     public static void limitRolesGeneratePlayers() {
         ServerTickEvents.END_SERVER_TICK.register(((server) -> {
-            //限制制毒师生成人数
-            if (server.getPlayerManager().getCurrentPlayerCount() >= KinsWatheConfig.HANDLER.instance().DrugmakerPlayerLimit) {
-                Harpymodloader.setRoleMaximum(DRUGMAKER,1);} else {
-                Harpymodloader.setRoleMaximum(DRUGMAKER,0);
-            }
             //限制执照恶棍生成人数
             if (server.getPlayerManager().getCurrentPlayerCount() >= KinsWatheConfig.HANDLER.instance().LicensedVillainPlayerLimit) {
                 Harpymodloader.setRoleMaximum(LICENSED_VILLAIN,1);} else {
@@ -243,10 +206,6 @@ public class KinsWatheRoles {
                 if (!gameWorld.isInnocent(player) && !gameWorld.canUseKillerFeatures(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialNeutralIncome);
                 if (gameWorld.canUseKillerFeatures(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialKillerIncome - 100);
             }
-            //绑匪初始物品
-            if (role.equals(KIDNAPPER)) {
-                player.giveItemStack(KinsWatheItems.KNOCKOUT_DRUG.getDefaultStack());
-            }
             //执照恶棍初始物品
             if (role.equals(LICENSED_VILLAIN)) {
                 player.giveItemStack(WatheItems.LOCKPICK.getDefaultStack());
@@ -256,9 +215,6 @@ public class KinsWatheRoles {
 
     /// 注册身份技能
     public static void registerRolesAbility() {
-        ServerPlayNetworking.registerGlobalReceiver(AbilityC2SPacket.ID, (payload, context) -> {
-            RobotAbility.register(context.player());
-        });
         ServerPlayNetworking.registerGlobalReceiver(BodymakerC2SPacket.ID, (payload, context) -> {
             BodymakerAbility.register(payload, context.player());
         });
@@ -292,7 +248,7 @@ public class KinsWatheRoles {
 
         /*
          * 通用被动收入：迁移旧 PassiveIncomeMixin 的额外角色。
-         * BODYMAKER/DRUGMAKER/KIDNAPPER 等杀手能力角色不需要注册，
+         * BODYMAKER 等杀手能力角色不需要注册，
          * 因为 Wathe 的 EconomyApi 会保留“杀手能力角色默认拥有被动收入”的原行为。
          */
         EconomyApi.registerPassiveIncomeRoles(List.of(

@@ -7,8 +7,6 @@ import dev.doctor4t.wathe.api.shop.ShopPurchaseContext;
 import dev.doctor4t.wathe.api.shop.ShopPurchaseResult;
 import dev.doctor4t.wathe.util.ShopEntry;
 import net.minecraft.entity.player.PlayerEntity;
-import org.BsXinQin.kinswathe.roles.drugmaker.DrugmakerShopHandler;
-import org.BsXinQin.kinswathe.roles.kidnapper.KidnapperShopHandler;
 import org.BsXinQin.kinswathe.roles.licensed_villain.LicensedVillainShopHandler;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianShopHandler;
 import org.jetbrains.annotations.NotNull;
@@ -26,13 +24,6 @@ public final class KinsWatheShopBootstrap {
     }
 
     public static void init() {
-        /*
-         * 这两个杀手职业只修改默认杀手商店：删减商品、插入专属物品、调整价格。
-         * 不注册 RoleShopProvider，才能让 Wathe 先生成默认杀手商店，再交给 ShopModifier 做差异化处理。
-         */
-        ShopApi.registerShopModifier(KinsWathe.id("drugmaker_shop"), ShopApi.DEFAULT_PRIORITY, DrugmakerShopHandler::modifyShop);
-        ShopApi.registerShopModifier(KinsWathe.id("kidnapper_shop"), ShopApi.DEFAULT_PRIORITY, KidnapperShopHandler::modifyShop);
-
         register(KinsWatheRoles.TECHNICIAN, player -> TechnicianShopHandler.getShopEntries(player.getWorld()));
         register(KinsWatheRoles.LICENSED_VILLAIN, player -> LicensedVillainShopHandler.getShopEntries(player.getWorld()));
     }

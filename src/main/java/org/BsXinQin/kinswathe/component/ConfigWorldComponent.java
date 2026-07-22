@@ -31,11 +31,7 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
     public boolean EnableAutoPsychoInstinct = true;
     //关于KinsWathe修改
     public boolean BodymakerAbilityFakeRole = true;
-    public int DrugmakerGetCoins = 50;
-    public int DrugmakerPoisonInjectorPrice = 100;
-    public int DrugmakerBlowgunPrice = 175;
     public int JudgeAbilityPrice = 300;
-    public int KidnapperKnockoutDrugPrice = 250;
     public int LicensedVillainRevolverPrice = 300;
     public int TechnicianWrenchPrice = 100;
     public int TechnicianCaptureDevicePrice = 100;
@@ -56,11 +52,7 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         EnableAutoPsychoInstinct = KinsWatheConfig.HANDLER.instance().EnableAutoPsychoInstinct; tag.putBoolean("EnableAutoPsychoInstinct", this.EnableAutoPsychoInstinct);
         //关于KinsWathe修改
         BodymakerAbilityFakeRole = KinsWatheConfig.HANDLER.instance().BodymakerAbilityFakeRole; tag.putBoolean("BodymakerAbilityFakeRole", this.BodymakerAbilityFakeRole);
-        DrugmakerGetCoins = KinsWatheConfig.HANDLER.instance().DrugmakerGetCoins; tag.putInt("DrugmakerGetCoins", this.DrugmakerGetCoins);
-        DrugmakerPoisonInjectorPrice = KinsWatheConfig.HANDLER.instance().DrugmakerPoisonInjectorPrice; tag.putInt("DrugmakerPoisonInjectorPrice", this.DrugmakerPoisonInjectorPrice);
-        DrugmakerBlowgunPrice = KinsWatheConfig.HANDLER.instance().DrugmakerBlowgunPrice; tag.putInt("DrugmakerBlowgunPrice", this.DrugmakerBlowgunPrice);
         JudgeAbilityPrice = KinsWatheConfig.HANDLER.instance().JudgeAbilityPrice; tag.putInt("JudgeAbilityPrice", this.JudgeAbilityPrice);
-        KidnapperKnockoutDrugPrice = KinsWatheConfig.HANDLER.instance().KidnapperKnockoutDrugPrice; tag.putInt("KidnapperKnockoutDrugPrice", this.KidnapperKnockoutDrugPrice);
         LicensedVillainRevolverPrice = KinsWatheConfig.HANDLER.instance().LicensedVillainRevolverPrice; tag.putInt("LicensedVillainRevolverPrice", this.LicensedVillainRevolverPrice);
         TechnicianWrenchPrice = KinsWatheConfig.HANDLER.instance().TechnicianWrenchPrice; tag.putInt("TechnicianWrenchPrice", this.TechnicianWrenchPrice);
         TechnicianCaptureDevicePrice = KinsWatheConfig.HANDLER.instance().TechnicianCaptureDevicePrice; tag.putInt("TechnicianCaptureDevicePrice", this.TechnicianCaptureDevicePrice);
@@ -81,11 +73,7 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         if (tag.contains("EnableAutoPsychoInstinct"))   this.EnableAutoPsychoInstinct = tag.getBoolean("EnableAutoPsychoInstinct");
         //关于KinsWathe修改
         if (tag.contains("BodymakerAbilityFakeRole"))   this.BodymakerAbilityFakeRole = tag.getBoolean("BodymakerAbilityFakeRole");
-        if (tag.contains("DrugmakerGetCoins"))   this.DrugmakerGetCoins = tag.getInt("DrugmakerGetCoins");
-        if (tag.contains("DrugmakerPoisonInjectorPrice"))   this.DrugmakerPoisonInjectorPrice = tag.getInt("DrugmakerPoisonInjectorPrice");
-        if (tag.contains("DrugmakerBlowgunPrice"))   this.DrugmakerBlowgunPrice = tag.getInt("DrugmakerBlowgunPrice");
         if (tag.contains("JudgeAbilityPrice"))   this.JudgeAbilityPrice = tag.getInt("JudgeAbilityPrice");
-        if (tag.contains("KidnapperKnockoutDrugPrice"))   this.KidnapperKnockoutDrugPrice = tag.getInt("KidnapperKnockoutDrugPrice");
         if (tag.contains("LicensedVillainRevolverPrice"))   this.LicensedVillainRevolverPrice = tag.getInt("LicensedVillainRevolverPrice");
         if (tag.contains("TechnicianWrenchPrice"))   this.TechnicianWrenchPrice = tag.getInt("TechnicianWrenchPrice");
         if (tag.contains("TechnicianCaptureDevicePrice"))   this.TechnicianCaptureDevicePrice = tag.getInt("TechnicianCaptureDevicePrice");

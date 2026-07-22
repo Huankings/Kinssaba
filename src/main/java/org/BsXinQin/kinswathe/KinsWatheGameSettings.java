@@ -11,7 +11,6 @@ import dev.doctor4t.wathe.game.GameFunctions;
 import dev.doctor4t.wathe.index.WatheItems;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.MinecraftServer;
@@ -21,11 +20,8 @@ import org.BsXinQin.kinswathe.KinsWathe;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.component.GameSafeComponent;
 import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
-import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
-import org.BsXinQin.kinswathe.packet.items.BlowgunC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
-import org.BsXinQin.kinswathe.roles.kidnapper.KidnapperComponent;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianComponent;
 import org.agmas.harpymodloader.events.ResetPlayerEvent;
 import org.jetbrains.annotations.NotNull;
@@ -96,10 +92,6 @@ public class KinsWatheGameSettings {
         GameSafeComponent.KEY.get(server.getOverworld()).startGameSafe();
         for (ServerPlayerEntity serverPlayer : server.getPlayerManager().getPlayerList()) {
             if (serverPlayer == null) continue;
-            //KinsWathe物品安全时间
-            serverPlayer.getItemCooldownManager().set(KinsWatheItems.BLOWGUN, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
-            serverPlayer.getItemCooldownManager().set(KinsWatheItems.KNOCKOUT_DRUG, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
-            serverPlayer.getItemCooldownManager().set(KinsWatheItems.POISON_INJECTOR, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             //Wathe物品安全时间
             serverPlayer.getItemCooldownManager().set(WatheItems.DERRINGER, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(WatheItems.KNIFE, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
@@ -124,11 +116,8 @@ public class KinsWatheGameSettings {
 
     /// 注册网络数据包
     public static void registerPackets() {
-        PayloadTypeRegistry.playC2S().register(AbilityC2SPacket.ID, AbilityC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(BodymakerC2SPacket.ID, BodymakerC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(JudgeC2SPacket.ID, JudgeC2SPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(BlowgunC2SPacket.ID, BlowgunC2SPacket.CODEC);
-        ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
     }
 
     /// 注册游戏事件
@@ -161,7 +150,6 @@ public class KinsWatheGameSettings {
             GameSafeComponent.KEY.get(player.getWorld()).reset();
             PlayerEffectComponent.KEY.get(player).reset();
             AbilityPlayerComponent.KEY.get(player).reset();
-            KidnapperComponent.KEY.get(player).reset();
             TechnicianComponent.KEY.get(player).reset();
         });
     }

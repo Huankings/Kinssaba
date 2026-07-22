@@ -2,7 +2,6 @@ package org.BsXinQin.kinswathe;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
-import org.BsXinQin.kinswathe.record.KinsWatheReplayFormatters;
 import org.BsXinQin.kinswathe.victory.KinsWatheVictoryRules;
 
 public class KinsWathe implements ModInitializer {
@@ -27,7 +26,5 @@ public class KinsWathe implements ModInitializer {
         KinsWatheShopBootstrap.init();
         //初始化实体
         KinsWatheEntities.init();
-        //初始化回放格式化器
-        KinsWatheReplayFormatters.register();
     }
 }

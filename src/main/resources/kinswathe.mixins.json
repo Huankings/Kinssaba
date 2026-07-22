@@ -11,12 +11,8 @@
     "host.PlayerEffectMixin",
     "host.SprintTimeFixMixin",
     "noellesroles.roles.jester.JesterJestMixin",
-    "roles.drugmaker.DrugmakerGiveCoinsMixin",
-    "roles.kidnapper.KidnapperMoneyIncreaseMixin",
     "roles.licensed_villain.LicensedVillainNoBackfireMixin",
-    "roles.licensed_villain.LicensedVillainNoPickupMixin",
-    "roles.robot.RobotBedPoisonMixin",
-    "roles.robot.RobotNoPoisonMixin"
+    "roles.licensed_villain.LicensedVillainNoPickupMixin"
   ],
   "injectors": {
     "defaultRequire": 1
