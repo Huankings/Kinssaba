@@ -19,8 +19,6 @@ import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
 import org.BsXinQin.kinswathe.roles.bodymaker.BodymakerAbility;
-import org.BsXinQin.kinswathe.roles.cleaner.CleanerAbility;
-import org.BsXinQin.kinswathe.roles.hunter.HunterAbility;
 import org.BsXinQin.kinswathe.roles.judge.JudgeAbility;
 import org.BsXinQin.kinswathe.roles.robot.RobotAbility;
 import org.agmas.harpymodloader.Harpymodloader;
@@ -54,30 +52,10 @@ public class KinsWatheRoles {
             -1,
             true
     ));
-    //清道夫
-    public static Role CLEANER = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "cleaner"),
-            0x16582C,
-            false,
-            true,
-            Role.MoodType.FAKE,
-            -1,
-            true
-    ));
     //制毒师
     public static Role DRUGMAKER = registerRole(new Role(
             Identifier.of(KinsWathe.MOD_ID, "drugmaker"),
             0x4C0099,
-            false,
-            true,
-            Role.MoodType.FAKE,
-            -1,
-            true
-    ));
-    //追猎者
-    public static Role HUNTER = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "hunter"),
-            0x663300,
             false,
             true,
             Role.MoodType.FAKE,
@@ -265,10 +243,6 @@ public class KinsWatheRoles {
                 if (!gameWorld.isInnocent(player) && !gameWorld.canUseKillerFeatures(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialNeutralIncome);
                 if (gameWorld.canUseKillerFeatures(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialKillerIncome - 100);
             }
-            //清道夫初始物品
-            if (role.equals(CLEANER)) {
-                player.giveItemStack(KinsWatheItems.SULFURIC_ACID_BARREL.getDefaultStack());
-            }
             //绑匪初始物品
             if (role.equals(KIDNAPPER)) {
                 player.giveItemStack(KinsWatheItems.KNOCKOUT_DRUG.getDefaultStack());
@@ -283,8 +257,6 @@ public class KinsWatheRoles {
     /// 注册身份技能
     public static void registerRolesAbility() {
         ServerPlayNetworking.registerGlobalReceiver(AbilityC2SPacket.ID, (payload, context) -> {
-            CleanerAbility.register(context.player());
-            HunterAbility.register(context.player());
             RobotAbility.register(context.player());
         });
         ServerPlayNetworking.registerGlobalReceiver(BodymakerC2SPacket.ID, (payload, context) -> {
@@ -320,7 +292,7 @@ public class KinsWatheRoles {
 
         /*
          * 通用被动收入：迁移旧 PassiveIncomeMixin 的额外角色。
-         * BODYMAKER/CLEANER/DRUGMAKER/HUNTER/KIDNAPPER 等杀手能力角色不需要注册，
+         * BODYMAKER/DRUGMAKER/KIDNAPPER 等杀手能力角色不需要注册，
          * 因为 Wathe 的 EconomyApi 会保留“杀手能力角色默认拥有被动收入”的原行为。
          */
         EconomyApi.registerPassiveIncomeRoles(List.of(

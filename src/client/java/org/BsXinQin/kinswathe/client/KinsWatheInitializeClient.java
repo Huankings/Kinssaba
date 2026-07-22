@@ -57,9 +57,7 @@ public class KinsWatheInitializeClient {
                     GameWorldComponent gameWorld = GameWorldComponent.KEY.get(MinecraftClient.getInstance().player.getWorld());
                     boolean sendAbilityPacket = false;
                     Role[] rolesWithAbility = new Role[]{
-                            KinsWatheRoles.HUNTER,
-                            KinsWatheRoles.ROBOT,
-                            KinsWatheRoles.CLEANER
+                            KinsWatheRoles.ROBOT
                     };
                     for (Role role : rolesWithAbility) {
                         if (gameWorld.isRole(MinecraftClient.getInstance().player, role)) sendAbilityPacket = true;
@@ -82,10 +80,8 @@ public class KinsWatheInitializeClient {
             //添加KinsWathe物品描述
             ItemToolTip.addItemtip(KinsWatheItems.BLOWGUN, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.CAPTURE_DEVICE, itemStack, list);
-            ItemToolTip.addItemtip(KinsWatheItems.HUNTING_KNIFE, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.KNOCKOUT_DRUG, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.POISON_INJECTOR, itemStack, list);
-            ItemToolTip.addItemtip(KinsWatheItems.SULFURIC_ACID_BARREL, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.WRENCH, itemStack, list);
             //添加NoellreRoles物品冷却描述
             if (FabricLoader.getInstance().isModLoaded("noellesroles")) {

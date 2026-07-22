@@ -2,9 +2,7 @@
   "replace": false,
   "values": [
     "kinswathe:blowgun",
-    "kinswathe:hunting_knife",
     "kinswathe:knockout_drug",
-    "kinswathe:poison_injector",
-    "kinswathe:sulfuric_acid_barrel"
+    "kinswathe:poison_injector"
   ]
 }

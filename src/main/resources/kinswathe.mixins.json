@@ -12,8 +12,6 @@
     "host.SprintTimeFixMixin",
     "noellesroles.roles.jester.JesterJestMixin",
     "roles.drugmaker.DrugmakerGiveCoinsMixin",
-    "roles.hunter.HunterLockSlotMixin",
-    "roles.hunter.HunterSprintMixin",
     "roles.kidnapper.KidnapperMoneyIncreaseMixin",
     "roles.licensed_villain.LicensedVillainNoBackfireMixin",
     "roles.licensed_villain.LicensedVillainNoPickupMixin",

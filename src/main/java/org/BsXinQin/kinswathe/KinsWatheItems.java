@@ -26,11 +26,6 @@ public class KinsWatheItems {
             new CaptureDeviceItem(new Item.Settings().maxCount(1)),
             "capture_device"
     );
-    //猎刀
-    public static final Item HUNTING_KNIFE = registerItem(
-            new HuntingKnifeItem(new Item.Settings().maxCount(1)),
-            "hunting_knife"
-    );
     //迷药
     public static final Item KNOCKOUT_DRUG = registerItem(
             new KnockoutDrugItem(new Item.Settings().maxCount(4)),
@@ -40,11 +35,6 @@ public class KinsWatheItems {
     public static final Item POISON_INJECTOR = registerItem(
             new PoisonInjectorItem(new Item.Settings().maxCount(1)),
             "poison_injector"
-    );
-    //硫酸桶
-    public static final Item SULFURIC_ACID_BARREL = registerItem(
-            new SulfuricAcidBarrelItem(new Item.Settings().maxCount(1)),
-            "sulfuric_acid_barrel"
     );
     //扳手
     public static final Item WRENCH = registerItem(
@@ -79,10 +69,8 @@ public class KinsWatheItems {
         //物品冷却
         GameConstants.ITEM_COOLDOWNS.put(BLOWGUN, GameConstants.getInTicks(1,0));
         GameConstants.ITEM_COOLDOWNS.put(CAPTURE_DEVICE, GameConstants.getInTicks(1,0));
-        GameConstants.ITEM_COOLDOWNS.put(HUNTING_KNIFE, GameConstants.getInTicks(0,45));
         GameConstants.ITEM_COOLDOWNS.put(KNOCKOUT_DRUG, GameConstants.getInTicks(0,45));
         GameConstants.ITEM_COOLDOWNS.put(POISON_INJECTOR, GameConstants.getInTicks(1,0));
-        GameConstants.ITEM_COOLDOWNS.put(SULFURIC_ACID_BARREL, GameConstants.getInTicks(1,0));
         GameConstants.ITEM_COOLDOWNS.put(WRENCH, GameConstants.getInTicks(2,0));
         //图标冷却
         GameConstants.ITEM_COOLDOWNS.put(ICON_POWER_RESTORATION, GameConstants.getInTicks(3,0));
@@ -93,10 +81,8 @@ public class KinsWatheItems {
         ItemGroupEvents.modifyEntriesEvent(WatheItems.EQUIPMENT_GROUP).register(entries -> {
             entries.add(BLOWGUN);
             entries.add(CAPTURE_DEVICE);
-            entries.add(HUNTING_KNIFE);
             entries.add(KNOCKOUT_DRUG);
             entries.add(POISON_INJECTOR);
-            entries.add(SULFURIC_ACID_BARREL);
             entries.add(WRENCH);
         });
     }

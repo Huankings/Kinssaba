@@ -12,16 +12,10 @@
   "announcement.role.kinswathe.bodymaker": "造尸怪",
   "announcement.goals.kinswathe.bodymaker": "伪造尸体，混淆视听",
 
-  "announcement.role.kinswathe.cleaner": "清道夫",
-  "announcement.goals.kinswathe.cleaner": "扫除一切障碍！",
-
   "announcement.role.kinswathe.drugmaker": "制毒师",
   "announcement.goals.kinswathe.drugmaker": "用毒药征服所有人！",
   "tip.kinswathe.drugmaker.poison_failed": "它似乎无法中毒...",
   "tip.kinswathe.drugmaker.poisoned": "有人中毒了",
-
-  "announcement.role.kinswathe.hunter": "追猎者",
-  "announcement.goals.kinswathe.hunter": "尽情享受你的猎物！",
 
   "announcement.role.kinswathe.judge": "大法官",
   "announcement.goals.kinswathe.judge": "公平公正!",
@@ -44,8 +38,6 @@
 
   "announcement.role.kinswathe.robot": "机器人",
   "announcement.goals.kinswathe.robot": "毫无感情可言的机器。",
-  "replay.skill_use.kinswathe.cleaner": "%s 清理了场上掉落物，花费 %s 金币",
-  "replay.skill_use.kinswathe.hunter": "%s 刷新了匕首和猎刀的冷却时间，花费 %s 金币",
   "replay.skill_use.kinswathe.robot": "%s 发动了夜视能力",
   "replay.skill_use.kinswathe.kidnapper.release": "%s 提前结束了对 %s 的劫持",
   "replay.skill_use.kinswathe.kidnapper.release_end": "%s 的被劫持状态结束",
@@ -53,7 +45,6 @@
   "replay.item_use.kinswathe.knockout_drug.failed_robot": "%s 无法被 %s 的迷药迷晕",
   "replay.item_use.kinswathe.poison_injector": "%s 用毒液注射器注射毒液给 %s",
   "replay.item_use.kinswathe.poison_injector.failed_robot": "%s 无法被 %s 的毒液注射器中毒",
-  "replay.item_use.kinswathe.sulfuric_acid_barrel": "%s 使用硫酸桶溶解了 %s 的尸体",
   "replay.item_hit.kinswathe.blowgun": "%s 使用吹矢命中了 %s",
   "replay.item_hit.kinswathe.blowgun.failed_robot": "%s 无法被 %s 的吹矢中毒",
   "replay.global.kinswathe.robot_night_vision_end": "%s 的夜视时间结束",
@@ -76,17 +67,11 @@
   "item.kinswathe.capture_device": "捕捉装置",
   "item.kinswathe.capture_device.tooltip": "右键点击放置在地板上\n困住路过的玩家并告知使用者\n捕捉装置将会在一段时间后自动消失\n对其他玩家不可见，无论是放置后还是手中持有时\n冷却 1 分钟",
 
-  "item.kinswathe.hunting_knife": "猎刀",
-  "item.kinswathe.hunting_knife.tooltip": "右键蓄力一秒，靠近目标即可发动暗杀\n相较于匕首，拥有更持久的蓄力时间\n如果疾跑后停止蓄力，冷却两倍蓄力时间\n击杀后冷却 45 秒\n攻击可击退玩家（无冷却）",
-
   "item.kinswathe.knockout_drug": "迷药",
   "item.kinswathe.knockout_drug.tooltip": "用于玩家，可迷晕其 20 秒\n被作用的玩家将会一直跟随你\n按下潜行键可以释放玩家\n一次性物品，冷却 45 秒",
 
   "item.kinswathe.poison_injector": "毒液注射器",
   "item.kinswathe.poison_injector.tooltip": "用于玩家，使其中毒\n如果目标已经中毒，则直接致死\n冷却 1 分钟",
-
-  "item.kinswathe.sulfuric_acid_barrel": "硫酸桶",
-  "item.kinswathe.sulfuric_acid_barrel.tooltip": "用于尸体，可将其溶解移除\n冷却 1 分钟",
 
   "item.kinswathe.wrench": "扳手",
   "item.kinswathe.wrench.tooltip": "用于任意被堵死或撬开的门将其恢复正常\n冷却 2 分钟",
@@ -111,17 +96,9 @@
   "guidebook.role.title.kinswathe:bodymaker": "尸体捏造者",
   "guidebook.role.description.kinswathe:bodymaker": "尸体很容易欺骗人，而造尸怪最擅长的就是伪造尸体！\n\n无论是死因还是身份，造尸怪都能够在自己的作品上随意捏造，想必这一定会让调查者陷入重重困惑。",
 
-  "guidebook.role.kinswathe:cleaner": "清道夫",
-  "guidebook.role.title.kinswathe:cleaner": "不留痕迹",
-  "guidebook.role.description.kinswathe:cleaner": "清道夫是杀手组织派来的清理专家。\n\n初始携带一个硫酸桶，可以用来溶解尸体，并获得金币报酬。\n\n清道夫可以使用技能清理地面上的所有掉落物。\n\n对于杀手们来说，清道夫是最可靠的合作伙伴——毕竟，没有尸体就没有证据。",
-
   "guidebook.role.kinswathe:drugmaker": "制毒师",
   "guidebook.role.title.kinswathe:drugmaker": "致命配方",
   "guidebook.role.description.kinswathe:drugmaker": "制毒师是杀手中最擅长用毒的存在，他享受着猎物中毒后挣扎的每一秒，他只会在人数足够时被派去辅助杀手。\n\n制毒师能够看到真正中毒的玩家——毕竟那是他的杰作。每当有玩家中毒，他都能获得一笔金币作为回报。\n\n在商店中可以购买毒液注射器和吹矢，这是两种截然不同的下毒方式。\n\n对于制毒师来说，死亡只是一剂药方的事。",
-
-  "guidebook.role.kinswathe:hunter": "追猎者",
-  "guidebook.role.title.kinswathe:hunter": "猎杀时刻",
-  "guidebook.role.description.kinswathe:hunter": "天生的追逐者，追猎者十分享受猎物被追的感觉！\n\n追猎者在冲刺时如果持刀蓄力，移动速度会大幅提升。商店中可以购买猎刀——拥有更持久的蓄力时间，但是停止蓄力时会立即冷却。\n\n追猎者可以使用能力瞬间刷新背包内所有刀的冷却时间，这令他有了恐怖的连杀能力。\n\n逃跑只会激起他更强烈的狩猎欲望！",
 
   "guidebook.role.kinswathe:judge": "大法官",
   "guidebook.role.title.kinswathe:judge": "正义的化身",

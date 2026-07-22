@@ -57,13 +57,6 @@ public class KinsWatheConfig {
     @SerialEntry
     public boolean BodymakerAbilityFakeRole = true;
 
-    @SerialEntry(comment = "Cleaner: modify get coins when dissolve a body, price and cooldown of ability.")
-    public int CleanerGetCoins = 50;
-    @SerialEntry
-    public int CleanerAbilityPrice = 200;
-    @SerialEntry
-    public int CleanerAbilityCooldown = GameConstants.getInTicks(2,30) / 20;
-
     @SerialEntry(comment = "Drugmaker: modify generation player limit, get coins when someone was poisoned and price of Poison Injector and Blowgun.")
     public int DrugmakerPlayerLimit = 10;
     @SerialEntry
@@ -72,11 +65,6 @@ public class KinsWatheConfig {
     public int DrugmakerPoisonInjectorPrice = 100;
     @SerialEntry
     public int DrugmakerBlowgunPrice = 175;
-
-    @SerialEntry(comment = "Hunter: modify price and cooldown of ability.")
-    public int HunterAbilityPrice = 125;
-    @SerialEntry
-    public int HunterAbilityCooldown = GameConstants.getInTicks(0,5) / 20;
 
     @SerialEntry(comment = "Judge: modify price and cooldown of ability.")
     public int JudgeAbilityPrice = 300;

@@ -9,9 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import org.BsXinQin.kinswathe.KinsWatheItems;
 import org.BsXinQin.kinswathe.component.GameSafeComponent;
-import org.BsXinQin.kinswathe.roles.hunter.HunterComponent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -45,9 +43,8 @@ public class ItemToolTip {
             initItemCooldown();
             GameSafeComponent gameSafe = GameSafeComponent.KEY.get(MinecraftClient.getInstance().player.getWorld());
             ItemCooldownManager itemCooldown = MinecraftClient.getInstance().player.getItemCooldownManager();
-            HunterComponent playerHunter = HunterComponent.KEY.get(MinecraftClient.getInstance().player);
             if (itemCooldown != null && itemCooldown.isCoolingDown(item)) {
-                if (gameSafe.isSafe() || (itemStack.isOf(KinsWatheItems.HUNTING_KNIFE) && playerHunter.knifeTicks > 0)) {
+                if (gameSafe.isSafe()) {
                     list.add(Text.translatable("tip.cooldown_temporary").withColor(WatheItemTooltips.COOLDOWN_COLOR));
                 } else {
                     float progress = itemCooldown.getCooldownProgress(item, 0);

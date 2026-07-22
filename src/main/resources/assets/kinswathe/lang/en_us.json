@@ -12,16 +12,10 @@
   "announcement.role.kinswathe.bodymaker": "Bodymaker",
   "announcement.goals.kinswathe.bodymaker": "Fake bodies to confuse others.",
 
-  "announcement.role.kinswathe.cleaner": "Cleaner",
-  "announcement.goals.kinswathe.cleaner": "Remove all obstacles!",
-
   "announcement.role.kinswathe.drugmaker": "Drugmaker",
   "announcement.goals.kinswathe.drugmaker": "Conquer everyone with poison!",
   "tip.kinswathe.drugmaker.poison_failed": "It seems to be immune to poisoning...",
   "tip.kinswathe.drugmaker.poisoned": "Someone was poisoned",
-
-  "announcement.role.kinswathe.hunter": "Hunter",
-  "announcement.goals.kinswathe.hunter": "Enjoy your prey to the fullest!",
 
   "announcement.role.kinswathe.judge": "Judge",
   "announcement.goals.kinswathe.judge": "Fair and just!",
@@ -44,8 +38,6 @@
 
   "announcement.role.kinswathe.robot": "Robot",
   "announcement.goals.kinswathe.robot": "A machine devoid of any emotion.",
-  "replay.skill_use.kinswathe.cleaner": "%s cleared dropped items, costing %s coins",
-  "replay.skill_use.kinswathe.hunter": "%s refreshed knife and hunting knife cooldown, costing %s coins",
   "replay.skill_use.kinswathe.robot": "%s activated night vision",
   "replay.skill_use.kinswathe.kidnapper.release": "%s ended kidnapping of %s early",
   "replay.skill_use.kinswathe.kidnapper.release_end": "%s's kidnapped state ended",
@@ -53,7 +45,6 @@
   "replay.item_use.kinswathe.knockout_drug.failed_robot": "%s cannot be dazed by %s's knockout drug",
   "replay.item_use.kinswathe.poison_injector": "%s injected poison into %s with poison injector",
   "replay.item_use.kinswathe.poison_injector.failed_robot": "%s cannot be poisoned by %s's poison injector",
-  "replay.item_use.kinswathe.sulfuric_acid_barrel": "%s dissolved %s's body with sulfuric acid barrel",
   "replay.item_hit.kinswathe.blowgun": "%s hit %s with blowgun",
   "replay.item_hit.kinswathe.blowgun.failed_robot": "%s cannot be poisoned by %s's blowgun",
   "replay.global.kinswathe.robot_night_vision_end": "%s's night vision has ended",
@@ -76,17 +67,11 @@
   "item.kinswathe.capture_device": "Capture Device",
   "item.kinswathe.capture_device.tooltip": "Right-click to place down on floors\nTrap passing player and inform the user\nCapture Device will automatically disappear after a period of time\nInvisible to other players, both placed and in hand\n1 minute cooldown",
 
-  "item.kinswathe.hunting_knife": "Hunting Knife",
-  "item.kinswathe.hunting_knife.tooltip": "Right-click, hold for a second and get close to your victim\nCompared to Knife, it has a longer holding-time\nIf stop holding after sprinting, two times holding-time cooldown\nAfter a kill, cannot be used for 45 seconds\nAttack to knock back / push a player (no cooldown)",
-
   "item.kinswathe.knockout_drug": "Knockout Drug",
   "item.kinswathe.knockout_drug.tooltip": "Use on a player to daze it for 20 seconds\nThe affected player will follow you\nUse sneaking key to release it\nSingle use, 45 seconds cooldown",
 
   "item.kinswathe.poison_injector": "Poison Injector",
   "item.kinswathe.poison_injector.tooltip": "Use on a player to poison it\nIf target have been poisoned, directly cause death\n1 minute cooldown",
-
-  "item.kinswathe.sulfuric_acid_barrel": "Sulfuric Acid Barrel",
-  "item.kinswathe.sulfuric_acid_barrel.tooltip": "Use on a dead body to dissolve it\n1 minute cooldown",
 
   "item.kinswathe.wrench": "Wrench",
   "item.kinswathe.wrench.tooltip": "Use on any jammed or pried door to restore to normal\n2 minutes cooldown",
@@ -111,17 +96,9 @@
   "guidebook.role.title.kinswathe:bodymaker": "Body Forger",
   "guidebook.role.description.kinswathe:bodymaker": "Bodies are easy to deceive, and the Bodymaker specializes in forging them!\n\nWhether it's cause of death or identity, the Bodymaker can freely fabricate details on their creations, surely leaving investigators deeply perplexed.",
 
-  "guidebook.role.kinswathe:cleaner": "Cleaner",
-  "guidebook.role.title.kinswathe:cleaner": "Leaves No Trace",
-  "guidebook.role.description.kinswathe:cleaner": "The Cleaner is an cleanup expert sent by the killer organization.\n\nStarts with Sulfuric Acid Barrel, which can be used to dissolve bodies, and can get coins when dissolve a body.\n\nThe Cleaner can use their ability to clear all dropped items on the ground.\n\nFor killers, the Cleaner is the most reliable partner — after all, no body means no evidence.",
-
   "guidebook.role.kinswathe:drugmaker": "Drugmaker",
   "guidebook.role.title.kinswathe:drugmaker": "Lethal Formula",
   "guidebook.role.description.kinswathe:drugmaker": "The Drugmaker is the killer most skilled with poisons, savoring every second of his prey's suffering after being poisoned. He is only deployed to assist killers when there are enough players.\n\nThe Drugmaker can see players who are genuinely poisoned — after all, they are his masterpieces. Whenever a player is poisoned, he receives a reward of coins.\n\nPoison Injector and Blowgun can be purchased at the shop — two distinctly different methods of poisoning.\n\nFor the Drugmaker, death is just a matter of prescription.",
-
-  "guidebook.role.kinswathe:hunter": "Hunter",
-  "guidebook.role.title.kinswathe:hunter": "Hunting Time",
-  "guidebook.role.description.kinswathe:hunter": "A born chaser, the Hunter thoroughly enjoys the feeling of prey being pursued!\n\nWhen sprinting while holding a knife, the Hunter's movement speed is greatly increased. Hunting Knife will be added to the store — it has a longer holding time, but instantly cooldown when holding stops.\n\nThe Hunter can use his ability to instantly refresh the cooldown of all knives in his inventory, granting him terrifying chain-kill potential.\n\nRunning away only fuels his hunting desire!",
 
   "guidebook.role.kinswathe:judge": "Judge",
   "guidebook.role.title.kinswathe:judge": "Embodiment of Justice",

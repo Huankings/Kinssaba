@@ -50,8 +50,7 @@ public class ItemCrosshairMixin {
             }
             renderCrosshair(context, target);
         }
-        else if (mainHandStack.isOf(KinsWatheItems.HUNTING_KNIFE) ||
-                 mainHandStack.isOf(KinsWatheItems.POISON_INJECTOR)) {
+        else if (mainHandStack.isOf(KinsWatheItems.POISON_INJECTOR)) {
             ci.cancel();
             context.getMatrices().push();
             context.getMatrices().translate(context.getScaledWindowWidth() / 2F, context.getScaledWindowHeight() / 2F, 0);

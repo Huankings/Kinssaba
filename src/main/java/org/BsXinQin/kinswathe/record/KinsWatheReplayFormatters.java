@@ -23,14 +23,11 @@ public final class KinsWatheReplayFormatters {
     }
 
     public static void register() {
-        registerSkillFormatter(id("cleaner_clear_items"), KinsWatheReplayFormatters::formatCleanerClearItems);
-        registerSkillFormatter(id("hunter_refresh"), KinsWatheReplayFormatters::formatHunterRefresh);
         registerSkillFormatter(id("robot_night_vision"), KinsWatheReplayFormatters::formatRobotNightVision);
         registerSkillFormatter(id("kidnapper_release"), KinsWatheReplayFormatters::formatKidnapperRelease);
 
         registerItemUseFormatter(id("knockout_drug"), KinsWatheReplayFormatters::formatKnockoutDrugUse);
         registerItemUseFormatter(id("poison_injector"), KinsWatheReplayFormatters::formatPoisonInjectorUse);
-        registerItemUseFormatter(id("sulfuric_acid_barrel"), KinsWatheReplayFormatters::formatSulfuricAcidBarrelUse);
 
         registerItemHitFormatter(id("blowgun"), KinsWatheReplayFormatters::formatBlowgunHit);
 
@@ -55,22 +52,6 @@ public final class KinsWatheReplayFormatters {
 
     private static @Nullable UUID uuid(NbtCompound data, String key) {
         return data.containsUuid(key) ? data.getUuid(key) : null;
-    }
-
-    private static @Nullable Text formatCleanerClearItems(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        if (actor == null) {
-            return null;
-        }
-        return Text.translatable("replay.skill_use.kinswathe.cleaner", actor, event.data().getInt("price"));
-    }
-
-    private static @Nullable Text formatHunterRefresh(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        if (actor == null) {
-            return null;
-        }
-        return Text.translatable("replay.skill_use.kinswathe.hunter", actor, event.data().getInt("price"));
     }
 
     private static @Nullable Text formatRobotNightVision(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
@@ -112,15 +93,6 @@ public final class KinsWatheReplayFormatters {
             return Text.translatable("replay.item_use.kinswathe.poison_injector.failed_robot", target, actor);
         }
         return Text.translatable("replay.item_use.kinswathe.poison_injector", actor, target);
-    }
-
-    private static @Nullable Text formatSulfuricAcidBarrelUse(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {
-        Text actor = actorText(event, match);
-        if (actor == null || !event.data().containsUuid("body_owner")) {
-            return null;
-        }
-        Text corpseOwner = playerText(event.data().getUuid("body_owner"), match);
-        return corpseOwner == null ? null : Text.translatable("replay.item_use.kinswathe.sulfuric_acid_barrel", actor, corpseOwner);
     }
 
     private static @Nullable Text formatBlowgunHit(GameRecordEvent event, GameRecordManager.MatchRecord match, ServerWorld world) {

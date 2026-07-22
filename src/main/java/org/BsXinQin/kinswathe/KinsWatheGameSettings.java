@@ -2,7 +2,6 @@ package org.BsXinQin.kinswathe;
 
 import dev.doctor4t.wathe.api.WatheGameModes;
 import dev.doctor4t.wathe.api.event.AllowPlayerDeath;
-import dev.doctor4t.wathe.api.event.AllowPlayerPunching;
 import dev.doctor4t.wathe.api.event.GameEvents;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerPoisonComponent;
@@ -24,10 +23,8 @@ import org.BsXinQin.kinswathe.component.GameSafeComponent;
 import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
 import org.BsXinQin.kinswathe.packet.host.AbilityC2SPacket;
 import org.BsXinQin.kinswathe.packet.items.BlowgunC2SPacket;
-import org.BsXinQin.kinswathe.packet.items.HuntingKnifeC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
-import org.BsXinQin.kinswathe.roles.hunter.HunterComponent;
 import org.BsXinQin.kinswathe.roles.kidnapper.KidnapperComponent;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianComponent;
 import org.agmas.harpymodloader.events.ResetPlayerEvent;
@@ -101,7 +98,6 @@ public class KinsWatheGameSettings {
             if (serverPlayer == null) continue;
             //KinsWathe物品安全时间
             serverPlayer.getItemCooldownManager().set(KinsWatheItems.BLOWGUN, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
-            serverPlayer.getItemCooldownManager().set(KinsWatheItems.HUNTING_KNIFE, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(KinsWatheItems.KNOCKOUT_DRUG, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             serverPlayer.getItemCooldownManager().set(KinsWatheItems.POISON_INJECTOR, GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             //Wathe物品安全时间
@@ -132,9 +128,7 @@ public class KinsWatheGameSettings {
         PayloadTypeRegistry.playC2S().register(BodymakerC2SPacket.ID, BodymakerC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(JudgeC2SPacket.ID, JudgeC2SPacket.CODEC);
         PayloadTypeRegistry.playC2S().register(BlowgunC2SPacket.ID, BlowgunC2SPacket.CODEC);
-        PayloadTypeRegistry.playC2S().register(HuntingKnifeC2SPacket.ID, HuntingKnifeC2SPacket.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(BlowgunC2SPacket.ID, new BlowgunC2SPacket.Receiver());
-        ServerPlayNetworking.registerGlobalReceiver(HuntingKnifeC2SPacket.ID, new HuntingKnifeC2SPacket.Receiver());
     }
 
     /// 注册游戏事件
@@ -159,10 +153,6 @@ public class KinsWatheGameSettings {
             }
             return true;
         }));
-        //攻击事件
-        AllowPlayerPunching.EVENT.register(((attacker, victim) -> {
-            return attacker.getMainHandStack().isOf(KinsWatheItems.HUNTING_KNIFE);
-        }));
     }
 
     /// 重置事件
@@ -171,7 +161,6 @@ public class KinsWatheGameSettings {
             GameSafeComponent.KEY.get(player.getWorld()).reset();
             PlayerEffectComponent.KEY.get(player).reset();
             AbilityPlayerComponent.KEY.get(player).reset();
-            HunterComponent.KEY.get(player).reset();
             KidnapperComponent.KEY.get(player).reset();
             TechnicianComponent.KEY.get(player).reset();
         });
