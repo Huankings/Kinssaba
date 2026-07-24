@@ -13,10 +13,7 @@
     "host.PlayerEffectLimitKyesMixin",
     "host.PlayerEffectLimitMouseMixin",
     "modifiers.violator.ViolatorKeyBindingMixin",
-    "roles.bodymaker.BodymakerDoNotCloseMixin",
-    "roles.bodymaker.BodymakerScreenMixin",
-    "roles.bodymaker.BodymakerSuggestorMixin",
-    "roles.judge.JudgeScreenMixin"
+    "roles.bodymaker.BodymakerSuggestorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

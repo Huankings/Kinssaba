@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.KinsWathe;
 import org.BsXinQin.kinswathe.KinsWatheEntities;
 import org.BsXinQin.kinswathe.KinsWatheItems;
+import org.BsXinQin.kinswathe.client.inventory.KinsInventoryButtons;
 import org.BsXinQin.kinswathe.client.instinct.KinsWatheInstinctHandlers;
 import org.BsXinQin.kinswathe.client.items.ItemToolTip;
 import org.BsXinQin.kinswathe.client.role_name.KinsRoleNameHudHandlers;
@@ -68,6 +69,8 @@ public class KinsWatheInitializeClient {
         LicensedVillainMoodHud.register();
         // 手持物不可见规则统一接入 Wathe API，替代旧的 HandView / HandPos Mixin。
         KinsHeldItemVisibilityHandlers.register();
+        // 背包内职业按钮统一接入 Wathe 的 InventoryButtonApi，避免继续混入 LimitedInventoryScreen。
+        KinsInventoryButtons.register();
         //设置技能按键
         registerAbilityKey();
         //注册实体渲染
