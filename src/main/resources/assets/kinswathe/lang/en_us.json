@@ -30,8 +30,6 @@
   "item.kinswathe.icon_power_restoration": "Power Restoration",
   "item.kinswathe.icon_power_restoration.tooltip": "Instantly end blackout effect\nActivated instantly on purchase, 3 minutes cooldown",
 
-  "announcement.modifier.kinswathe.magnate": "Magnate",
-  "announcement.modifier.kinswathe.taskmaster": "Taskmaster",
   "announcement.modifier.kinswathe.violator": "Violator",
 
   "item.kinswathe.capture_device": "Capture Device",
@@ -71,14 +69,6 @@
   "guidebook.role.kinswathe:technician": "Technician",
   "guidebook.role.title.kinswathe:technician": "Professional Maintenance Worker",
   "guidebook.role.description.kinswathe:technician": "The Technician is responsible for the maintenance of the entire train.\n\nEvery time the Technician completes a task, they receive 50 coins. They can purchase a Wrench to repair jammed or pried doors.\n\nAdditionally, they can purchase a Capture Device to check for suspicious passengers passing by.\n\nDuring the blackout, the Technician can quickly restore the power system, catching the killers off guard!",
-
-  "guidebook.role.kinswathe:magnate": "Magnate",
-  "guidebook.role.title.kinswathe:magnate": "Fortune's Favorite",
-  "guidebook.role.description.kinswathe:magnate": "The Magnate is the wealthiest person on the train, his pockets always full of endless coins.\n\nThe Magnate's passive income is twice that of other characters.",
-
-  "guidebook.role.kinswathe:taskmaster": "Taskmaster",
-  "guidebook.role.title.kinswathe:taskmaster": "More Work, More Pay",
-  "guidebook.role.description.kinswathe:taskmaster": "Hard work pays off — the Taskmaster's income is tied to tasks.\n\nIf the Taskmaster is on the killer team, completing a task rewards 50 coins.\n\nIf on the non-killer team, completing a task grants an additional 25 coins on top of the regular reward.",
 
   "guidebook.role.kinswathe:violator": "Violator",
   "guidebook.role.title.kinswathe:violator": "Rule Breaker",

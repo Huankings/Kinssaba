@@ -30,8 +30,6 @@
   "item.kinswathe.icon_power_restoration": "电力恢复",
   "item.kinswathe.icon_power_restoration.tooltip": "立即结束停电效果\n购买后立即生效，冷却 3 分钟",
 
-  "announcement.modifier.kinswathe.magnate": "富豪",
-  "announcement.modifier.kinswathe.taskmaster": "任务大师",
   "announcement.modifier.kinswathe.violator": "违禁者",
 
   "item.kinswathe.capture_device": "捕捉装置",
@@ -71,14 +69,6 @@
   "guidebook.role.kinswathe:technician": "技术员",
   "guidebook.role.title.kinswathe:technician": "专业维护员",
   "guidebook.role.description.kinswathe:technician": "技术员负责整架列车的维护工作。\n\n技术员每完成一项任务可获得 50 枚金币，能购买扳手来修复被堵住或撬开的门。\n\n同时，也可以购买捕捉装置来检查是否存在有嫌疑的乘客经过。\n\n在电力故障期间，技术员也可以快速恢复电力系统，给杀手们一个措手不及！",
-
-  "guidebook.role.kinswathe:magnate": "富豪",
-  "guidebook.role.title.kinswathe:magnate": "财富的宠儿",
-  "guidebook.role.description.kinswathe:magnate": "富豪是列车上最不缺钱的，他的口袋里永远装着花不完的金币。\n\n富豪的被动收入是其他角色的两倍。",
-
-  "guidebook.role.kinswathe:taskmaster": "任务大师",
-  "guidebook.role.title.kinswathe:taskmaster": "多劳多得",
-  "guidebook.role.description.kinswathe:taskmaster": "付出就有回报，任务大师的收入都变得与任务挂钩。\n\n如果任务大师是杀手阵营，则每完成一项任务可获得 50 枚金币。\n\n而如果是非杀手阵营，则每完成一项任务后，收入将额外增加 25 枚金币。",
 
   "guidebook.role.kinswathe:violator": "违禁者",
   "guidebook.role.title.kinswathe:violator": "规则破坏者",

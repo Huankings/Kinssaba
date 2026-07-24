@@ -11,8 +11,6 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
@@ -20,7 +18,6 @@ import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
 import org.BsXinQin.kinswathe.roles.bodymaker.BodymakerAbility;
 import org.BsXinQin.kinswathe.roles.judge.JudgeAbility;
 import org.agmas.harpymodloader.Harpymodloader;
-import org.agmas.harpymodloader.component.WorldModifierComponent;
 import org.agmas.harpymodloader.config.HarpyModLoaderConfig;
 import org.agmas.harpymodloader.events.ModdedRoleAssigned;
 import org.agmas.harpymodloader.modifiers.HMLModifiers;
@@ -82,40 +79,6 @@ public class KinsWatheRoles {
     ));
 
     /// 新增词条
-    //富豪
-    public static Modifier MAGNATE = registerModifier(new Modifier(
-            Identifier.of(KinsWathe.MOD_ID, "magnate"),
-            0xFFFF00,
-            null,
-            null,
-            false,
-            false
-    ).setEligibilityPredicate((gameWorld, player, modifier) -> {
-        /*
-         * 富豪只应该生成在拥有通用被动收入的角色身上。
-         * 这里不再维护手写职业名单，而是直接询问 Wathe 的被动收入 API；
-         * 这样后续其他扩展只要注册了被动收入，富豪就能自动识别。
-         */
-        if (!(player instanceof ServerPlayerEntity serverPlayer) || !(player.getWorld() instanceof ServerWorld serverWorld)) {
-            return false;
-        }
-        return EconomyApi.canReceivePassiveIncome(serverWorld, gameWorld, serverPlayer);
-    }));
-    //任务大师
-    public static Modifier TASKMASTER = registerModifier(new Modifier(
-            Identifier.of(KinsWathe.MOD_ID, "taskmaster"),
-            0xFF3399,
-            null,
-            null,
-            false,
-            false
-    ).setEligibilityPredicate((gameWorld, player, modifier) -> {
-        /*
-         * 任务大师按照你的确认：只根据“这个角色是否显示金币 HUD”来决定能否生成。
-         * 这样任何扩展职业只要通过 EconomyApi 注册了金币 HUD，就自然可以获得任务大师。
-         */
-        return EconomyApi.shouldRenderBalanceHud(gameWorld, player);
-    }));
     //违禁者
     public static Modifier VIOLATOR = registerModifier(new Modifier(
             Identifier.of(KinsWathe.MOD_ID, "violator"),
@@ -257,8 +220,8 @@ public class KinsWatheRoles {
 
         /*
          * 任务金币统一在这里结算：
-         * 1. kinssaba 自己明确有任务收入的角色每个任务 50 金币；
-         * 2. Taskmaster 按你的确认，只要玩家当前角色拥有金币 HUD，就按阵营语义追加任务金币。
+         * kinssaba 自己明确有任务收入的角色每个任务 50 金币。
+         * Taskmaster 已迁移到 NoellesRoles，kinssaba 不再在这里追加词条收益。
          */
         TaskCompletionApi.registerTaskIncomeProvider(
                 KinsWathe.id("task_income"),
@@ -270,45 +233,7 @@ public class KinsWatheRoles {
                         income += 50;
                     }
 
-                    if (!context.gameWorld().canUseKillerFeatures(context.player())) {
-                        income += getTaskmasterTaskIncome(context);
-                    }
                     return income;
-                }
-        );
-
-        /*
-         * Wathe 多货币改造后，杀手完成任务默认只发任务币，并会跳过旧任务金币 provider，
-         * 避免普通杀手任务同时涨金币和任务币。
-         *
-         * 但 Taskmaster 是 kinssaba 明确声明的“任务额外金币”词条，所以这里单独监听真实任务完成事件：
-         * 只有玩家拥有杀手能力，并且身上真的带 Taskmaster 时，才额外补发 Taskmaster 的杀手金币奖励。
-         * 非杀手 Taskmaster 仍然留在上面的 provider 里处理，避免同一次任务重复发钱。
-         */
-        TaskCompletionApi.AFTER_TASK_COMPLETE.register(context -> {
-            if (!context.gameWorld().canUseKillerFeatures(context.player())) {
-                return;
-            }
-
-            int income = getTaskmasterTaskIncome(context);
-            if (income > 0) {
-                PlayerShopComponent.KEY.get(context.player()).addToBalance(income);
-            }
-        });
-
-        /*
-         * Magnate 的“双倍被动收入”现在作为 Wathe 被动收入数值修改器实现。
-         * 它只把本次基础收入再补一份；最终加钱前仍由 Wathe 统一套用阵营金币上限，
-         * 因此不会因为双倍效果突破上限。
-         */
-        EconomyApi.registerPassiveIncomeModifier(
-                KinsWathe.id("magnate_double_passive_income"),
-                EconomyApi.DEFAULT_PRIORITY,
-                (context, currentIncome) -> {
-                    WorldModifierComponent modifier = WorldModifierComponent.KEY.get(context.world());
-                    return modifier.isModifier(context.player(), MAGNATE)
-                            ? currentIncome + context.baseIncome()
-                            : currentIncome;
                 }
         );
     }
@@ -317,21 +242,6 @@ public class KinsWatheRoles {
         return role == JUDGE
                 || role == LICENSED_VILLAIN
                 || role == TECHNICIAN;
-    }
-
-    private static int getTaskmasterTaskIncome(TaskCompletionApi.TaskCompletionContext context) {
-        WorldModifierComponent modifier = WorldModifierComponent.KEY.get(context.player().getWorld());
-        Role role = context.role();
-        if (!modifier.isModifier(context.player(), TASKMASTER)
-                || !EconomyApi.shouldRenderBalanceHud(context.gameWorld(), context.player())) {
-            return 0;
-        }
-
-        /*
-         * 沿用旧逻辑：Taskmaster 给杀手语义的职业 50 金币，给非杀手但有金币 HUD 的职业 25 金币。
-         * 杀手分支现在由 AFTER_TASK_COMPLETE 单独调用，非杀手分支仍由任务金币 provider 调用。
-         */
-        return role != null && role.canUseKiller() ? 50 : 25;
     }
 
     /// 初始化方法
