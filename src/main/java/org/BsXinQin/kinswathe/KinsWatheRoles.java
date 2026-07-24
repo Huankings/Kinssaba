@@ -107,7 +107,7 @@ public class KinsWatheRoles {
     //引入NoellesRoles角色
     public static Role noellesrolesRoles(@NotNull String role) {
         try {
-            Class<?> roleClass = Class.forName("org.agmas.noellesroles.Noellesroles");
+            Class<?> roleClass = Class.forName("org.agmas.noellesroles.registry.NoellesRoleRegistry");
             Field roleField = roleClass.getField(role);
             return (Role) roleField.get(null);
         } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException ignored) {}
@@ -115,8 +115,12 @@ public class KinsWatheRoles {
     }
     public static boolean noellesrolesKillerSidedNeutrals(@NotNull Object role) {
         try {
-            Class<?> noellesrolesClass = Class.forName("org.agmas.noellesroles.Noellesroles");
-            Field field = noellesrolesClass.getDeclaredField("KILLER_SIDED_NEUTRALS");
+            /*
+             * NoellesRoles 5.7.1 起把杀手中立分组从 Fabric 入口类迁到了 registry。
+             * 这里直接读取新的分组类，避免要求 Noellesroles 主入口继续保留兼容字段。
+             */
+            Class<?> noellesrolesClass = Class.forName("org.agmas.noellesroles.registry.NoellesRoleGroups");
+            Field field = noellesrolesClass.getField("KILLER_SIDED_NEUTRALS");
             field.setAccessible(true);
             ArrayList<?> neutralList = (ArrayList<?>) field.get(null);
             return neutralList.contains(role);
