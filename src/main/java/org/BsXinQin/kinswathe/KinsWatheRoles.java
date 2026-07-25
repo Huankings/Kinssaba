@@ -18,10 +18,7 @@ import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
 import org.BsXinQin.kinswathe.roles.bodymaker.BodymakerAbility;
 import org.BsXinQin.kinswathe.roles.judge.JudgeAbility;
 import org.agmas.harpymodloader.Harpymodloader;
-import org.agmas.harpymodloader.config.HarpyModLoaderConfig;
 import org.agmas.harpymodloader.events.ModdedRoleAssigned;
-import org.agmas.harpymodloader.modifiers.HMLModifiers;
-import org.agmas.harpymodloader.modifiers.Modifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
@@ -33,8 +30,6 @@ public class KinsWatheRoles {
 
     private static final HashMap<String, Role> ROLES = new HashMap<>();
     public static HashMap<String, Role> getRoles() {return ROLES;}
-    private static final HashMap<String, Modifier> MODIFIERS = new HashMap<>();
-    public static HashMap<String, Modifier> getModifiers() {return MODIFIERS;}
 
     /// 新增身份
     //造尸怪
@@ -78,29 +73,12 @@ public class KinsWatheRoles {
             false
     ));
 
-    /// 新增词条
-    //违禁者
-    public static Modifier VIOLATOR = registerModifier(new Modifier(
-            Identifier.of(KinsWathe.MOD_ID, "violator"),
-            0x660000,
-            null,
-            null,
-            false,
-            false
-    ));
-
     /// 注册方法
     //注册身份
     public static Role registerRole(Role role) {
         WatheRoles.registerRole(role);
         ROLES.put(role.identifier().getPath(), role);
         return role;
-    }
-    //注册词条
-    public static Modifier registerModifier(Modifier modifier) {
-        HMLModifiers.registerModifier(modifier);
-        MODIFIERS.put(modifier.identifier().getPath(), modifier);
-        return modifier;
     }
 
     /// 引入其他模组角色
@@ -190,18 +168,6 @@ public class KinsWatheRoles {
         });
     }
 
-    /// 限制词条自动启用配置
-    public static void limitModifiersGenerateConfig() {
-        if (!KinsWatheConfig.HANDLER.instance().ViolatorEnabled) {
-            HarpyModLoaderConfig.HANDLER.load();
-            //限制违禁者自动启用配置
-            if (!HarpyModLoaderConfig.HANDLER.instance().disabledModifiers.contains(Identifier.of(KinsWathe.MOD_ID, "violator").toString())) {
-                HarpyModLoaderConfig.HANDLER.instance().disabledModifiers.add(Identifier.of(KinsWathe.MOD_ID, "violator").toString());
-            }
-            HarpyModLoaderConfig.HANDLER.save();
-        }
-    }
-
     private static void registerEconomyApi() {
         /*
          * 金币 HUD：迁移旧 IncomeIconMixin 的角色名单。
@@ -261,7 +227,5 @@ public class KinsWatheRoles {
         setDefaultEvents();
         //注册身份技能
         registerRolesAbility();
-        //限制词条自动启用配置
-        limitModifiersGenerateConfig();
     }
 }

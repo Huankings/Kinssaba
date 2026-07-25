@@ -30,8 +30,6 @@
   "item.kinswathe.icon_power_restoration": "电力恢复",
   "item.kinswathe.icon_power_restoration.tooltip": "立即结束停电效果\n购买后立即生效，冷却 3 分钟",
 
-  "announcement.modifier.kinswathe.violator": "违禁者",
-
   "item.kinswathe.capture_device": "捕捉装置",
   "item.kinswathe.capture_device.tooltip": "右键点击放置在地板上\n困住路过的玩家并告知使用者\n捕捉装置将会在一段时间后自动消失\n对其他玩家不可见，无论是放置后还是手中持有时\n冷却 1 分钟",
 
@@ -68,9 +66,5 @@
 
   "guidebook.role.kinswathe:technician": "技术员",
   "guidebook.role.title.kinswathe:technician": "专业维护员",
-  "guidebook.role.description.kinswathe:technician": "技术员负责整架列车的维护工作。\n\n技术员每完成一项任务可获得 50 枚金币，能购买扳手来修复被堵住或撬开的门。\n\n同时，也可以购买捕捉装置来检查是否存在有嫌疑的乘客经过。\n\n在电力故障期间，技术员也可以快速恢复电力系统，给杀手们一个措手不及！",
-
-  "guidebook.role.kinswathe:violator": "违禁者",
-  "guidebook.role.title.kinswathe:violator": "规则破坏者",
-  "guidebook.role.description.kinswathe:violator": "违禁者打破了列车上最基础的规则——跳跃。"
+  "guidebook.role.description.kinswathe:technician": "技术员负责整架列车的维护工作。\n\n技术员每完成一项任务可获得 50 枚金币，能购买扳手来修复被堵住或撬开的门。\n\n同时，也可以购买捕捉装置来检查是否存在有嫌疑的乘客经过。\n\n在电力故障期间，技术员也可以快速恢复电力系统，给杀手们一个措手不及！"
 }

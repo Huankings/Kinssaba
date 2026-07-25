@@ -12,7 +12,6 @@
     "host.KeyBindingMixin",
     "host.PlayerEffectLimitKyesMixin",
     "host.PlayerEffectLimitMouseMixin",
-    "modifiers.violator.ViolatorKeyBindingMixin",
     "roles.bodymaker.BodymakerSuggestorMixin"
   ],
   "injectors": {

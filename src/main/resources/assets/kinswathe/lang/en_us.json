@@ -30,8 +30,6 @@
   "item.kinswathe.icon_power_restoration": "Power Restoration",
   "item.kinswathe.icon_power_restoration.tooltip": "Instantly end blackout effect\nActivated instantly on purchase, 3 minutes cooldown",
 
-  "announcement.modifier.kinswathe.violator": "Violator",
-
   "item.kinswathe.capture_device": "Capture Device",
   "item.kinswathe.capture_device.tooltip": "Right-click to place down on floors\nTrap passing player and inform the user\nCapture Device will automatically disappear after a period of time\nInvisible to other players, both placed and in hand\n1 minute cooldown",
 
@@ -68,9 +66,5 @@
 
   "guidebook.role.kinswathe:technician": "Technician",
   "guidebook.role.title.kinswathe:technician": "Professional Maintenance Worker",
-  "guidebook.role.description.kinswathe:technician": "The Technician is responsible for the maintenance of the entire train.\n\nEvery time the Technician completes a task, they receive 50 coins. They can purchase a Wrench to repair jammed or pried doors.\n\nAdditionally, they can purchase a Capture Device to check for suspicious passengers passing by.\n\nDuring the blackout, the Technician can quickly restore the power system, catching the killers off guard!",
-
-  "guidebook.role.kinswathe:violator": "Violator",
-  "guidebook.role.title.kinswathe:violator": "Rule Breaker",
-  "guidebook.role.description.kinswathe:violator": "The Violator has broken the most fundamental rule on the train — jumping."
+  "guidebook.role.description.kinswathe:technician": "The Technician is responsible for the maintenance of the entire train.\n\nEvery time the Technician completes a task, they receive 50 coins. They can purchase a Wrench to repair jammed or pried doors.\n\nAdditionally, they can purchase a Capture Device to check for suspicious passengers passing by.\n\nDuring the blackout, the Technician can quickly restore the power system, catching the killers off guard!"
 }

@@ -80,9 +80,6 @@ public class KinsWatheConfig {
     @SerialEntry
     public int TechnicianCaptureDeviceLifetimeSeconds = GameConstants.getInTicks(3,0) / 20;
 
-    @SerialEntry(comment = "Violator: whether to allow Violator to retain disable/enable state after a server restart.")
-    public boolean ViolatorEnabled = false;
-
     /// 关于NoellesRoles修改
     @SerialEntry(comment = "\n\n[Noelle's Roles] Modify (default settings are original settings of Noelle's Roles):")
     public boolean EnableNoellesRolesModify = false;
