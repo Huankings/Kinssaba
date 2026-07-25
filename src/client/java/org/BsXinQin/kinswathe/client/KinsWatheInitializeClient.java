@@ -16,7 +16,6 @@ import org.BsXinQin.kinswathe.client.inventory.KinsInventoryButtons;
 import org.BsXinQin.kinswathe.client.instinct.KinsWatheInstinctHandlers;
 import org.BsXinQin.kinswathe.client.items.ItemToolTip;
 import org.BsXinQin.kinswathe.client.role_name.KinsRoleNameHudHandlers;
-import org.BsXinQin.kinswathe.client.roles.licensed_villain.LicensedVillainMoodHud;
 import org.BsXinQin.kinswathe.client.roles.technician.CaptureDeviceEntityRenderer;
 import org.BsXinQin.kinswathe.client.visibility.KinsHeldItemVisibilityHandlers;
 import org.agmas.noellesroles.client.NoellesrolesClient;
@@ -65,8 +64,6 @@ public class KinsWatheInitializeClient {
         KinsWatheInstinctHandlers.register();
         // 准心名字周围的职业提示 / 同伙规则统一接入 Wathe 的 RoleName HUD API。
         KinsRoleNameHudHandlers.register();
-        // 按职业分别注册心情 HUD 样式，避免不同职业的渲染逻辑继续塞进同一个 MoodRenderer mixin。
-        LicensedVillainMoodHud.register();
         // 手持物不可见规则统一接入 Wathe API，替代旧的 HandView / HandPos Mixin。
         KinsHeldItemVisibilityHandlers.register();
         // 背包内职业按钮统一接入 Wathe 的 InventoryButtonApi，避免继续混入 LimitedInventoryScreen。

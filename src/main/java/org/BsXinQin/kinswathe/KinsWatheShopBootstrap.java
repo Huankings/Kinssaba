@@ -7,7 +7,6 @@ import dev.doctor4t.wathe.api.shop.ShopPurchaseContext;
 import dev.doctor4t.wathe.api.shop.ShopPurchaseResult;
 import dev.doctor4t.wathe.util.ShopEntry;
 import net.minecraft.entity.player.PlayerEntity;
-import org.BsXinQin.kinswathe.roles.licensed_villain.LicensedVillainShopHandler;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianShopHandler;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +24,6 @@ public final class KinsWatheShopBootstrap {
 
     public static void init() {
         register(KinsWatheRoles.TECHNICIAN, player -> TechnicianShopHandler.getShopEntries(player.getWorld()));
-        register(KinsWatheRoles.LICENSED_VILLAIN, player -> LicensedVillainShopHandler.getShopEntries(player.getWorld()));
     }
 
     private static void register(@NotNull Role role, @NotNull EntriesProvider entriesProvider) {

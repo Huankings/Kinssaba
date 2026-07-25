@@ -6,8 +6,6 @@ import dev.doctor4t.wathe.api.economy.EconomyApi;
 import dev.doctor4t.wathe.api.task.TaskCompletionApi;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
-import dev.doctor4t.wathe.index.WatheItems;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +15,6 @@ import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
 import org.BsXinQin.kinswathe.roles.bodymaker.BodymakerAbility;
 import org.BsXinQin.kinswathe.roles.judge.JudgeAbility;
-import org.agmas.harpymodloader.Harpymodloader;
 import org.agmas.harpymodloader.events.ModdedRoleAssigned;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,16 +47,6 @@ public class KinsWatheRoles {
             false,
             Role.MoodType.REAL,
             WatheRoles.CIVILIAN.getMaxSprintTime(),
-            false
-    ));
-    //执照恶棍
-    public static Role LICENSED_VILLAIN = registerRole(new Role(
-            Identifier.of(KinsWathe.MOD_ID, "licensed_villain"),
-            0x404040,
-            false,
-            false,
-            Role.MoodType.FAKE,
-            WatheRoles.CIVILIAN.getMaxSprintTime() * 3 / 2,
             false
     ));
     //技术员
@@ -120,22 +107,10 @@ public class KinsWatheRoles {
     }
     //新增中立身份
     public static void addNeutralRoles() {
-        NEUTRAL_ROLES.add(LICENSED_VILLAIN);
     }
     //新增杀手方中立身份
     public static void addKillerNeutralRoles() {
         // 当前 kinssaba 侧没有需要单独加入杀手侧中立池的职业。
-    }
-
-    /// 限制身份生成人数
-    public static void limitRolesGeneratePlayers() {
-        ServerTickEvents.END_SERVER_TICK.register(((server) -> {
-            //限制执照恶棍生成人数
-            if (server.getPlayerManager().getCurrentPlayerCount() >= KinsWatheConfig.HANDLER.instance().LicensedVillainPlayerLimit) {
-                Harpymodloader.setRoleMaximum(LICENSED_VILLAIN,1);} else {
-                Harpymodloader.setRoleMaximum(LICENSED_VILLAIN,0);
-            }
-        }));
     }
 
     /// 设置初始事件
@@ -150,10 +125,6 @@ public class KinsWatheRoles {
                 if (gameWorld.isInnocent(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialCivilianIncome);
                 if (!gameWorld.isInnocent(player) && !gameWorld.canUseKillerFeatures(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialNeutralIncome);
                 if (gameWorld.canUseKillerFeatures(player)) playerShop.addToBalance(KinsWatheConfig.HANDLER.instance().InitialKillerIncome - 100);
-            }
-            //执照恶棍初始物品
-            if (role.equals(LICENSED_VILLAIN)) {
-                player.giveItemStack(WatheItems.LOCKPICK.getDefaultStack());
             }
         });
     }
@@ -175,7 +146,6 @@ public class KinsWatheRoles {
          */
         EconomyApi.registerBalanceHudRoles(List.of(
                 JUDGE,
-                LICENSED_VILLAIN,
                 TECHNICIAN
         ));
 
@@ -210,7 +180,6 @@ public class KinsWatheRoles {
 
     private static boolean hasBaseTaskIncome(Role role) {
         return role == JUDGE
-                || role == LICENSED_VILLAIN
                 || role == TECHNICIAN;
     }
 
@@ -220,8 +189,6 @@ public class KinsWatheRoles {
         addNewRoleCamps();
         //注册 Wathe 公开经济接口
         registerEconomyApi();
-        //限制身份生成人数
-        limitRolesGeneratePlayers();
         // 中立结算板块已经迁移到 Wathe 本体，KinsWathe 不再注册第二套中立公告文本。
         //设置初始事件
         setDefaultEvents();

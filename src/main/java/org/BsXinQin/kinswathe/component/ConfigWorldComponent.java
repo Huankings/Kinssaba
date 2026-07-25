@@ -32,6 +32,7 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
     //关于KinsWathe修改
     public boolean BodymakerAbilityFakeRole = true;
     public int JudgeAbilityPrice = 300;
+    // 执照恶棍已迁移到 NoellesRoles；这里仅保留旧同步字段，避免旧配置/外部反射读取时断兼容。
     public int LicensedVillainRevolverPrice = 300;
     public int TechnicianWrenchPrice = 100;
     public int TechnicianCaptureDevicePrice = 100;
@@ -53,6 +54,7 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         //关于KinsWathe修改
         BodymakerAbilityFakeRole = KinsWatheConfig.HANDLER.instance().BodymakerAbilityFakeRole; tag.putBoolean("BodymakerAbilityFakeRole", this.BodymakerAbilityFakeRole);
         JudgeAbilityPrice = KinsWatheConfig.HANDLER.instance().JudgeAbilityPrice; tag.putInt("JudgeAbilityPrice", this.JudgeAbilityPrice);
+        // 兼容旧版本字段：NoellesRoles 不再读取它，但保留写入可让旧存档/外部插件平滑过渡。
         LicensedVillainRevolverPrice = KinsWatheConfig.HANDLER.instance().LicensedVillainRevolverPrice; tag.putInt("LicensedVillainRevolverPrice", this.LicensedVillainRevolverPrice);
         TechnicianWrenchPrice = KinsWatheConfig.HANDLER.instance().TechnicianWrenchPrice; tag.putInt("TechnicianWrenchPrice", this.TechnicianWrenchPrice);
         TechnicianCaptureDevicePrice = KinsWatheConfig.HANDLER.instance().TechnicianCaptureDevicePrice; tag.putInt("TechnicianCaptureDevicePrice", this.TechnicianCaptureDevicePrice);

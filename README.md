@@ -156,15 +156,6 @@
   - Staring at a civilian for enough time to crack role and send it to every Phone, and get coins
   - Can purchase killer side powerful auxiliary props in shop
 
-- Licensed Villain
-  - Limit on the number of players that can be generated
-  - Requires killing all players to win
-  - Game does not end when all civilians or killers are dead
-  - Has 15 seconds of sprint time
-  - Initially equip with Lockpick
-  - Can purchase Revolver in shop and have no backfire effect
-
-
 ## New Modifiers
 
 - Violator

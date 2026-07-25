@@ -18,12 +18,6 @@
   "tip.kinswathe.judge.ability_failed": "Target seems not to be present...",
   "hud.kinswathe.judge.ready": "Ready to judge",
 
-  "announcement.role.kinswathe.licensed_villain": "Licensed Villain",
-  "announcement.goals.kinswathe.licensed_villain": "You might still retain a shred of conscience...",
-  "announcement.win.kinswathe.licensed_villain": "Licensed Villain Win!",
-  "tip.kinswathe.licensed_villain.weapon": "Licensed Villain has obtained weapon!",
-  "game.win.kinswathe.licensed_villain": "The licensed villain ended everyone's life!",
-
   "announcement.role.kinswathe.technician": "Technician",
   "announcement.goals.kinswathe.technician": "Use technology to solve problems!",
   "tip.kinswathe.technician.captured": "%s was captured",
@@ -59,10 +53,6 @@
   "guidebook.role.kinswathe:judge": "Judge",
   "guidebook.role.title.kinswathe:judge": "Embodiment of Justice",
   "guidebook.role.description.kinswathe:judge": "The Judge boarded this train purely for vacation, but his innate sense of justice prevents him from turning a blind eye to evil.\n\nThe Judge can use his Judgment ability to make a target emit light.\n\nSome say those marked by the Judge will eventually face trial, but others worry whether the Judge's verdicts are truly just...",
-
-  "guidebook.role.kinswathe:licensed_villain": "Licensed Villain",
-  "guidebook.role.title.kinswathe:licensed_villain": "Officially Certified",
-  "guidebook.role.description.kinswathe:licensed_villain": "The Licensed Villain is a rare character holding an officially certified villain license. He only appears when there are enough players.\n\nThe Licensed Villain's win condition is unique — he must kill everyone. When all civilians or all killers are eliminated, the game does not end. Only he can end it all with his own hands.\n\nThe Licensed Villain has 15 seconds of sprint time, boards with Lockpick, and receives coins for completing tasks.\n\nRevolver can be purchased at the shop, and he suffers no misfire penalty when using it — after all, he's a professional.",
 
   "guidebook.role.kinswathe:technician": "Technician",
   "guidebook.role.title.kinswathe:technician": "Professional Maintenance Worker",

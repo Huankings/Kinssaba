@@ -64,7 +64,7 @@ public class KinsWatheConfig {
     @SerialEntry
     public int JudgeAbilityCooldown = GameConstants.getInTicks(3,0) / 20;
 
-    @SerialEntry(comment = "Licensed Villain: modify generation player limit and price of Revolver.")
+    @SerialEntry(comment = "Deprecated compatibility only. Licensed Villain has moved to NoellesRoles.")
     public int LicensedVillainPlayerLimit = 10;
     @SerialEntry
     public int LicensedVillainRevolverPrice = 300;

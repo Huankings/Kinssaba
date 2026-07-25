@@ -10,9 +10,7 @@
     "host.MoneyIncreaseMixin",
     "host.PlayerEffectMixin",
     "host.SprintTimeFixMixin",
-    "noellesroles.roles.jester.JesterJestMixin",
-    "roles.licensed_villain.LicensedVillainNoBackfireMixin",
-    "roles.licensed_villain.LicensedVillainNoPickupMixin"
+    "noellesroles.roles.jester.JesterJestMixin"
   ],
   "injectors": {
     "defaultRequire": 1
