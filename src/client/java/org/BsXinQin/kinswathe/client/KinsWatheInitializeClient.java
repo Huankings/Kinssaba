@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.KinsWathe;
 import org.BsXinQin.kinswathe.KinsWatheEntities;
 import org.BsXinQin.kinswathe.KinsWatheItems;
+import org.BsXinQin.kinswathe.client.hud.KinsHudHandlers;
 import org.BsXinQin.kinswathe.client.inventory.KinsInventoryButtons;
 import org.BsXinQin.kinswathe.client.instinct.KinsWatheInstinctHandlers;
 import org.BsXinQin.kinswathe.client.items.ItemToolTip;
@@ -64,6 +65,8 @@ public class KinsWatheInitializeClient {
         KinsWatheInstinctHandlers.register();
         // 准心名字周围的职业提示 / 同伙规则统一接入 Wathe 的 RoleName HUD API。
         KinsRoleNameHudHandlers.register();
+        // 屏幕 HUD 统一接入 Wathe HudOverlayApi，替代旧的 InGameHud Mixin。
+        KinsHudHandlers.register();
         // 手持物不可见规则统一接入 Wathe API，替代旧的 HandView / HandPos Mixin。
         KinsHeldItemVisibilityHandlers.register();
         // 背包内职业按钮统一接入 Wathe 的 InventoryButtonApi，避免继续混入 LimitedInventoryScreen。

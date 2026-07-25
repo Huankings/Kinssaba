@@ -4,10 +4,7 @@
   "package": "org.BsXinQin.kinswathe.client.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "gui.StaminaBarMixin",
-    "host.BetterBlackOutMixin",
-    "host.BetterBlackOutMixin$SoundSystemMixin",
-    "host.GameSafeHudMixin",
+    "host.BetterBlackoutSoundMixin",
     "host.GameSafeLimitKeysMixin",
     "host.KeyBindingMixin",
     "host.PlayerEffectLimitKyesMixin",
