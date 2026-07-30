@@ -4,13 +4,9 @@
   "package": "org.BsXinQin.kinswathe.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "host.AddDeathReasonMixin",
     "host.GameFnctionsMixin",
-    "host.KillerNoBackfireMixin",
-    "host.MoneyIncreaseMixin",
     "host.PlayerEffectMixin",
-    "host.SprintTimeFixMixin",
-    "noellesroles.roles.jester.JesterJestMixin"
+    "host.SprintTimeFixMixin"
   ],
   "injectors": {
     "defaultRequire": 1

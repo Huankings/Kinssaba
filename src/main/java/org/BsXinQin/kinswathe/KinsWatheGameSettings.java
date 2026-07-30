@@ -5,7 +5,6 @@ import dev.doctor4t.wathe.api.event.AllowPlayerDeath;
 import dev.doctor4t.wathe.api.event.GameEvents;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerPoisonComponent;
-import dev.doctor4t.wathe.cca.PlayerPsychoComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.game.GameFunctions;
 import dev.doctor4t.wathe.index.WatheItems;
@@ -22,6 +21,7 @@ import org.BsXinQin.kinswathe.component.GameSafeComponent;
 import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
+import org.BsXinQin.kinswathe.roles.noellesroles.jester.KinsNoellesJesterPsychoHandler;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianComponent;
 import org.agmas.harpymodloader.events.ResetPlayerEvent;
 import org.jetbrains.annotations.NotNull;
@@ -122,6 +122,8 @@ public class KinsWatheGameSettings {
 
     /// 注册游戏事件
     public static void registerEvents() {
+        KinsNoellesJesterPsychoHandler.init();
+
         //死亡事件
         AllowPlayerDeath.EVENT.register(((player, killer, identifier) -> {
             GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
@@ -134,7 +136,9 @@ public class KinsWatheGameSettings {
             if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
                 if (KinsWatheConfig.HANDLER.instance().EnableNoellesRolesModify && KinsWatheConfig.HANDLER.instance().JesterAttackKillerModify) {
                     if (killer != null) {
-                        if (gameWorld.getRole(player).canUseKiller() && gameWorld.isRole(killer, KinsWatheRoles.noellesrolesRoles("JESTER")) && PlayerPsychoComponent.KEY.get(killer).psychoTicks > 0) {
+                        if (gameWorld.canUseKillerFeatures(player)
+                                && gameWorld.isRole(killer, KinsWatheRoles.noellesrolesRoles("JESTER"))
+                                && KinsNoellesJesterPsychoHandler.isJesterPsycho(killer)) {
                             return identifier != GameConstants.DeathReasons.BAT;
                         }
                     }

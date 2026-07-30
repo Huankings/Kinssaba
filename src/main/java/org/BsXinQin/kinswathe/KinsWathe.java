@@ -2,6 +2,8 @@ package org.BsXinQin.kinswathe;
 
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import org.BsXinQin.kinswathe.host.combat.KinsWatheCombatBootstrap;
+import org.BsXinQin.kinswathe.host.death.KinsWatheDeathBootstrap;
 
 public class KinsWathe implements ModInitializer {
 
@@ -15,6 +17,9 @@ public class KinsWathe implements ModInitializer {
     public void onInitialize() {
         //初始化游戏设置
         KinsWatheGameSettings.init();
+        // 接入 Wathe 公开死亡/枪械 API，替代旧的 GameFunctions/GunShootPayload 流程 mixin。
+        KinsWatheDeathBootstrap.init();
+        KinsWatheCombatBootstrap.init();
         //初始化角色
         KinsWatheRoles.init();
         //初始化物品
