@@ -41,7 +41,7 @@
 
 - Auto join voice chat group for spectators
 
-- Better modifications to Blackout and Psycho Mode
+- Psycho Mode helper tweaks remain here; Better Blackout visual logic has moved into Wathe's native blackout system
 
 - Neutral roles can announce separately when game ends
 

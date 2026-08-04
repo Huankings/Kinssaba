@@ -25,7 +25,6 @@ import org.lwjgl.glfw.GLFW;
 public class KinsWatheInitializeClient {
 
     public static KeyBinding abilityBind;
-    public static long BLACKOUT_TIME = 0;
 
     /// 设置技能按键
     public static void registerAbilityKey() {

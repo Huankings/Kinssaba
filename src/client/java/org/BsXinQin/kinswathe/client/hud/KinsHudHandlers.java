@@ -1,7 +1,6 @@
 package org.BsXinQin.kinswathe.client.hud;
 
 import org.BsXinQin.kinswathe.client.hud.gui.StaminaHud;
-import org.BsXinQin.kinswathe.client.hud.host.BetterBlackoutHud;
 import org.BsXinQin.kinswathe.client.hud.host.GameSafeHud;
 
 /**
@@ -16,7 +15,6 @@ public final class KinsHudHandlers {
 
     public static void register() {
         StaminaHud.register();
-        BetterBlackoutHud.register();
         GameSafeHud.register();
     }
 }

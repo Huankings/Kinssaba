@@ -53,16 +53,6 @@ public class KinsWatheCommands {
                                         context.getSource().sendFeedback(() -> Text.literal("[Kin's Wathe] EnableAutoJoinVoiceChat: " + (value ? "true" : "false")), true);
                                         return Command.SINGLE_SUCCESS;
                                     })))
-                    .then(literal("setEnableBetterBlackout")
-                            .requires(source -> source.hasPermissionLevel(2))
-                            .then(argument("enable", BoolArgumentType.bool())
-                                    .executes(context -> {
-                                        boolean value = BoolArgumentType.getBool(context, "enable");
-                                        KinsWatheConfig.HANDLER.instance().EnableBetterBlackout = value;
-                                        KinsWatheConfig.HANDLER.save();
-                                        context.getSource().sendFeedback(() -> Text.literal("[Kin's Wathe] EnableBetterBlackout: " + (value ? "true" : "false")), true);
-                                        return Command.SINGLE_SUCCESS;
-                                    })))
                     .then(literal("setEnableAutoPsychoInstinct")
                             .requires(source -> source.hasPermissionLevel(2))
                             .then(argument("enable", BoolArgumentType.bool())

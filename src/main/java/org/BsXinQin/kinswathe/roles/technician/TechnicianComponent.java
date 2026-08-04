@@ -1,13 +1,14 @@
 package org.BsXinQin.kinswathe.roles.technician;
 
+import dev.doctor4t.wathe.api.blackout.BlackoutApi;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
-import dev.doctor4t.wathe.cca.WorldBlackoutComponent;
 import dev.doctor4t.wathe.game.GameConstants;
 import dev.doctor4t.wathe.index.WatheSounds;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.KinsWathe;
@@ -24,7 +25,6 @@ public class TechnicianComponent implements AutoSyncedComponent, ServerTickingCo
 
     @NotNull private final PlayerEntity player;
     public int technicianTicks = 0;
-    public int blackoutTicks = 0;
 
     public TechnicianComponent(@NotNull PlayerEntity player) {this.player = player;}
 
@@ -35,22 +35,12 @@ public class TechnicianComponent implements AutoSyncedComponent, ServerTickingCo
             -- this.technicianTicks;
             this.sync();
         }
-        if (this.blackoutTicks > 0) {
-            this.notInGameReset();
-            -- this.blackoutTicks;
-            this.sync();
-        }
     }
 
     public void notInGameReset() {
         if (GameWorldComponent.KEY.get(this.player.getWorld()).getRole(this.player) == null) {
             this.reset();
         }
-    }
-
-    public void setBlackoutTicks(int ticks) {
-        this.blackoutTicks = ticks;
-        this.sync();
     }
 
     public void setCapturedTicks(int ticks) {
@@ -60,19 +50,25 @@ public class TechnicianComponent implements AutoSyncedComponent, ServerTickingCo
 
     public static void stopBlackout(@NotNull PlayerEntity player) {
         player.getItemCooldownManager().set(KinsWatheItems.ICON_POWER_RESTORATION, GameConstants.ITEM_COOLDOWNS.get(KinsWatheItems.ICON_POWER_RESTORATION));
-        WorldBlackoutComponent.KEY.get(player.getWorld()).reset();
+        /*
+         * 停电黑幕和停电药水已迁移到 Wathe 本体。
+         * 技师只负责触发“恢复电力”这个职业商品效果，真实清理由 BlackoutApi 统一处理：
+         * 恢复灯光、清空停电倒计时、同步客户端黑幕，并清理 Wathe 自己发放的停电药水。
+         */
+        if (player.getWorld() instanceof ServerWorld serverWorld) {
+            BlackoutApi.restorePower(serverWorld);
+        }
+        if (player.getWorld().getServer() == null) {
+            return;
+        }
         for (ServerPlayerEntity serverPlayer : player.getWorld().getServer().getPlayerManager().getPlayerList()) {
             if (serverPlayer == null) continue;
-            TechnicianComponent playerBlackout = TechnicianComponent.KEY.get(serverPlayer);
             serverPlayer.playSoundToPlayer(WatheSounds.BLOCK_LIGHT_TOGGLE, SoundCategory.PLAYERS, 1.0F, 1.0F);
-            playerBlackout.blackoutTicks = 0;
-            playerBlackout.sync();
         }
     }
 
     public void reset() {
         this.technicianTicks = 0;
-        this.blackoutTicks = 0;
     }
 
     public void sync() {
@@ -82,12 +78,10 @@ public class TechnicianComponent implements AutoSyncedComponent, ServerTickingCo
     @Override
     public void writeToNbt(@NotNull NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         tag.putInt("technicianTicks", this.technicianTicks);
-        tag.putInt("blackoutTicks", this.blackoutTicks);
     }
 
     @Override
     public void readFromNbt(@NotNull NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         this.technicianTicks = tag.contains("technicianTicks") ? tag.getInt("technicianTicks") : 0;
-        this.blackoutTicks = tag.contains("blackoutTicks") ? tag.getInt("blackoutTicks") : 0;
     }
 }

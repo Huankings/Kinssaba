@@ -26,9 +26,6 @@ public class KinsWatheConfig {
     @SerialEntry(comment = "Whether to enable auto join voice chat group for spectators.")
     public boolean EnableAutoJoinVoiceChat = true;
 
-    @SerialEntry(comment = "Whether to enable better Blackout visual effect.")
-    public boolean EnableBetterBlackout = true;
-
     @SerialEntry(comment = "Whether to enable instinct when in Psycho Mode.")
     public boolean EnableAutoPsychoInstinct = true;
 
