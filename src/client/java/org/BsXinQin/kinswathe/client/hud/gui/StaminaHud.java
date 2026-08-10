@@ -1,12 +1,12 @@
 package org.BsXinQin.kinswathe.client.hud.gui;
 
 import dev.doctor4t.wathe.api.Role;
+import dev.doctor4t.wathe.api.stamina.PlayerStaminaApi;
 import dev.doctor4t.wathe.api.client.hud.HudOverlayApi;
 import dev.doctor4t.wathe.api.client.hud.HudOverlayLayer;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.KinsWathe;
 import org.BsXinQin.kinswathe.KinsWatheConfig;
@@ -45,12 +45,15 @@ public final class StaminaHud {
                 return;
             }
 
-            int maxSprintTime = role.getMaxSprintTime();
-            if (maxSprintTime == -1) {
+            /*
+             * 体力值已经迁到 Wathe 的公开 API，不再从玩家 NBT 里的旧 sprintingTicks 读取。
+             * 这样 Wathe 本体、HUD 和扩展职业调整体力上限时会看到同一份组件状态。
+             */
+            float maxStamina = PlayerStaminaApi.getMaxStamina(player);
+            if (maxStamina < 0.0F) {
                 renderInfiniteStaminaBar(context.drawContext());
             } else {
-                NbtCompound nbt = player.writeNbt(new NbtCompound());
-                renderRequiredStaminaBar(context.drawContext(), nbt.getFloat("sprintingTicks"), maxSprintTime);
+                renderRequiredStaminaBar(context.drawContext(), PlayerStaminaApi.getStamina(player), maxStamina);
             }
         });
     }
@@ -68,7 +71,7 @@ public final class StaminaHud {
         int verticalBorder = (textureHeight - innerHeight) / 2;
         int x = context.getScaledWindowWidth() / 2 - textureWidth / 2;
         int y = context.getScaledWindowHeight() - STAMINA_BAR_Y_OFFSET;
-        float percent = Math.max(0, Math.min(1, sprintTime / maxSprintTime));
+        float percent = maxSprintTime <= 0.0F ? 0.0F : Math.max(0, Math.min(1, sprintTime / maxSprintTime));
         context.drawTexture(STAMINA_BAR_TEXTURE, x, y, 0, 0, textureWidth, textureHeight, textureWidth, textureHeight);
         int fillWidth = (int) (innerWidth * percent);
         if (fillWidth <= 0) {
