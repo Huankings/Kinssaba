@@ -24,11 +24,9 @@ SOFTWARE.
 
 Third-Party License Notice:
 
-This project contains modified code from NoellesRoles,
-which is licensed under the GNU Lesser General Public License v3.0.
-
-The modified NoellesRoles code retains its original LGPL-3.0 licensing.
-All other code in this project is licensed under the MIT License above.
+NoellesRoles is an optional external dependency used through its public APIs
+and compatibility hooks; its own distribution remains subject to its license.
+All code in this project is licensed under the MIT License above.
 
 For the complete LGPL-3.0 license terms, refer to:
 https://www.gnu.org/licenses/lgpl-3.0.txt

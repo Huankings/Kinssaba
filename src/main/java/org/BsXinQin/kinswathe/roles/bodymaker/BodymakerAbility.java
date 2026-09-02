@@ -58,7 +58,8 @@ public class BodymakerAbility {
                     bodyDeathReason.deathReason = Identifier.of(payload.deathReason());
                     if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
                         try {
-                            Class<?> bodyDeathReasonClass = Class.forName("org.agmas.noellesroles.coroner.BodyDeathReasonComponent");
+                            // 当前 NoellesRoles 已将尸体组件归档到 roles.coroner 包；保留反射是为了让 kinssaba 在未安装 Noelles 时仍可独立运行。
+                            Class<?> bodyDeathReasonClass = Class.forName("org.agmas.noellesroles.roles.coroner.BodyDeathReasonComponent");
                             Field keyField = bodyDeathReasonClass.getField("KEY");
                             Object componentKey = keyField.get(null);
                             Method getComponentMethod = componentKey.getClass().getMethod("get", Object.class);

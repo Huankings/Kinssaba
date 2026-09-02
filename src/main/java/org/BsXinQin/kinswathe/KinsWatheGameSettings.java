@@ -21,7 +21,6 @@ import org.BsXinQin.kinswathe.component.GameSafeComponent;
 import org.BsXinQin.kinswathe.component.PlayerEffectComponent;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
-import org.BsXinQin.kinswathe.roles.noellesroles.jester.KinsNoellesJesterPsychoHandler;
 import org.BsXinQin.kinswathe.roles.technician.TechnicianComponent;
 import org.agmas.harpymodloader.events.ResetPlayerEvent;
 import org.jetbrains.annotations.NotNull;
@@ -80,9 +79,6 @@ public class KinsWatheGameSettings {
             server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "clear @a");
             server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "effect clear @a");
         }
-        if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-            server.getCommandManager().executeWithPrefix(server.getCommandSource().withSilent(), "kill @e[type=noellesroles:cube]");
-        }
     }
 
     /// 设置游戏安全时间
@@ -122,8 +118,6 @@ public class KinsWatheGameSettings {
 
     /// 注册游戏事件
     public static void registerEvents() {
-        KinsNoellesJesterPsychoHandler.init();
-
         //死亡事件
         AllowPlayerDeath.EVENT.register(((player, killer, identifier) -> {
             GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
@@ -131,18 +125,6 @@ public class KinsWatheGameSettings {
             //安全时间死亡事件
             if (GameSafeComponent.KEY.get(player.getWorld()).isSafe()) {
                 return identifier == GameConstants.DeathReasons.FELL_OUT_OF_TRAIN;
-            }
-            //狂信死亡事件
-            if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-                if (KinsWatheConfig.HANDLER.instance().EnableNoellesRolesModify && KinsWatheConfig.HANDLER.instance().JesterAttackKillerModify) {
-                    if (killer != null) {
-                        if (gameWorld.canUseKillerFeatures(player)
-                                && gameWorld.isRole(killer, KinsWatheRoles.noellesrolesRoles("JESTER"))
-                                && KinsNoellesJesterPsychoHandler.isJesterPsycho(killer)) {
-                            return identifier != GameConstants.DeathReasons.BAT;
-                        }
-                    }
-                }
             }
             return true;
         }));

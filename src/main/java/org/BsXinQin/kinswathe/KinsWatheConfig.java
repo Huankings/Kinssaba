@@ -61,11 +61,6 @@ public class KinsWatheConfig {
     @SerialEntry
     public int JudgeAbilityCooldown = GameConstants.getInTicks(3,0) / 20;
 
-    @SerialEntry(comment = "Deprecated compatibility only. Licensed Villain has moved to NoellesRoles.")
-    public int LicensedVillainPlayerLimit = 10;
-    @SerialEntry
-    public int LicensedVillainRevolverPrice = 300;
-
     @SerialEntry(comment = "Technician: modify price of props and Capture Device parameter.")
     public int TechnicianWrenchPrice = 100;
     @SerialEntry
@@ -77,16 +72,4 @@ public class KinsWatheConfig {
     @SerialEntry
     public int TechnicianCaptureDeviceLifetimeSeconds = GameConstants.getInTicks(3,0) / 20;
 
-    /// 关于NoellesRoles修改
-    @SerialEntry(comment = "\n\n[Noelle's Roles] Modify (default settings are original settings of Noelle's Roles):")
-    public boolean EnableNoellesRolesModify = false;
-
-    @SerialEntry(comment = "Conductor: whether to enable instinct of seeing dropped items.")
-    public boolean ConductorInstinctModify = false;
-
-    @SerialEntry(comment = "Coroner: whether to enable instinct of seeing player bodies.")
-    public boolean CoronerInstinctModify = false;
-
-    @SerialEntry(comment = "Jester: whether to enable prevent attack killer in Psycho Mode.")
-    public boolean JesterAttackKillerModify = false;
 }

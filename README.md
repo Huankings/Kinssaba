@@ -11,17 +11,11 @@
 - My video about Kin's Wathe (Chinese version): [Bsxin's video](https://www.bilibili.com/video/BV1sqkpByEq8)
 
 
-## Modifications to Noelle's Roles
+## Noelle's Roles compatibility
 
-- Issues Fix
-  - Killers infinite stamina not working
-
-- New Additions
-  - Add item cooldown display text
-  - Clear Trapper's Role Mine entity when game ends
-  - Conductor can see dropped items (disabled by default)
-  - Coroner can see bodies when mood is higher than mid (disabled by default)
-  - Jester is unable to attack killer in Psycho Mode (disabled by default)
+Kin's Wathe keeps Noelle's Roles as an optional compile/runtime dependency for
+Bodymaker corpse metadata and shared client integrations. The former Noelle's
+Roles balance and bug-fix patches have been migrated to Noelle's Roles itself.
 
 
 ## Modifications to Wathe

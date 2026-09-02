@@ -97,7 +97,7 @@ public final class KinsInventoryButtonSupport {
                     0,
                     y,
                     Items.PURPLE_DYE.getDefaultStack(),
-                    Text.translatable("ui.noellesroles.pagination.previous"),
+                    Text.translatable("ui.kinswathe.pagination.previous"),
                     button -> {
                         this.currentPage--;
                         this.refresh(context, true);
@@ -107,7 +107,7 @@ public final class KinsInventoryButtonSupport {
                     0,
                     y,
                     Items.LIME_DYE.getDefaultStack(),
-                    Text.translatable("ui.noellesroles.pagination.next"),
+                    Text.translatable("ui.kinswathe.pagination.next"),
                     button -> {
                         this.currentPage++;
                         this.refresh(context, true);

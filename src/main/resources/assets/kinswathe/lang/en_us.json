@@ -32,6 +32,8 @@
 
   "shop.purchase_failed": "Purchase Failed",
   "tip.cooldown_temporary": "On cooldown...",
+  "ui.kinswathe.pagination.previous": "Previous page",
+  "ui.kinswathe.pagination.next": "Next page",
 
   "hud.death_info": "Died %ss ago to ",
   "death_reason.wathe.gun_shot": "a bullet.",

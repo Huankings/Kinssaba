@@ -31,15 +31,9 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
     //关于KinsWathe修改
     public boolean BodymakerAbilityFakeRole = true;
     public int JudgeAbilityPrice = 300;
-    // 执照恶棍已迁移到 NoellesRoles；这里仅保留旧同步字段，避免旧配置/外部反射读取时断兼容。
-    public int LicensedVillainRevolverPrice = 300;
     public int TechnicianWrenchPrice = 100;
     public int TechnicianCaptureDevicePrice = 100;
     public int TechnicianPowerRestorationPrice = 300;
-    //关于NoellesRoles修改
-    public boolean EnableNoellesRolesModify = false;
-    public boolean ConductorInstinctModify = false;
-    public boolean CoronerInstinctModify = false;
 
     /// 同步服务端客户端配置
     @Override
@@ -52,15 +46,9 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         //关于KinsWathe修改
         BodymakerAbilityFakeRole = KinsWatheConfig.HANDLER.instance().BodymakerAbilityFakeRole; tag.putBoolean("BodymakerAbilityFakeRole", this.BodymakerAbilityFakeRole);
         JudgeAbilityPrice = KinsWatheConfig.HANDLER.instance().JudgeAbilityPrice; tag.putInt("JudgeAbilityPrice", this.JudgeAbilityPrice);
-        // 兼容旧版本字段：NoellesRoles 不再读取它，但保留写入可让旧存档/外部插件平滑过渡。
-        LicensedVillainRevolverPrice = KinsWatheConfig.HANDLER.instance().LicensedVillainRevolverPrice; tag.putInt("LicensedVillainRevolverPrice", this.LicensedVillainRevolverPrice);
         TechnicianWrenchPrice = KinsWatheConfig.HANDLER.instance().TechnicianWrenchPrice; tag.putInt("TechnicianWrenchPrice", this.TechnicianWrenchPrice);
         TechnicianCaptureDevicePrice = KinsWatheConfig.HANDLER.instance().TechnicianCaptureDevicePrice; tag.putInt("TechnicianCaptureDevicePrice", this.TechnicianCaptureDevicePrice);
         TechnicianPowerRestorationPrice = KinsWatheConfig.HANDLER.instance().TechnicianPowerRestorationPrice; tag.putInt("TechnicianPowerRestorationPrice", this.TechnicianPowerRestorationPrice);
-        //关于NoellesRoles修改
-        EnableNoellesRolesModify = KinsWatheConfig.HANDLER.instance().EnableNoellesRolesModify; tag.putBoolean("EnableNoellesRolesModify", this.EnableNoellesRolesModify);
-        ConductorInstinctModify = KinsWatheConfig.HANDLER.instance().ConductorInstinctModify; tag.putBoolean("ConductorInstinctModify", this.ConductorInstinctModify);
-        CoronerInstinctModify = KinsWatheConfig.HANDLER.instance().CoronerInstinctModify; tag.putBoolean("CoronerInstinctModify", this.CoronerInstinctModify);
     }
 
     @Override
@@ -73,13 +61,8 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
         //关于KinsWathe修改
         if (tag.contains("BodymakerAbilityFakeRole"))   this.BodymakerAbilityFakeRole = tag.getBoolean("BodymakerAbilityFakeRole");
         if (tag.contains("JudgeAbilityPrice"))   this.JudgeAbilityPrice = tag.getInt("JudgeAbilityPrice");
-        if (tag.contains("LicensedVillainRevolverPrice"))   this.LicensedVillainRevolverPrice = tag.getInt("LicensedVillainRevolverPrice");
         if (tag.contains("TechnicianWrenchPrice"))   this.TechnicianWrenchPrice = tag.getInt("TechnicianWrenchPrice");
         if (tag.contains("TechnicianCaptureDevicePrice"))   this.TechnicianCaptureDevicePrice = tag.getInt("TechnicianCaptureDevicePrice");
         if (tag.contains("TechnicianPowerRestorationPrice"))   this.TechnicianPowerRestorationPrice = tag.getInt("TechnicianPowerRestorationPrice");
-        //关于NoellesRoles修改
-        if (tag.contains("EnableNoellesRolesModify"))   this.EnableNoellesRolesModify = tag.getBoolean("EnableNoellesRolesModify");
-        if (tag.contains("ConductorInstinctModify"))   this.ConductorInstinctModify = tag.getBoolean("ConductorInstinctModify");
-        if (tag.contains("CoronerInstinctModify"))   this.CoronerInstinctModify = tag.getBoolean("CoronerInstinctModify");
     }
 }

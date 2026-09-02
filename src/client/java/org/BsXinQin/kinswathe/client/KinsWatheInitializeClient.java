@@ -7,8 +7,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.KinsWathe;
 import org.BsXinQin.kinswathe.KinsWatheEntities;
 import org.BsXinQin.kinswathe.KinsWatheItems;
@@ -50,10 +48,6 @@ public class KinsWatheInitializeClient {
             //添加KinsWathe物品描述
             ItemToolTip.addItemtip(KinsWatheItems.CAPTURE_DEVICE, itemStack, list);
             ItemToolTip.addItemtip(KinsWatheItems.WRENCH, itemStack, list);
-            //添加NoellreRoles物品冷却描述
-            if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-                ItemToolTip.addCooldowntip(Registries.ITEM.get(Identifier.of("noellesroles", "fake_revolver")), itemStack, list);
-            }
             //添加图标描述
             ItemToolTip.addItemtip(KinsWatheItems.ICON_POWER_RESTORATION, itemStack, list);
         }));

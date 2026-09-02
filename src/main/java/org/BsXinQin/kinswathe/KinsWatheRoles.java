@@ -7,8 +7,6 @@ import dev.doctor4t.wathe.api.task.TaskCompletionApi;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.cca.PlayerShopComponent;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
@@ -16,9 +14,6 @@ import org.BsXinQin.kinswathe.packet.roles.JudgeC2SPacket;
 import org.BsXinQin.kinswathe.roles.bodymaker.BodymakerAbility;
 import org.BsXinQin.kinswathe.roles.judge.JudgeAbility;
 import org.agmas.harpymodloader.events.ModdedRoleAssigned;
-import org.jetbrains.annotations.NotNull;
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,35 +61,6 @@ public class KinsWatheRoles {
         WatheRoles.registerRole(role);
         ROLES.put(role.identifier().getPath(), role);
         return role;
-    }
-
-    /// 引入其他模组角色
-    //引入NoellesRoles角色
-    public static Role noellesrolesRoles(@NotNull String role) {
-        try {
-            Class<?> roleClass = Class.forName("org.agmas.noellesroles.registry.NoellesRoleRegistry");
-            Field roleField = roleClass.getField(role);
-            return (Role) roleField.get(null);
-        } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException ignored) {}
-        return null;
-    }
-    public static boolean noellesrolesKillerSidedNeutrals(@NotNull Object role) {
-        try {
-            /*
-             * NoellesRoles 5.7.1 起把杀手中立分组从 Fabric 入口类迁到了 registry。
-             * 这里直接读取新的分组类，避免要求 Noellesroles 主入口继续保留兼容字段。
-             */
-            Class<?> noellesrolesClass = Class.forName("org.agmas.noellesroles.registry.NoellesRoleGroups");
-            Field field = noellesrolesClass.getField("KILLER_SIDED_NEUTRALS");
-            field.setAccessible(true);
-            ArrayList<?> neutralList = (ArrayList<?>) field.get(null);
-            return neutralList.contains(role);
-        } catch (NoSuchFieldException | ClassNotFoundException | IllegalAccessException ignored) {}
-        return false;
-    }
-    public static boolean isKillerSidedNeutral(@NotNull PlayerEntity player) {
-        GameWorldComponent gameWorld = GameWorldComponent.KEY.get(player.getWorld());
-        return FabricLoader.getInstance().isModLoaded("noellesroles") && gameWorld.getRole(player) != null && (KinsWatheRoles.noellesrolesKillerSidedNeutrals(gameWorld.getRole(player)) || gameWorld.isRole(player, noellesrolesRoles("MIMIC")));
     }
 
     /// 新增阵营
