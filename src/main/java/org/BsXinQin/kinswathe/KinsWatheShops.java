@@ -149,7 +149,8 @@ public class KinsWatheShops {
          * 这样职业商店里的默认开锁器、匕首等条目如果继承了任务币价格，
          * 就能正确判断“金币 + 任务币”或“金币 / 任务币二选一”是否满足。
          */
-        if (!context.canAffordEntry() || player.getItemCooldownManager().isCoolingDown(item)) {
+        boolean actionPurchase = entry.isActionPurchase() || isImmediatePurchaseItem(item);
+        if (!context.canAffordEntry() || ShopApi.isPurchaseCooldownBlocked(context, actionPurchase)) {
             return ShopPurchaseResult.FAIL_SHOW_MESSAGE;
         }
 
@@ -163,7 +164,11 @@ public class KinsWatheShops {
     }
 
     public static boolean handlePurchase(@NotNull PlayerEntity player, int balance, @NotNull Item item, int price) {
-        if (balance >= price && !player.getItemCooldownManager().isCoolingDown(item)) {
+        if (balance >= price && !ShopApi.isPurchaseCooldownBlocked(
+                player,
+                item,
+                isImmediatePurchaseItem(item)
+        )) {
             deliverPurchasedStack(player, item == WatheItems.NOTE ? new ItemStack(WatheItems.NOTE, 4) : item.getDefaultStack());
             /*
              * KinsWathe 里很多职业都直接改写了 Wathe 的商店内容，
@@ -190,5 +195,12 @@ public class KinsWatheShops {
             return true;
         }
         return player.giveItemStack(stack.copy());
+    }
+
+    /** kinssaba 的 provider 也集中处理这些即时图标，必须保留 ACTION 的冷却语义。 */
+    private static boolean isImmediatePurchaseItem(@NotNull Item item) {
+        return item == WatheItems.BLACKOUT
+                || item == WatheItems.PSYCHO_MODE
+                || item == KinsWatheItems.ICON_POWER_RESTORATION;
     }
 }

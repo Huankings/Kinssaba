@@ -17,7 +17,7 @@ import org.BsXinQin.kinswathe.client.items.ItemToolTip;
 import org.BsXinQin.kinswathe.client.role_name.KinsRoleNameHudHandlers;
 import org.BsXinQin.kinswathe.client.roles.technician.CaptureDeviceEntityRenderer;
 import org.BsXinQin.kinswathe.client.visibility.KinsHeldItemVisibilityHandlers;
-import org.agmas.noellesroles.client.NoellesrolesClient;
+import org.agmas.noellesroles.client.input.NoellesClientKeybindings;
 import org.lwjgl.glfw.GLFW;
 
 public class KinsWatheInitializeClient {
@@ -28,7 +28,8 @@ public class KinsWatheInitializeClient {
     public static void registerAbilityKey() {
         if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
             if (abilityBind == null) ClientTickEvents.START_CLIENT_TICK.register(client -> {
-                abilityBind = NoellesrolesClient.abilityBind;
+                // NoellesRoles 的能力键现在由职责类统一管理；保留每 tick 获取，兼容两个模组的客户端初始化顺序。
+                abilityBind = NoellesClientKeybindings.getAbilityBind();
             });
         } else if (!FabricLoader.getInstance().isModLoaded("noellesroles") && FabricLoader.getInstance().isModLoaded("starexpress")) {
             abilityBind = KeyBindingHelper.registerKeyBinding(new KeyBinding("key." + KinsWathe.MOD_ID + ".ability", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, "category.wathe.keybinds"));

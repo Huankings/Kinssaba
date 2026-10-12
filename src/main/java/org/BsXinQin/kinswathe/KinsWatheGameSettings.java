@@ -99,9 +99,9 @@ public class KinsWatheGameSettings {
                 serverPlayer.getItemCooldownManager().set(Registries.ITEM.get(Identifier.of("harpysimpleroles", "toxin")), GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
                 serverPlayer.getItemCooldownManager().set(Registries.ITEM.get(Identifier.of("harpysimpleroles", "bandit_revolver")), GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             }
-            //StarryExpress物品安全时间
-            if (FabricLoader.getInstance().isModLoaded("starexpress")) {
-                serverPlayer.getItemCooldownManager().set(Registries.ITEM.get(Identifier.of("starexpress", "tape")), GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
+            //noellesroles物品安全时间
+            if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
+                serverPlayer.getItemCooldownManager().set(Registries.ITEM.get(Identifier.of("noellesroles", "tape")), GameConstants.getInTicks(0, KinsWatheConfig.HANDLER.instance().StartingCooldown));
             }
             //StupidExpress物品安全时间
             if (FabricLoader.getInstance().isModLoaded("stupid_express")) {

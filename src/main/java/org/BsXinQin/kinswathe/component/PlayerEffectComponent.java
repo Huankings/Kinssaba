@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.KinsWathe;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +41,10 @@ public class PlayerEffectComponent implements AutoSyncedComponent, ServerTicking
         }
 
         if (changed) {
-            this.sync();
+            // 客户端只需知道眩晕开始/结束，持续期间无需逐 tick 校准精确数字。
+            if (this.stunTicks == 0) {
+                this.sync();
+            }
         }
     }
 
@@ -78,5 +82,10 @@ public class PlayerEffectComponent implements AutoSyncedComponent, ServerTicking
     public void readFromNbt(@NotNull NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         this.stunTicks = tag.contains("stunTicks") ? tag.getInt("stunTicks") : 0;
         this.stunSource = tag.contains("stunSource") ? Identifier.of(tag.getString("stunSource")) : null;
+    }
+
+    @Override
+    public boolean shouldSyncWith(ServerPlayerEntity recipient) {
+        return this.player.equals(recipient);
     }
 }

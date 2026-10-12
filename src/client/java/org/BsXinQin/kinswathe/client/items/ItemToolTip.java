@@ -1,7 +1,7 @@
 package org.BsXinQin.kinswathe.client.items;
 
 import dev.doctor4t.ratatouille.util.TextUtils;
-import dev.doctor4t.wathe.client.util.WatheItemTooltips;
+import dev.doctor4t.wathe.api.client.tooltip.ItemTooltipApi;
 import dev.doctor4t.wathe.game.GameConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.ItemCooldownManager;
@@ -33,7 +33,7 @@ public class ItemToolTip {
 
     public static void addTooltip(@NotNull Item item, @NotNull ItemStack itemStack, @NotNull List<Text> list) {
         if (itemStack.isOf(item)) {
-            list.addAll(TextUtils.getTooltipForItem(item, Style.EMPTY.withColor(WatheItemTooltips.REGULAR_TOOLTIP_COLOR)));
+            list.addAll(TextUtils.getTooltipForItem(item, Style.EMPTY.withColor(ItemTooltipApi.REGULAR_TOOLTIP_COLOR)));
         }
     }
 
@@ -45,7 +45,7 @@ public class ItemToolTip {
             ItemCooldownManager itemCooldown = MinecraftClient.getInstance().player.getItemCooldownManager();
             if (itemCooldown != null && itemCooldown.isCoolingDown(item)) {
                 if (gameSafe.isSafe()) {
-                    list.add(Text.translatable("tip.cooldown_temporary").withColor(WatheItemTooltips.COOLDOWN_COLOR));
+                    list.add(Text.translatable("tip.cooldown_temporary").withColor(ItemTooltipApi.COOLDOWN_COLOR));
                 } else {
                     float progress = itemCooldown.getCooldownProgress(item, 0);
                     int totalTicks = getItemCooldownTicks(item);
@@ -55,7 +55,7 @@ public class ItemToolTip {
                         int minutes = totalSeconds / 60;
                         int seconds = totalSeconds % 60;
                         String countdown = (minutes > 0 ? minutes + "m" : "") + (seconds > 0 ? seconds + "s" : "");
-                        list.add(Text.translatable("tip.cooldown", countdown).withColor(WatheItemTooltips.COOLDOWN_COLOR));
+                        list.add(Text.translatable("tip.cooldown", countdown).withColor(ItemTooltipApi.COOLDOWN_COLOR));
                     }
                 }
             }

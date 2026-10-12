@@ -20,7 +20,39 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
     private final World world;
     public void sync() {KEY.sync(this.world);}
     public ConfigWorldComponent(@NotNull World world) {this.world = world;}
-    @Override public void serverTick() {this.sync();}
+    @Override
+    public void serverTick() {
+        /*
+         * 配置组件过去每 tick 向全服广播完整 NBT，是挂机时仍持续占用带宽的直接来源。
+         * 保留 tick 检查是为了让指令/YACL 修改能立即生效，但只有快照真的变化才发包。
+         */
+        if (this.refreshSnapshot()) {
+            this.sync();
+        }
+    }
+
+    private boolean refreshSnapshot() {
+        var config = KinsWatheConfig.HANDLER.instance();
+        boolean changed = this.StartingCooldown != config.StartingCooldown
+                || this.EnableJumpNotInGame != config.EnableJumpNotInGame
+                || this.EnableStartSafeTime != config.EnableStartSafeTime
+                || this.EnableAutoPsychoInstinct != config.EnableAutoPsychoInstinct
+                || this.BodymakerAbilityFakeRole != config.BodymakerAbilityFakeRole
+                || this.JudgeAbilityPrice != config.JudgeAbilityPrice
+                || this.TechnicianWrenchPrice != config.TechnicianWrenchPrice
+                || this.TechnicianCaptureDevicePrice != config.TechnicianCaptureDevicePrice
+                || this.TechnicianPowerRestorationPrice != config.TechnicianPowerRestorationPrice;
+        this.StartingCooldown = config.StartingCooldown;
+        this.EnableJumpNotInGame = config.EnableJumpNotInGame;
+        this.EnableStartSafeTime = config.EnableStartSafeTime;
+        this.EnableAutoPsychoInstinct = config.EnableAutoPsychoInstinct;
+        this.BodymakerAbilityFakeRole = config.BodymakerAbilityFakeRole;
+        this.JudgeAbilityPrice = config.JudgeAbilityPrice;
+        this.TechnicianWrenchPrice = config.TechnicianWrenchPrice;
+        this.TechnicianCaptureDevicePrice = config.TechnicianCaptureDevicePrice;
+        this.TechnicianPowerRestorationPrice = config.TechnicianPowerRestorationPrice;
+        return changed;
+    }
 
     /// 具体配置内容
     //全局配置
@@ -39,16 +71,17 @@ public class ConfigWorldComponent implements AutoSyncedComponent, ServerTickingC
     @Override
     public void writeToNbt(@NotNull NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         //全局配置
-        StartingCooldown = KinsWatheConfig.HANDLER.instance().StartingCooldown; tag.putInt("StartingCooldown", this.StartingCooldown);
-        EnableJumpNotInGame = KinsWatheConfig.HANDLER.instance().EnableJumpNotInGame; tag.putBoolean("EnableJumpNotInGame", this.EnableJumpNotInGame);
-        EnableStartSafeTime = KinsWatheConfig.HANDLER.instance().EnableStartSafeTime; tag.putBoolean("EnableStartSafeTime", this.EnableStartSafeTime);
-        EnableAutoPsychoInstinct = KinsWatheConfig.HANDLER.instance().EnableAutoPsychoInstinct; tag.putBoolean("EnableAutoPsychoInstinct", this.EnableAutoPsychoInstinct);
+        this.refreshSnapshot();
+        tag.putInt("StartingCooldown", this.StartingCooldown);
+        tag.putBoolean("EnableJumpNotInGame", this.EnableJumpNotInGame);
+        tag.putBoolean("EnableStartSafeTime", this.EnableStartSafeTime);
+        tag.putBoolean("EnableAutoPsychoInstinct", this.EnableAutoPsychoInstinct);
         //关于KinsWathe修改
-        BodymakerAbilityFakeRole = KinsWatheConfig.HANDLER.instance().BodymakerAbilityFakeRole; tag.putBoolean("BodymakerAbilityFakeRole", this.BodymakerAbilityFakeRole);
-        JudgeAbilityPrice = KinsWatheConfig.HANDLER.instance().JudgeAbilityPrice; tag.putInt("JudgeAbilityPrice", this.JudgeAbilityPrice);
-        TechnicianWrenchPrice = KinsWatheConfig.HANDLER.instance().TechnicianWrenchPrice; tag.putInt("TechnicianWrenchPrice", this.TechnicianWrenchPrice);
-        TechnicianCaptureDevicePrice = KinsWatheConfig.HANDLER.instance().TechnicianCaptureDevicePrice; tag.putInt("TechnicianCaptureDevicePrice", this.TechnicianCaptureDevicePrice);
-        TechnicianPowerRestorationPrice = KinsWatheConfig.HANDLER.instance().TechnicianPowerRestorationPrice; tag.putInt("TechnicianPowerRestorationPrice", this.TechnicianPowerRestorationPrice);
+        tag.putBoolean("BodymakerAbilityFakeRole", this.BodymakerAbilityFakeRole);
+        tag.putInt("JudgeAbilityPrice", this.JudgeAbilityPrice);
+        tag.putInt("TechnicianWrenchPrice", this.TechnicianWrenchPrice);
+        tag.putInt("TechnicianCaptureDevicePrice", this.TechnicianCaptureDevicePrice);
+        tag.putInt("TechnicianPowerRestorationPrice", this.TechnicianPowerRestorationPrice);
     }
 
     @Override

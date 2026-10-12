@@ -12,9 +12,10 @@ import org.jetbrains.annotations.NotNull;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
+import org.ladysnake.cca.api.v3.component.tick.ClientTickingComponent;
 import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
-public class GameSafeComponent implements AutoSyncedComponent, ServerTickingComponent {
+public class GameSafeComponent implements AutoSyncedComponent, ServerTickingComponent, ClientTickingComponent {
 
     public static final ComponentKey<GameSafeComponent> KEY = ComponentRegistry.getOrCreate(Identifier.of(KinsWathe.MOD_ID, "safe"), GameSafeComponent.class);
 
@@ -31,7 +32,6 @@ public class GameSafeComponent implements AutoSyncedComponent, ServerTickingComp
             if (this.world instanceof @NotNull ServerWorld) {
                 if (this.safeTicks <= KinsWatheConfig.HANDLER.instance().StartingCooldown * 20) {
                     ++ this.safeTicks;
-                    this.sync();
                     if (this.world instanceof @NotNull ServerWorld) {
                         if (this.safeTicks > KinsWatheConfig.HANDLER.instance().StartingCooldown * 20) {
                             this.reset();
@@ -42,6 +42,19 @@ public class GameSafeComponent implements AutoSyncedComponent, ServerTickingComp
                 }
             }
         }
+    }
+
+    @Override
+    public void clientTick() {
+        /* 开始/结束由服务端同步，中间倒计时由客户端本地推进，避免世界组件每 tick 广播。 */
+        if (this.isGameSafe && this.safeTicks <= this.getDurationTicks()) {
+            ++this.safeTicks;
+        }
+    }
+
+    private int getDurationTicks() {
+        /* 客户端必须读取服务端同步配置，不能使用玩家自己的本地配置文件。 */
+        return Math.max(0, ConfigWorldComponent.KEY.get(this.world).StartingCooldown * 20);
     }
 
     public void notInGameReset() {
@@ -61,6 +74,9 @@ public class GameSafeComponent implements AutoSyncedComponent, ServerTickingComp
     }
 
     public void reset() {
+        if (!this.isGameSafe && this.safeTicks == 0) {
+            return;
+        }
         this.isGameSafe = false;
         this.safeTicks = 0;
         this.sync();

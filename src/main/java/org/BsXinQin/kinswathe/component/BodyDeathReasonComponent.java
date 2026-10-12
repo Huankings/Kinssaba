@@ -10,9 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
-import org.ladysnake.cca.api.v3.component.tick.ServerTickingComponent;
 
-public class BodyDeathReasonComponent implements AutoSyncedComponent, ServerTickingComponent {
+public class BodyDeathReasonComponent implements AutoSyncedComponent {
 
     public static final ComponentKey<BodyDeathReasonComponent> KEY = ComponentRegistry.getOrCreate(Identifier.of(KinsWathe.MOD_ID, "body"), BodyDeathReasonComponent.class);
 
@@ -20,11 +19,6 @@ public class BodyDeathReasonComponent implements AutoSyncedComponent, ServerTick
     public PlayerBodyEntity playerBodyEntity;
 
     public BodyDeathReasonComponent(@NotNull PlayerBodyEntity playerBodyEntity) {this.playerBodyEntity = playerBodyEntity;}
-
-    @Override
-    public void serverTick() {
-        this.sync();
-    }
 
     public void sync() {
         KEY.sync(this.playerBodyEntity);

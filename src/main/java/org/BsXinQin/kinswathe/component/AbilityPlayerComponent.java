@@ -3,6 +3,7 @@ package org.BsXinQin.kinswathe.component;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.BsXinQin.kinswathe.KinsWathe;
 import org.jetbrains.annotations.NotNull;
@@ -27,12 +28,18 @@ public class AbilityPlayerComponent implements AutoSyncedComponent, ServerTickin
     public void serverTick() {
         if (this.cooldown > 0) {
             -- this.cooldown;
-            this.sync();
+            if (this.cooldown == 0 || this.cooldown % 20 == 0) {
+                this.sync();
+            }
         }
     }
 
     @Override
-    public void clientTick() {}
+    public void clientTick() {
+        if (this.cooldown > 0) {
+            --this.cooldown;
+        }
+    }
 
     public void setAbilityCooldown(int ticks) {
         this.cooldown = ticks * 20;
@@ -57,5 +64,11 @@ public class AbilityPlayerComponent implements AutoSyncedComponent, ServerTickin
     @Override
     public void readFromNbt(@NotNull NbtCompound tag, RegistryWrapper.@NotNull WrapperLookup registryLookup) {
         this.cooldown = tag.contains("cooldown") ? tag.getInt("cooldown") : 0;
+    }
+
+    @Override
+    public boolean shouldSyncWith(ServerPlayerEntity recipient) {
+        // 技能按钮只读取本人的冷却，不能让每个玩家的倒计时广播给附近所有客户端。
+        return this.player.equals(recipient);
     }
 }

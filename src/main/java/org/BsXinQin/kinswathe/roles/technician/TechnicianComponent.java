@@ -33,7 +33,9 @@ public class TechnicianComponent implements AutoSyncedComponent, ServerTickingCo
         if (this.technicianTicks > 0) {
             this.notInGameReset();
             -- this.technicianTicks;
-            this.sync();
+            if (this.technicianTicks == 0) {
+                this.sync();
+            }
         }
     }
 
@@ -68,7 +70,11 @@ public class TechnicianComponent implements AutoSyncedComponent, ServerTickingCo
     }
 
     public void reset() {
+        boolean changed = this.technicianTicks != 0;
         this.technicianTicks = 0;
+        if (changed) {
+            this.sync();
+        }
     }
 
     public void sync() {

@@ -34,7 +34,10 @@ public final class BodyDeathReasonHandler {
                      * 现在改用 DeathApi 的尸体生成阶段：此时 body 已经写好真实死者、外观和朝向，
                      * 但还没 spawn 进世界，正适合写尸体 CCA，避免和实体同步/生成顺序打架。
                      */
-                    BodyDeathReasonComponent.KEY.get(context.body()).deathReason = context.deathReason();
+                    BodyDeathReasonComponent component = BodyDeathReasonComponent.KEY.get(context.body());
+                    component.deathReason = context.deathReason();
+                    // 尸体死因是事件状态：生成时发送一次，禁止再用实体 tick 重复广播。
+                    component.sync();
                 }
         );
     }
