@@ -177,6 +177,13 @@ Roles balance and bug-fix patches have been migrated to Noelle's Roles itself.
 
 - [HarpyModLoader](https://modrinth.com/mod/harpymodloader)
 
+## Bodymaker corpse data
+
+Bodymaker-created corpses now use Wathe `PlayerBodyInfoApi.initializeSynthetic(...)` for the fake death reason,
+role and unknown killer. kinssaba no longer owns a duplicate body death-reason component and no longer reflects into
+NoellesRoles internals. Harpy generates fake modifier entries from the target's in-round modifier count while filtering
+them against the forged role's static eligibility; players who did not participate in the round produce no modifiers.
+
 
 ## Special Thanks
 

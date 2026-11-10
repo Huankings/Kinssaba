@@ -19,7 +19,6 @@ public final class KinsWatheDeathBootstrap {
         }
         initialized = true;
 
-        BodyDeathReasonHandler.init();
         KillRewardHandler.init();
     }
 }

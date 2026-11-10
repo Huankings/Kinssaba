@@ -1,6 +1,8 @@
 package org.BsXinQin.kinswathe.roles.bodymaker;
 
 import dev.doctor4t.wathe.api.WatheRoles;
+import dev.doctor4t.wathe.api.body.PlayerBodyInfoApi;
+import dev.doctor4t.wathe.api.body.PlayerBodyInfoSnapshot;
 import dev.doctor4t.wathe.cca.GameWorldComponent;
 import dev.doctor4t.wathe.entity.PlayerBodyEntity;
 import dev.doctor4t.wathe.game.GameConstants;
@@ -9,7 +11,6 @@ import dev.doctor4t.wathe.index.WatheEntities;
 import dev.doctor4t.wathe.index.WatheItems;
 import dev.doctor4t.wathe.index.WatheParticles;
 import dev.doctor4t.wathe.index.WatheSounds;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,13 +25,8 @@ import net.minecraft.util.math.Vec3d;
 import org.BsXinQin.kinswathe.KinsWatheConfig;
 import org.BsXinQin.kinswathe.KinsWatheRoles;
 import org.BsXinQin.kinswathe.component.AbilityPlayerComponent;
-import org.BsXinQin.kinswathe.component.BodyDeathReasonComponent;
 import org.BsXinQin.kinswathe.packet.roles.BodymakerC2SPacket;
 import org.jetbrains.annotations.NotNull;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public class BodymakerAbility {
 
@@ -53,36 +49,35 @@ public class BodymakerAbility {
                     playerBody.prevBodyYaw = player.getYaw();
                     playerBody.setPitch(0f);
                     playerBody.age = 0;
-                    target.getWorld().spawnEntity(playerBody);
-                    BodyDeathReasonComponent bodyDeathReason = BodyDeathReasonComponent.KEY.get(playerBody);
-                    bodyDeathReason.deathReason = Identifier.of(payload.deathReason());
-                    if (FabricLoader.getInstance().isModLoaded("noellesroles")) {
-                        try {
-                            // 当前 NoellesRoles 已将尸体组件归档到 roles.coroner 包；保留反射是为了让 kinssaba 在未安装 Noelles 时仍可独立运行。
-                            Class<?> bodyDeathReasonClass = Class.forName("org.agmas.noellesroles.roles.coroner.BodyDeathReasonComponent");
-                            Field keyField = bodyDeathReasonClass.getField("KEY");
-                            Object componentKey = keyField.get(null);
-                            Method getComponentMethod = componentKey.getClass().getMethod("get", Object.class);
-                            Object deathReasonInstance = getComponentMethod.invoke(componentKey, playerBody);
-                            Field deathReasonField = bodyDeathReasonClass.getField("deathReason");
-                            Field playerRoleField = bodyDeathReasonClass.getField("playerRole");
-                            Method syncMethod = bodyDeathReasonClass.getMethod("sync");
-                            deathReasonField.set(deathReasonInstance, Identifier.of(payload.deathReason()));
-                            if (!KinsWatheConfig.HANDLER.instance().BodymakerAbilityFakeRole) {
-                                if (gameWorld.isRole(target, KinsWatheRoles.BODYMAKER)) {
-                                    playerRoleField.set(deathReasonInstance, WatheRoles.KILLER.identifier());
-                                } else {
-                                    playerRoleField.set(deathReasonInstance, gameWorld.getRole(target) != null ? gameWorld.getRole(target).identifier() : WatheRoles.CIVILIAN.identifier());
-                                }
-                            } else {
-                                playerRoleField.set(deathReasonInstance, Identifier.of(payload.role()));
-                            }
-                            if (Identifier.of(payload.role()).equals(Identifier.of("noellesroles", "noisemaker"))) {
-                                playerBody.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 1200, 0));
-                            }
-                            syncMethod.invoke(deathReasonInstance);
-                        } catch (NoSuchFieldException | ClassNotFoundException | InvocationTargetException | IllegalAccessException | NoSuchMethodException ignored) {}
+                    Identifier fakeRoleId;
+                    if (!KinsWatheConfig.HANDLER.instance().BodymakerAbilityFakeRole) {
+                        fakeRoleId = gameWorld.isRole(target, KinsWatheRoles.BODYMAKER)
+                                ? WatheRoles.KILLER.identifier()
+                                : gameWorld.getRole(target) != null
+                                ? gameWorld.getRole(target).identifier()
+                                : WatheRoles.CIVILIAN.identifier();
+                    } else {
+                        fakeRoleId = Identifier.of(payload.role());
                     }
+                    /*
+                     * 造尸者不再反射写 NoellesRoles 私有组件。Wathe 统一保存伪造死因/职业，
+                     * Harpy 只按目标本局词条数量生成符合 fakeRoleId 资格的随机假词条。
+                     */
+                    PlayerBodyInfoApi.initializeSynthetic(playerBody, new PlayerBodyInfoSnapshot(
+                            target.getUuid(),
+                            target.getGameProfile().getName(),
+                            Identifier.of(payload.deathReason()),
+                            fakeRoleId,
+                            null,
+                            null,
+                            null,
+                            true,
+                            target.getUuid()
+                    ));
+                    if (Identifier.of(payload.role()).equals(Identifier.of("noellesroles", "noisemaker"))) {
+                        playerBody.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 1200, 0));
+                    }
+                    target.getWorld().spawnEntity(playerBody);
                     if (Identifier.of(payload.deathReason()).equals(GameConstants.DeathReasons.GUN)) {
                         player.getWorld().playSound(null, player.getX(), player.getEyeY(), player.getZ(), WatheSounds.ITEM_REVOLVER_SHOOT, SoundCategory.PLAYERS, 5f, 1f + player.getRandom().nextFloat() * .1f - .05f);
                     } else if (Identifier.of(payload.deathReason()).equals(GameConstants.DeathReasons.GRENADE)) {
